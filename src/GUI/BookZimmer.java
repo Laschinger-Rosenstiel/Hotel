@@ -118,7 +118,8 @@ public class BookZimmer extends Coordinates{
 		
 		JPanel contentPane = (JPanel)jf2.getContentPane();
 		card.setLayout(cardLayout = new CardLayout());
-		
+		contentpane3 = new JPanel();
+		contentpane3.setVisible(false);		
 		contentpane2 = new JPanel();
 		contentpane2.setLayout(null);
 		
@@ -327,10 +328,10 @@ public class BookZimmer extends Coordinates{
 		return contentpane3;
 	}
 	
-	public static void main (String[] args) {
+	/*public static void main (String[] args) {
 		BookZimmer guiBZ = new BookZimmer();
 		guiBZ.launchFirstJFrame();
-	}
+	}*/
 	
 	private JTextField setTfForm (JTextField tf){
 		Font fontTf=new Font(tf.getFont().getName(),Font.BOLD,tf.getFont().getSize());

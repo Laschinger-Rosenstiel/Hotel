@@ -2,7 +2,10 @@ package Control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JPanel;
+
+import GUI.BookZimmer;
 import GUI.StartFrame;
 
 
@@ -31,7 +34,7 @@ import GUI.StartFrame;
 			{
 				BookZimmer bz = new BookZimmer();
 				System.out.println("Button2");
-				s.launchStartFrame(BookZimmer.getP1());
+				s.launchStartFrame(bz.launchFirstJFrame());
 				System.out.println("Button gedrückt");
 			}
 

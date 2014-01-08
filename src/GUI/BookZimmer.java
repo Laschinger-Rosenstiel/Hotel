@@ -114,14 +114,16 @@ public class BookZimmer extends Coordinates{
 
 	public void launchSecondJFrame() {
 			
-		jf2 = new JFrame("GUI 2 ButtonHandler");
+		jf2 = new JFrame("GUI 2 ButtonHandler");		
+		contentpane2 = new JPanel();
+		contentpane2.setLayout(null);
 		
 		JPanel contentPane = (JPanel)jf2.getContentPane();
 		card.setLayout(cardLayout = new CardLayout());
-		contentpane3 = new JPanel();
-		contentpane3.setVisible(false);		
-		contentpane2 = new JPanel();
-		contentpane2.setLayout(null);
+		
+		if (contentpane3 != null) {
+		contentpane3.setVisible(false);
+		}
 		
 		labeltable3 = new JLabel("Neuen Gast anlegen: ");
 		labeljtfVorname2 = new JLabel("Vorname: ", JLabel.LEFT);

@@ -16,7 +16,7 @@ public class BookZimmer extends Coordinates{
 	
 	//first Frame
 	public JFrame jf1;
-	private Container contentpane1;
+	private JPanel contentpane1;
 	private JButton jb1, jb2, jb3;
 	public JTextField jtfVorname, jtfName, jtfGeb; 
 	private JLabel labeltable1, labeltable2, labeljtfVorname, labeljtfName, labeljtfGeb; 
@@ -54,11 +54,11 @@ public class BookZimmer extends Coordinates{
 	
 	}
 	
-	public void launchFirstJFrame() {
+	public JPanel launchFirstJFrame() {
 		//Objekte erzeugen
-		jf1 = new JFrame ("GUI 1 ButtonHandler");
-		contentpane1 = new Container();
-		jf1.setContentPane(contentpane1);
+		//jf1 = new JFrame ("GUI 1 ButtonHandler");
+		contentpane1 = new JPanel();
+	//	jf1.setContentPane(contentpane1);
 		contentpane1.setLayout(null);
 
 		jtfVorname = new JTextField(20);
@@ -105,10 +105,11 @@ public class BookZimmer extends Coordinates{
 		
 		jb3.setBounds(x_column1, y_line6, x_width, y_height);
 		contentpane1.add(jb3);
-		jf1.setLocation(100,100);
+		/*jf1.setLocation(100,100);
 		jf1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf1.setVisible(true);
-		jf1.setExtendedState(jf1.getExtendedState() | jf1.MAXIMIZED_BOTH);
+		jf1.setExtendedState(jf1.getExtendedState() | jf1.MAXIMIZED_BOTH);*/
+		return contentpane1;
 	}
 
 	public void launchSecondJFrame() {

@@ -11,6 +11,7 @@ import GUI.StartFrame;
 	{
 		StartFrame s;
 		JPanel panel;
+		
 
 		public ButtonHandlerStartFrame(StartFrame s)
 		{

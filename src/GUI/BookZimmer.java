@@ -1,7 +1,6 @@
 package GUI;
 
 import java.awt.CardLayout;
-import java.awt.Font;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -9,7 +8,7 @@ import Control.BHBookZimmer;
 import javax.swing.*;
 import com.toedter.calendar.JDateChooser;
 
-public class BookZimmer extends Coordinates{
+public class BookZimmer extends GUIHelp{
 	
 	BHBookZimmer ButtonHandler = new BHBookZimmer(this);
 	
@@ -337,11 +336,5 @@ public class BookZimmer extends Coordinates{
 		return contentpane3;
 	}
 	
-	private JTextField setTfForm (JTextField tf){
-		Font fontTf=new Font(tf.getFont().getName(),Font.BOLD,tf.getFont().getSize());
-		tf.setEditable(false);
-		tf.setBorder(null);
-		tf.setFont(fontTf);
-		return tf;
-	}
+	
 }

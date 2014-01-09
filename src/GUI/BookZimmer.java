@@ -14,8 +14,7 @@ public class BookZimmer extends Coordinates{
 	
 	BHBookZimmer ButtonHandler = new BHBookZimmer(this);
 	
-	//first Frame
-	public JFrame jf1;
+	//Startpanel
 	private JPanel contentpane1;
 	private JButton jb1, jb2, jb3;
 	public JTextField jtfVorname, jtfName, jtfGeb; 
@@ -26,8 +25,8 @@ public class BookZimmer extends Coordinates{
 	public CardLayout cardLayout;
 	public JPanel card = new JPanel();
 	
-	//second Frame
-	public JFrame jf2;
+	//Frame
+	public JFrame jf;
 	private JPanel contentpane2;
 	public JTextField jtfVorname2, jtfName2, jtfGeb2, jtfStr2, jtfHn2, jtfPlz2, jtfOrt2, jtfTel2_1, jtfTel2_2, jtfTel2_3;
 	private JLabel labeltable3, labeljtfVorname2, labeljtfName2, labeljtfGeb2, labeljtfStr2, labeljtfPlz2, labeljtfOrt2, labeljtfTel2;
@@ -36,8 +35,7 @@ public class BookZimmer extends Coordinates{
 	Date now = new Date();
 	Calendar calendar = new GregorianCalendar();
 	
-	//third Frame
-	public JFrame jf3;
+	//Frame 2nd Card
 	public JPanel contentpane3 = null;
 	public JLabel labeltable4, labeltable5, labeltable6, labeljtfVon, labeljtfBis;
 	private JTextField labelVor3, labelName3, labelStr3, labelPlz3, labelOrt3;
@@ -54,11 +52,9 @@ public class BookZimmer extends Coordinates{
 	
 	}
 	
-	public JPanel launchFirstJFrame() {
+	public JPanel launchStartPanel() {
 		//Objekte erzeugen
-		//jf1 = new JFrame ("GUI 1 ButtonHandler");
 		contentpane1 = new JPanel();
-	//	jf1.setContentPane(contentpane1);
 		contentpane1.setLayout(null);
 
 		jtfVorname = new JTextField(20);
@@ -105,20 +101,17 @@ public class BookZimmer extends Coordinates{
 		
 		jb3.setBounds(x_column1, y_line6, x_width, y_height);
 		contentpane1.add(jb3);
-		/*jf1.setLocation(100,100);
-		jf1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jf1.setVisible(true);
-		jf1.setExtendedState(jf1.getExtendedState() | jf1.MAXIMIZED_BOTH);*/
+	
 		return contentpane1;
 	}
 
-	public void launchSecondJFrame() {
+	public void launchJFrame() {
 			
-		jf2 = new JFrame("GUI 2 ButtonHandler");		
+		jf = new JFrame("Zimmerbuchung");		
 		contentpane2 = new JPanel();
 		contentpane2.setLayout(null);
 		
-		JPanel contentPane = (JPanel)jf2.getContentPane();
+		JPanel contentPane = (JPanel)jf.getContentPane();
 		card.setLayout(cardLayout = new CardLayout());
 		
 		if (contentpane3 != null) {
@@ -145,6 +138,8 @@ public class BookZimmer extends Coordinates{
 		jtfTel2_1.setText("+49");
 		jtfTel2_2 = new JTextField(8);
 		jtfTel2_3 = new JTextField(12);
+		
+		weiter = new JButton("Weiter...");
 		
 		//Bounds setzen und zur Contentpane hinzufügen		
 		labeltable3.setBounds(x_column1, y_line1, x_width, y_height);
@@ -191,7 +186,6 @@ public class BookZimmer extends Coordinates{
 		jtfTel2_3.setBounds(230, y_line8, 90, y_height);
 		contentpane2.add(jtfTel2_3);
 		
-		weiter = new JButton("Weiter...");
 		weiter.setBounds(x_column1, y_line9, x_width, y_height);
 		weiter.setActionCommand("NEXT");
 		weiter.addActionListener(new BHBookZimmer(this));
@@ -202,14 +196,14 @@ public class BookZimmer extends Coordinates{
 		//card.add("Card2", contentpane3);
 		contentPane.add(card);
 		
-		jf2.setVisible(true);
-		jf2.setResizable(true);
-		jf2.setSize(500,500);
-		jf2.setLocation(100,100);
-		jf2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		jf.setVisible(true);
+		jf.setResizable(true);
+		jf.setSize(500,500);
+		jf.setLocation(100,100);
+		jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
-	public JPanel launchThirdJFrame() {
+	public JPanel launchSecond() {
 		//Objekte erzeugen
 		contentpane2.setVisible(false);
 		contentpane3 = new JPanel();
@@ -329,11 +323,6 @@ public class BookZimmer extends Coordinates{
 		
 		return contentpane3;
 	}
-	
-	/*public static void main (String[] args) {
-		BookZimmer guiBZ = new BookZimmer();
-		guiBZ.launchFirstJFrame();
-	}*/
 	
 	private JTextField setTfForm (JTextField tf){
 		Font fontTf=new Font(tf.getFont().getName(),Font.BOLD,tf.getFont().getSize());

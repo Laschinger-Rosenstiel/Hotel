@@ -32,14 +32,8 @@ import GUI.StartFrame;
 			System.out.println("Das Ereignis hat den Wert: " +e.getActionCommand());
 			if (e.getActionCommand().equals("Zimmer buchen"))
 			{
-				BookZimmer bz = new BookZimmer();
-				System.out.println("Button2");
-				s.launchStartFrame(bz.launchFirstJFrame());
-				System.out.println("Button gedrückt");
+				s.launchStartFrame(new BookZimmer().launchStartPanel());
 			}
-
-
-
 		}
 	}
 

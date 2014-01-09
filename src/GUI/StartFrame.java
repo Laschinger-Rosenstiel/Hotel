@@ -66,7 +66,7 @@ public class StartFrame extends JFrame
 		label5.setFont(schriftart);
 		p2.add(label5);
 		p2.setOpaque(true);
-		p2.setBackground(new Color(200,250,250));
+		p2.setBackground(new Color(209,218,248));
 		return p2;
 	}
 	
@@ -94,7 +94,7 @@ public class StartFrame extends JFrame
 		p1.add(jb8);
 		p1.add(jb9);
 		p1.setOpaque(true);
-		p1.setBackground(new Color(200,250,200));
+		p1.setBackground(new Color(155,193,225));
 		//add panels to startframe
 		sf.setLayout(new GridBagLayout());
 		GridBagConstraints gc;

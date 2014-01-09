@@ -12,7 +12,7 @@ public class StartFrame extends JFrame
 	private JButton jb1, jb2, jb3, jb4, jb5, jb6, jb7,jb8, jb9; 
 	public JLabel label1, label2, label3, label4, label5;
 	boolean bu = false;
-	JPanel p2;
+	JPanel p1a, p1b, p2;
 	
 
 	public StartFrame()
@@ -70,12 +70,27 @@ public class StartFrame extends JFrame
 		return p2;
 	}
 	
+	public JPanel getJPanel1a()
+	{
+		p1a = new JPanel();
+		
+		return p1a;
+	}
+	
+	public JPanel getJPanel1b()
+	{
+		p1b = new JPanel();
+		
+		return p1b;
+	}
 
-	public void launchStartFrame(JPanel x) //throws exception
+	public void launchStartFrame(JPanel a, JPanel b,JPanel c) //throws exception
 	{
 		if(x!=null)
 		{
-			p2 = x;
+			p1a = a;
+			p1b = b;
+			p2 = c;
 		
 		//first panel
 		JPanel p1 = new JPanel();

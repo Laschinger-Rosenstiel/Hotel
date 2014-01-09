@@ -74,10 +74,13 @@ public class StartFrame2 extends JFrame
 	{
 		
 		p3 = new JPanel();
+		p3.setLayout(new GridLayout(4,1));
 		p3.add(label4);
 		p3.add(jb7);
 		p3.add(jb8);
 		p3.add(jb9);
+		p3.setOpaque(true);
+		p3.setBackground(new Color(155,193,225));
 		
 		return p3;
 	}
@@ -91,7 +94,7 @@ public class StartFrame2 extends JFrame
 		
 		//first panel
 		JPanel p1 = new JPanel();
-		p1.setLayout(new GridLayout(13,1));
+		p1.setLayout(new GridLayout(9,1));
 		p1.add(label1);
 		p1.add(jb1);
 		p1.add(jb2);
@@ -101,7 +104,6 @@ public class StartFrame2 extends JFrame
 		p1.add(label3);
 		p1.add(jb5);
 		p1.add(jb6);
-		p1.add(p3);
 		p1.setOpaque(true);
 		p1.setBackground(new Color(155,193,225));
 		//add panels to startframe
@@ -112,23 +114,31 @@ public class StartFrame2 extends JFrame
 		gc.gridx = 0;
 		gc.gridy = 0;
 		gc.gridwidth = 1;
-		gc.gridheight = 10;
+		gc.gridheight = 9;
 		gc.fill = GridBagConstraints.BOTH;
 		gc.weightx = 0.15;
-		gc.weighty = 1;
+		gc.weighty = 0.7;
 		sf.add(p1,gc);
 		//Panel2
 		gc = new GridBagConstraints();
 		gc.gridx = 1;
 		gc.gridy = 0;
 		gc.gridwidth = 5;
-		gc.gridheight = 10;
+		gc.gridheight = 13;
 		gc.fill = GridBagConstraints.BOTH;
 		gc.weightx = 0.85;
 		gc.weighty = 1;
 		sf.add(p2,gc);
-		//sf.setLocation(100, 100);
-		//sf.setSize(900, 600);
+		//Panel3
+		gc = new GridBagConstraints();
+		gc.gridx = 0;
+		gc.gridy = 9;
+		gc.gridwidth = 1;
+		gc.gridheight = 4;
+		gc.fill = GridBagConstraints.BOTH;
+		gc.weightx = 0.15;
+		gc.weighty = 0.3;
+		sf.add(p3,gc);
 		sf.setExtendedState(sf.getExtendedState() | sf.MAXIMIZED_BOTH );
 		sf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		sf.setVisible(true);

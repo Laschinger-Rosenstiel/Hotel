@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import GUI.BookZimmer;
 import GUI.StartFrame;
+import GUI.BookDl;
 
 
 
@@ -33,6 +34,10 @@ import GUI.StartFrame;
 			if (e.getActionCommand().equals("Zimmer buchen"))
 			{
 				s.launchStartFrame(new BookZimmer().launchStartPanel());
+			}
+			else if (e.getActionCommand().equals("Dl buchen"))
+			{
+				s.launchStartFrame(new BookDl().launchStartPanel());
 			}
 		}
 	}

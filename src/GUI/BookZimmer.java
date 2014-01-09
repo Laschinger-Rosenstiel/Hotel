@@ -1,7 +1,6 @@
 package GUI;
 
 import java.awt.CardLayout;
-import java.awt.Container;
 import java.awt.Font;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,8 +27,8 @@ public class BookZimmer extends Coordinates{
 	//Frame
 	public JFrame jf;
 	private JPanel contentpane2;
-	public JTextField jtfVorname2, jtfName2, jtfGeb2, jtfStr2, jtfHn2, jtfPlz2, jtfOrt2, jtfTel2_1, jtfTel2_2, jtfTel2_3;
-	private JLabel labeltable3, labeljtfVorname2, labeljtfName2, labeljtfGeb2, labeljtfStr2, labeljtfPlz2, labeljtfOrt2, labeljtfTel2;
+	public JTextField jtfVorname2, jtfName2, jtfGeb2, jtfStr2, jtfHn2, jtfPlz2, jtfOrt2, jtfLand2, jtfTel2_1, jtfTel2_2, jtfTel2_3;
+	private JLabel labeltable3, labeljtfVorname2, labeljtfName2, labeljtfGeb2, labeljtfStr2, labeljtfPlz2, labeljtfOrt2, labeljtfLand2, labeljtfTel2;
 	private JButton weiter;
 	public JDateChooser geb2;
 	Date now = new Date();
@@ -38,12 +37,12 @@ public class BookZimmer extends Coordinates{
 	//Frame 2nd Card
 	public JPanel contentpane3 = null;
 	public JLabel labeltable4, labeltable5, labeltable6, labeljtfVon, labeljtfBis;
-	private JTextField labelVor3, labelName3, labelStr3, labelPlz3, labelOrt3;
+	private JTextField labelVor3, labelName3, labelStr3, labelPlz3, labelOrt3, labelLand3;
 
 	public JTextField labelTel3;
 
 	private JTextField labelGeb3;
-	public JTextField labelVor3_2, labelName3_2, labelStr3_2, labelPlz3_2, labelOrt3_2, labelTel3_2, labelGeb3_2;
+	public JTextField labelVor3_2, labelName3_2, labelStr3_2, labelPlz3_2, labelOrt3_2, labelLand3_2, labelTel3_2, labelGeb3_2;
 	private JButton checkAvailability, bookZimmer, back;
 	public JDateChooser pickerVon, pickerBis;
 	
@@ -72,7 +71,8 @@ public class BookZimmer extends Coordinates{
 		jb1.addActionListener(ButtonHandler);
 		
 		jb2 = new JButton("Auf ausgew‰hlten Gast buchen");
-		jb2.setActionCommand("ExistingBooking");
+		jb2.setActionCommand("ExistBooking");
+		jb2.addActionListener(new BHBookZimmer(this));
 		
 		jb3 = new JButton("Suche");
 		jb3.setActionCommand("SEARCH");
@@ -99,6 +99,8 @@ public class BookZimmer extends Coordinates{
 		geb.setBounds(x_column3, y_line5, x_width, y_height);
 		contentpane1.add(geb);
 		
+		jb2.setBounds(x_column1, y_line12, x_width, y_height);
+		contentpane1.add(jb2);
 		jb3.setBounds(x_column1, y_line6, x_width, y_height);
 		contentpane1.add(jb3);
 	
@@ -125,6 +127,7 @@ public class BookZimmer extends Coordinates{
 		labeljtfStr2 = new JLabel("Straﬂe & Hausnummer: ", JLabel.LEFT);
 		labeljtfPlz2 = new JLabel("Postleitzahl: ", JLabel.LEFT);
 		labeljtfOrt2 = new JLabel("Ort: ", JLabel.LEFT);
+		labeljtfLand2 = new JLabel("Land: ", JLabel.LEFT);
 		labeljtfTel2 = new JLabel("Telefonnummer: ", JLabel.LEFT);
 		
 		jtfVorname2 = new JTextField(20);
@@ -134,6 +137,7 @@ public class BookZimmer extends Coordinates{
 		jtfHn2 = new JTextField(8);
 		jtfPlz2 = new JTextField(10);
 		jtfOrt2 = new JTextField(10);
+		jtfLand2 = new JTextField(10);
 		jtfTel2_1 = new JTextField(6);
 		jtfTel2_1.setText("+49");
 		jtfTel2_2 = new JTextField(8);
@@ -156,7 +160,9 @@ public class BookZimmer extends Coordinates{
 		contentpane2.add(labeljtfPlz2);
 		labeljtfOrt2.setBounds(x_column1, y_line7, x_width, y_height);
 		contentpane2.add(labeljtfOrt2);
-		labeljtfTel2.setBounds(x_column1, y_line8, x_width, y_height);
+		labeljtfLand2.setBounds(x_column1, y_line8, x_width, y_height);
+		contentpane2.add(labeljtfLand2);
+		labeljtfTel2.setBounds(x_column1, y_line9, x_width, y_height);
 		contentpane2.add(labeljtfTel2);
 		
 		jtfVorname2.setBounds(x_column3, y_line2, x_width, y_height);
@@ -179,27 +185,28 @@ public class BookZimmer extends Coordinates{
 		contentpane2.add(jtfPlz2);
 		jtfOrt2.setBounds(x_column3, y_line7, x_width, y_height);
 		contentpane2.add(jtfOrt2);
-		jtfTel2_1.setBounds(x_column3, y_line8, 30, y_height);
+		jtfLand2.setBounds(x_column3, y_line8, x_width, y_height);
+		jtfLand2.setText("Deutschland");
+		contentpane2.add(jtfLand2);
+		jtfTel2_1.setBounds(x_column3, y_line9, 30, y_height);
 		contentpane2.add(jtfTel2_1);
-		jtfTel2_2.setBounds(180, y_line8, 50, y_height);
+		jtfTel2_2.setBounds(180, y_line9, 50, y_height);
 		contentpane2.add(jtfTel2_2);
-		jtfTel2_3.setBounds(230, y_line8, 90, y_height);
+		jtfTel2_3.setBounds(230, y_line9, 90, y_height);
 		contentpane2.add(jtfTel2_3);
 		
-		weiter.setBounds(x_column1, y_line9, x_width, y_height);
+		weiter.setBounds(x_column1, y_line10, x_width, y_height);
 		weiter.setActionCommand("NEXT");
 		weiter.addActionListener(new BHBookZimmer(this));
 		contentpane2.add(weiter);
 		
 		card.add("Card1", contentpane2);
-		//JPanel contentpane3 = launchThirdJFrame();
-		//card.add("Card2", contentpane3);
 		contentPane.add(card);
 		
 		jf.setVisible(true);
 		jf.setResizable(true);
-		jf.setSize(500,500);
-		jf.setLocation(100,100);
+		jf.setSize(600,500);
+		jf.setLocation(300,50);
 		jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
@@ -221,6 +228,8 @@ public class BookZimmer extends Coordinates{
 		setTfForm(labelOrt3);
 		labelTel3 = new JTextField("Telefon: ");
 		setTfForm(labelTel3);
+		labelLand3 = new JTextField("Land: ");
+		setTfForm(labelLand3);
 		labelGeb3 = new JTextField("Geburtsdatum: ");
 		setTfForm(labelGeb3);
 		
@@ -236,6 +245,8 @@ public class BookZimmer extends Coordinates{
 		setTfForm(labelOrt3_2);
 		labelTel3_2 = new JTextField();
 		setTfForm(labelTel3_2);
+		labelLand3_2 = new JTextField();
+		setTfForm(labelLand3_2);
 		labelGeb3_2 = new JTextField();
 		setTfForm(labelGeb3_2);
 		
@@ -264,9 +275,11 @@ public class BookZimmer extends Coordinates{
 		contentpane3.add(labelPlz3);
 		labelOrt3.setBounds(x_column4, y_line2, 100, y_height);
 		contentpane3.add(labelOrt3);
-		labelGeb3.setBounds(x_column4, y_line3, 100, y_height);
+		labelLand3.setBounds(x_column4, y_line3, 100, y_height);
+		contentpane3.add(labelLand3);
+		labelGeb3.setBounds(x_column4, y_line4, 100, y_height);
 		contentpane3.add(labelGeb3);
-		labelTel3.setBounds(x_column4, y_line4, 100, y_height);
+		labelTel3.setBounds(x_column4, y_line5, 100, y_height);
 		contentpane3.add(labelTel3);
 		
 		labelVor3_2.setBounds(x_column3, y_line2, x_width, y_height);
@@ -279,9 +292,11 @@ public class BookZimmer extends Coordinates{
 		contentpane3.add(labelPlz3_2);
 		labelOrt3_2.setBounds(x_column5, y_line2, x_width, y_height);
 		contentpane3.add(labelOrt3_2);
+		labelLand3_2.setBounds(x_column5, y_line3, x_width, y_height);
+		contentpane3.add(labelLand3_2);
 		labelTel3_2.setBounds(x_column5, y_line4, x_width, y_height);
 		contentpane3.add(labelTel3_2);
-		labelGeb3_2.setBounds(x_column5, y_line3, x_width, y_height);
+		labelGeb3_2.setBounds(x_column5, y_line5, x_width, y_height);
 		contentpane3.add(labelGeb3_2);
 		
 		labeltable5.setBounds(x_column1, y_line6, x_width, y_height);
@@ -294,10 +309,8 @@ public class BookZimmer extends Coordinates{
 		contentpane3.add(labeljtfVon);	
 		
 		labeljtfBis.setBounds(x_column1, y_line8, 40, y_height);
-		contentpane3.add(labeljtfBis);
-		
+		contentpane3.add(labeljtfBis);		
 
-		
 		pickerVon.setSelectableDateRange(new Date(), null);
 		pickerVon.setBounds(x_column2, y_line7, 100, y_height);
 		contentpane3.add(pickerVon);

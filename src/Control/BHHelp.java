@@ -51,21 +51,22 @@ public class BHHelp {
 		cVonDate.setTime(vonDate);
 		cBisDate.setTime(bisDate);
 		
-		if (cVonDate.before(cNow) || cBisDate.before(cNow)) {
+		if (cVonDate.before(cNow) || cBisDate.before(cNow)) 
 			throw new GUIException("Buchungsdatum überprüfen!");
-		}
 		
 		if(cVonDate.after(cBisDate))
-			throw new GUIException("Buchungsdatum überprüfen!");
-	
-		
-		
+			throw new GUIException("Buchungsdatum überprüfen!");		
 	}
 
-	public void checkTel(String b, String c) throws GUIException{
+	public void checkTel(String a, String b, String c) throws GUIException{
 		try {
 		Integer.parseInt(b);
 		Integer.parseInt(c);
+		
+		if (!a.matches("\\+\\d{2,5}")) {
+			throw new GUIException("falsche Ländervorwahl");
+		}
+				
 		}
 		catch (NumberFormatException ex) {
 			throw new GUIException("Telefonnummer überprüfen!");

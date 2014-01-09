@@ -38,7 +38,7 @@ public class BHBookZimmer extends BHHelp implements ActionListener{
 				checkStringEmpty(gui.jtfTel2_3.getText());
 				checkNumber(gui.jtfPlz2.getText());
 				checkBirthday(gui.geb2.getDate());
-				checkTel(gui.jtfTel2_2.getText(), gui.jtfTel2_3.getText());			
+				checkTel(gui.jtfTel2_1.getText(), gui.jtfTel2_2.getText(), gui.jtfTel2_3.getText());			
 				
 				gui.contentpane3 = gui.launchSecond();	
 				gui.labelVor3_2.setText(gui.jtfVorname2.getText());
@@ -46,7 +46,7 @@ public class BHBookZimmer extends BHHelp implements ActionListener{
 				gui.labelStr3_2.setText(gui.jtfStr2.getText() + " " + gui.jtfHn2.getText());
 				gui.labelPlz3_2.setText(gui.jtfPlz2.getText());
 				gui.labelOrt3_2.setText(gui.jtfOrt2.getText());
-							
+				gui.labelLand3_2.setText(gui.jtfLand2.getText());
 								
 				String Vorwahl = gui.jtfTel2_2.getText();
 				
@@ -67,10 +67,6 @@ public class BHBookZimmer extends BHHelp implements ActionListener{
 							
 				gui.card.add("Card2", gui.contentpane3);
 				gui.cardLayout.show(this.gui.card, "Card2");
-					
-		
-			
-			
 			}
 			
 			catch (GUIException gex){
@@ -83,6 +79,36 @@ public class BHBookZimmer extends BHHelp implements ActionListener{
 					
 		
 	}
+		else if (e.getActionCommand().equals("ExistBooking")) {
+			System.out.println("ExistBooking");	
+			/*gui.labelVor3_2.setText();
+			gui.labelName3_2.setText(gui.jtfName2.getText());
+			gui.labelStr3_2.setText(gui.jtfStr2.getText() + " " + gui.jtfHn2.getText());
+			gui.labelPlz3_2.setText(gui.jtfPlz2.getText());
+			gui.labelOrt3_2.setText(gui.jtfOrt2.getText());
+			gui.labelLand3_2.setText(gui.jtfLand2.getText());
+							
+			String Vorwahl = gui.jtfTel2_2.getText();
+			
+		
+			gui.labelTel3_2.setText(gui.jtfTel2_1.getText() + " (0) "+ Vorwahl + " " + gui.jtfTel2_3.getText());
+			
+			
+			
+			
+			SimpleDateFormat geb2 =new SimpleDateFormat("dd.MM.yyyy");
+			String geb = geb2.format(gui.geb2.getDate());
+			gui.labelGeb3_2.setText(geb);
+			*/			
+			gui.launchJFrame();
+			gui.contentpane3 = gui.launchSecond();	
+			gui.card.add("Card2", gui.contentpane3);
+			gui.cardLayout.show(this.gui.card, "Card2");
+			
+			
+		}
+		
+		
 		else if (e.getActionCommand().equals("BACK")) 
 			gui.cardLayout.show(gui.card, "Card1");
 		
@@ -100,11 +126,8 @@ public class BHBookZimmer extends BHHelp implements ActionListener{
 			catch (GUIException gex) {
 				JOptionPane.showMessageDialog(null, gex, "Error",
                         JOptionPane.ERROR_MESSAGE);
-			}
-			
-			
-			
 			}			
+		}			
 		
 	}	
 }

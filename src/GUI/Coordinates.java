@@ -13,6 +13,7 @@ public class Coordinates {
 	int y_line9 = 360;
 	int y_line10 = 400;
 	int y_line11 = 440;
+	int y_line12 = 480;
 	//X-Koordinaten
 	int x_column1 = 10;
 	int x_column2 = 40;

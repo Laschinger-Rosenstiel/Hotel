@@ -14,6 +14,7 @@ public class LoginFrame extends JFrame
 	public JComboBox cb;
 	public JTextField jtf;
 	String[] konto = {"Rezeption", "Manager"};
+	public String pw ="lala";
 	public LoginFrame()
 	{
 		jf = new JFrame("Anmeldung");
@@ -28,7 +29,7 @@ public class LoginFrame extends JFrame
 		jtf = new JTextField(40);
 		cb = new JComboBox(konto);
 		cb.setSelectedIndex(2);
-		cb.addActionListener(this);
+		cb.addActionListener(new ButtonHandlerLogin(this));
 	}
 	
 	public void launchLoginFrame()

@@ -22,8 +22,8 @@ public class LoginFrame extends JFrame
 		b1.setActionCommand("Next");
 		b1.addActionListener(new ButtonHandlerLogin(this));
 		b2 = new JButton("Passwort ändern");
-		b1.setActionCommand("Change");
-		b1.addActionListener(new ButtonHandlerLogin(this));		
+		b2.setActionCommand("Change");
+		b2.addActionListener(new ButtonHandlerLogin(this));		
 		l1 = new JLabel("Konto", JLabel.CENTER);
 		l2 = new JLabel("Passwort", JLabel.CENTER);
 		jtf = new JTextField(40);

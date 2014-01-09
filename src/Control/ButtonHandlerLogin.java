@@ -16,7 +16,7 @@ public class ButtonHandlerLogin implements ActionListener
 {
 	LoginFrame lf;
 	StartFrame sf;
-	JPanel panel;
+	
 
 
 	public ButtonHandlerLogin(LoginFrame lf)
@@ -25,24 +25,22 @@ public class ButtonHandlerLogin implements ActionListener
 
 	}
 
-	public ButtonHandlerLogin(JPanel panel)
-	{
-		this.panel = panel;
-	}
 
 	public void actionPerformed(ActionEvent e) 
 	{
 		//System.out.println("Das Ereignis hat den Wert: " +e.getActionCommand());
 		if (e.getActionCommand().equals("Change"))
 		{
-			//code
+			System.out.println("Passwort ändern");
 		}
 		else if(e.getActionCommand().equals("Next"))
 		{
 
 
-			lf = new LoginFrame();
+			sf = new StartFrame();
+			System.out.println("1");
 			String s = (String) lf.cb.getSelectedItem();
+			System.out.println("2");
 			if(s.equals("Rezeption"))
 			{
 				//System.out.println("Das Ereignis hat den Wert: " +e.getActionCommand());

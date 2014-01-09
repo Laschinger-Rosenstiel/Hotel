@@ -46,18 +46,15 @@ public class ButtonHandlerLogin implements ActionListener
 			if(s.equals("Rezeption"))
 			{
 				//System.out.println("Das Ereignis hat den Wert: " +e.getActionCommand());
-				if (e.getActionCommand().equals("Next"))
+				if(lf.jtf.getText().equals(lf.pw))
 				{
-					if(lf.jtf.getText().equals("lala"))
-					{
-						sf.launchStartFrame(sf.getJPanel2());
-					}
-					else
-					{
-						//exception
-					}
+					System.out.println("passwort überprüft");
+					sf.launchStartFrame(sf.getJPanel2());
 				}
-
+				else
+				{
+					//exception
+				}
 			}
 			else if(s.equals("Manager"))
 			{
@@ -70,7 +67,7 @@ public class ButtonHandlerLogin implements ActionListener
 					//exception
 				}
 			}
-				
+
 		}
 	}
 }

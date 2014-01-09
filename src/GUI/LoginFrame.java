@@ -13,7 +13,7 @@ public class LoginFrame extends JFrame
 	public JLabel l1,l2;
 	public JComboBox cb;
 	public JTextField jtf;
-	String[] konto = {"Rezeption", "Manager"};
+	public String[] konto = {"Rezeption", "Manager"};
 	public String pw ="lala";
 	public LoginFrame()
 	{
@@ -28,7 +28,7 @@ public class LoginFrame extends JFrame
 		l2 = new JLabel("Passwort", JLabel.CENTER);
 		jtf = new JTextField(40);
 		cb = new JComboBox(konto);
-		cb.setSelectedIndex(2);
+		//cb.setSelectedIndex(2);
 		cb.addActionListener(new ButtonHandlerLogin(this));
 	}
 	
@@ -36,19 +36,22 @@ public class LoginFrame extends JFrame
 	{
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
-		l1.setBounds(50, 50,150, 20);
+		l1.setBounds(10, 40,120, 30);
 		panel.add(l1);
-		cb.setBounds(220, 50, 150, 20);
+		cb.setBounds(350, 40, 120, 30);
 		panel.add(cb);
-		l2.setBounds(50, 100, 150, 20);
+		l2.setBounds(10, 80, 120, 30);
 		panel.add(l2);
-		jtf.setBounds(220, 100, 150, 20);
+		jtf.setBounds(350, 80, 120, 30);
 		panel.add(jtf);
-		b2.setBounds(100, 140, 50, 20);
+		b2.setBounds(10, 120, 300, 30);
 		panel.add(b2);
-		b1.setBounds(170, 140, 50, 20);
+		b1.setBounds(350, 120, 300, 30);
+		panel.add(b1);
+		panel.setOpaque(true);
+		panel.setBackground(new Color(209,218,248));
 		jf.add(panel);
-		jf.setSize(400, 400);
+		jf.setSize(700, 300);
 		jf.setLocation(200, 200);
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf.setVisible(true);

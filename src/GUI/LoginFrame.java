@@ -6,13 +6,13 @@ import javax.swing.*;
 
 import Control.ButtonHandlerLogin;
 
-public class LoginFrame extends JFrame 
+public class LoginFrame extends GUIHelp 
 {
 	public JFrame jf;
 	private JButton b1,b2;
 	public JLabel l1,l2;
 	public JComboBox cb;
-	public JTextField jtf;
+	public JPasswordField jpf;
 	public String[] konto = {"Rezeption", "Manager"};
 	public String pw ="lala";
 	public LoginFrame()
@@ -26,7 +26,7 @@ public class LoginFrame extends JFrame
 		b2.addActionListener(new ButtonHandlerLogin(this));		
 		l1 = new JLabel("Konto", JLabel.CENTER);
 		l2 = new JLabel("Passwort", JLabel.CENTER);
-		jtf = new JTextField(40);
+		jpf = new JPasswordField(40);
 		cb = new JComboBox(konto);
 		//cb.setSelectedIndex(2);
 		cb.addActionListener(new ButtonHandlerLogin(this));
@@ -42,8 +42,8 @@ public class LoginFrame extends JFrame
 		panel.add(cb);
 		l2.setBounds(10, 80, 120, 30);
 		panel.add(l2);
-		jtf.setBounds(350, 80, 120, 30);
-		panel.add(jtf);
+		jpf.setBounds(350, 80, 120, 30);
+		panel.add(jpf);
 		b2.setBounds(10, 120, 300, 30);
 		panel.add(b2);
 		b1.setBounds(350, 120, 300, 30);

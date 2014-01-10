@@ -13,13 +13,13 @@ import GUI.BookDl;
 
 	public class ButtonHandlerStartFrame implements ActionListener 
 	{
-		StartFrame s;
+		StartFrame sf;
 		JPanel panel;
 		
 
-		public ButtonHandlerStartFrame(StartFrame s)
+		public ButtonHandlerStartFrame(StartFrame sf)
 		{
-			this.s = s;
+			this.sf = sf;
 
 		}
 
@@ -27,17 +27,21 @@ import GUI.BookDl;
 		{
 			this.panel = panel;
 		}
+		
 
 		public void actionPerformed(ActionEvent e) 
 		{
 			System.out.println("Das Ereignis hat den Wert: " +e.getActionCommand());
 			if (e.getActionCommand().equals("Zimmer buchen"))
 			{
-				s.launchStartFrame(new BookZimmer().launchStartPanel());
+				BookZimmer bz = new BookZimmer();
+				System.out.println("vor ausführen bookzimmer()");
+				sf.launchStartFrame(bz.launchStartPanel(),sf.getJPanel3());
+				System.out.println("nach ausführen bookzimmer()");
 			}
 			else if (e.getActionCommand().equals("Dl buchen"))
 			{
-				s.launchStartFrame(new BookDl().launchStartPanel());
+				sf.launchStartFrame(new BookDl().launchStartPanel(), sf.getJPanel3());
 			}
 		}
 	}

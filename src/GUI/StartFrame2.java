@@ -12,7 +12,7 @@ public class StartFrame2 extends JFrame
 	private JButton jb1, jb2, jb3, jb4, jb5, jb6, jb7,jb8, jb9; 
 	public JLabel label1, label2, label3, label4, label5;
 	boolean bu = false;
-	JPanel p2, p3;
+	JPanel p2, p3, p4;
 	
 
 	public StartFrame2()
@@ -84,14 +84,22 @@ public class StartFrame2 extends JFrame
 		
 		return p3;
 	}
+	public JPanel getJPanel4()
+	{
+		p4 = new JPanel();
+		p4.setLayout(new GridLayout(4,1));
+		p4.setOpaque(true);
+		p4.setBackground(new Color(155,193,225));
+		return p4;
+	}
 
-	public void launchStartFrame(JPanel a, JPanel b) //throws exception
+	public void launchStartFrame2(JPanel a, JPanel b) //throws exception
 	{
 		if(a!=null & b!=null)
 		{
 			p2 = a;
 			p3 = b;
-		
+		 
 		//first panel
 		JPanel p1 = new JPanel();
 		p1.setLayout(new GridLayout(9,1));
@@ -155,7 +163,8 @@ public class StartFrame2 extends JFrame
 	public static void main(String[]args)
 	{
 		StartFrame2 startframe2 = new StartFrame2();
-		startframe2.launchStartFrame(startframe2.getJPanel2(), startframe2.getJPanel3() );
+		startframe2.launchStartFrame2(startframe2.getJPanel2(), startframe2.getJPanel4());
 	}
+	
 
 }

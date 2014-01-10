@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import GUI.LoginFrame;
@@ -12,11 +13,11 @@ import GUI.StartFrame;
 
 
 
-public class ButtonHandlerLogin implements ActionListener 
+public class ButtonHandlerLogin extends BHHelp implements ActionListener 
 {
 	LoginFrame lf;
 	StartFrame sf;
-	
+
 
 
 	public ButtonHandlerLogin(LoginFrame lf)
@@ -26,7 +27,7 @@ public class ButtonHandlerLogin implements ActionListener
 	}
 
 
-	public void actionPerformed(ActionEvent e) 
+	public void actionPerformed(ActionEvent e) throws NullPointerException
 	{
 		//System.out.println("Das Ereignis hat den Wert: " +e.getActionCommand());
 		if (e.getActionCommand().equals("Change"))
@@ -36,29 +37,34 @@ public class ButtonHandlerLogin implements ActionListener
 		else if(e.getActionCommand().equals("Next"))
 		{
 
-
-			sf = new StartFrame();
-			System.out.println("1");
-			String s = (String) lf.cb.getSelectedItem();
-			System.out.println("2");
-			if(s.equals("Rezeption"))
-			{
-				//System.out.println("Das Ereignis hat den Wert: " +e.getActionCommand());
-				if(lf.jtf.getText().equals(lf.pw))
+			
+				sf = new StartFrame();
+				System.out.println("1");
+				String s = (String) lf.cb.getSelectedItem();
+				System.out.println("2");
+				if(s.equals("Rezeption"))
 				{
-					System.out.println("passwort überprüft");
-					sf.launchStartFrame(sf.getJPanel2());
+					try{
+					//System.out.println("Das Ereignis hat den Wert: " +e.getActionCommand());
+					if(lf.jpf.getText().equals(lf.pw))
+					{
+						System.out.println("passwort überprüft");
+						sf.launchStartFrame(sf.getJPanel2(), sf.getJPanel4());
+						//lf.setVisible(false);
+					}
 				}
-				else
+				catch(GUIException gex)
 				{
-					//exception
+					JOptionPane.showMessageDialog(null, gex, "Error",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 			else if(s.equals("Manager"))
 			{
-				if(lf.jtf.getText().equals("lala"))
+				if(lf.jpf.getText().equals("lala"))
 				{
-					sf.launchStartFrame(sf.getJPanel2());
+					sf.launchStartFrame(sf.getJPanel2(), sf.getJPanel3());
+					//lf.setVisible(false);
 				}
 				else
 				{

@@ -4,10 +4,12 @@ import java.awt.*;
 
 import javax.swing.*;
 
+import Control.ButtonHandlerChange;
 import Control.ButtonHandlerLogin;
 
 public class LoginFrame extends GUIHelp 
 {
+	//Login Frame
 	public JFrame jf;
 	private JButton b1,b2;
 	public JLabel l1,l2;
@@ -15,8 +17,16 @@ public class LoginFrame extends GUIHelp
 	public JPasswordField jpf;
 	public String[] konto = {"Rezeption", "Manager"};
 	public String pw ="lala";
+	//ChangeFrame
+	public JFrame cf;
+	public JLabel l3,l4;
+	public JPasswordField jpf2,jpf3;
+	private JButton b3,b4;
+	
+	
 	public LoginFrame()
 	{
+		//LoginFrame
 		jf = new JFrame("Anmeldung");
 		b1 = new JButton("Anmelden");
 		b1.setActionCommand("Next");
@@ -30,7 +40,21 @@ public class LoginFrame extends GUIHelp
 		cb = new JComboBox(konto);
 		//cb.setSelectedIndex(2);
 		cb.addActionListener(new ButtonHandlerLogin(this));
+		//ChangeFrame
+		cf = new JFrame("Passwort ändern");
+		b3 = new JButton("Passwort speichern");
+		b3.setActionCommand("SavePw");
+		b3.addActionListener(new ButtonHandlerChange(this));
+		b4 = new JButton("Zurück");
+		b4.setActionCommand("BackToLogin");
+		b4.addActionListener(new ButtonHandlerChange(this));
+		jpf2 = new JPasswordField(40);
+		jpf3 = new JPasswordField(40);
+		l3 = new JLabel("Neues Passwort", JLabel.CENTER);
+		l4 = new JLabel("Bestätigen", JLabel.CENTER);
+		
 	}
+	
 	
 	public void launchLoginFrame()
 	{
@@ -58,6 +82,38 @@ public class LoginFrame extends GUIHelp
 		
 		
 	}
+	
+	public void launchChangeFrame()
+	{
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		l3.setBounds(10, 40,120, 30);
+		panel.add(l3);
+		jpf2.setBounds(350, 40, 120, 30);
+		panel.add(jpf2);
+		l4.setBounds(10, 80, 120, 30);
+		panel.add(l4);
+		jpf3.setBounds(350, 80, 120, 30);
+		panel.add(jpf3);
+		b4.setBounds(10, 120, 300, 30);
+		panel.add(b4);
+		b3.setBounds(350, 120, 300, 30);
+		panel.add(b3);
+		panel.setOpaque(true);
+		panel.setBackground(new Color(209,218,248));
+		cf.add(panel);
+		cf.setSize(700, 300);
+		cf.setLocation(400, 200);
+		cf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		cf.setVisible(true);
+		
+	}
+	
+	public void setPw(String x)
+	{
+		pw = x;
+	}
+	
 	public static void main(String[] args)
 	{
 		LoginFrame bla = new LoginFrame();

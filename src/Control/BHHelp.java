@@ -71,10 +71,28 @@ public class BHHelp {
 		catch (NumberFormatException ex) {
 			throw new GUIException("Telefonnummer überprüfen!");
 		}
+	}
+	public void checkLogin(String x, String y) throws GUIException
+	{
+		
+			String eingabe = x;
+			String pw = y;
+			
+			if(eingabe.equals(pw))
+			{
+				
+			}
+			else
+			{
+				throw new GUIException("Falsches Passwort");
+			}
+		
+	}
+		
 		
 	
 		
-	}
+	
 		
 	
 }

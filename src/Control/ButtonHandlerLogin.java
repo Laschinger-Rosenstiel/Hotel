@@ -20,11 +20,13 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener
 
 
 
-	public ButtonHandlerLogin(LoginFrame lf)
-	{
-		this.lf = lf;
 
+	public ButtonHandlerLogin(LoginFrame x)
+	{
+		lf = x;
 	}
+
+
 
 
 	public void actionPerformed(ActionEvent e) throws NullPointerException
@@ -32,35 +34,64 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener
 		//System.out.println("Das Ereignis hat den Wert: " +e.getActionCommand());
 		if (e.getActionCommand().equals("Change"))
 		{
+
 			System.out.println("Passwort ändern");
+			lf.launchChangeFrame();
+			//lf.jf.setVisible(false);
+			System.out.println("blob");
+
 		}
+
 		else if(e.getActionCommand().equals("Next"))
 		{
 
-			
-				sf = new StartFrame();
-				System.out.println("1");
-				String s = (String) lf.cb.getSelectedItem();
-				System.out.println("2");
-				if(s.equals("Rezeption"))
-				{
-					try{
-					//System.out.println("Das Ereignis hat den Wert: " +e.getActionCommand());
-					if(lf.jpf.getText().equals(lf.pw))
-					{
-						System.out.println("passwort überprüft");
-						sf.launchStartFrame(sf.getJPanel2(), sf.getJPanel4());
-						//lf.setVisible(false);
-					}
+
+			sf = new StartFrame();
+			System.out.println("1");
+			String s = (String) lf.cb.getSelectedItem();
+			System.out.println("2");
+			if(s.equals("Rezeption"))
+			{
+				try{
+
+					checkStringEmpty(lf.jpf.getText());
 				}
 				catch(GUIException gex)
 				{
 					JOptionPane.showMessageDialog(null, gex, "Error",
 							JOptionPane.ERROR_MESSAGE);
 				}
+				if(lf.jpf.getText().equals(lf.pw))
+				{
+					System.out.println("passwort überprüft");
+					sf.launchStartFrame(sf.getJPanel2(), sf.getJPanel4());
+					//lf.setVisible(false);
+				}
+				else
+				{
+					try{
+						checkLogin(lf.pw, lf.jpf.getText());
+					}
+					catch(GUIException gex)
+					{
+						JOptionPane.showMessageDialog(null, gex, "Error",
+								JOptionPane.ERROR_MESSAGE);
+					}
+				}
+
+
 			}
 			else if(s.equals("Manager"))
 			{
+				try{
+
+					checkStringEmpty(lf.jpf.getText());
+				}
+				catch(GUIException gex)
+				{
+					JOptionPane.showMessageDialog(null, gex, "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
 				if(lf.jpf.getText().equals("lala"))
 				{
 					sf.launchStartFrame(sf.getJPanel2(), sf.getJPanel3());
@@ -68,7 +99,14 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener
 				}
 				else
 				{
-					//exception
+					try{
+						checkLogin(lf.pw, lf.jpf.getText());
+					}
+					catch(GUIException gex)
+					{
+						JOptionPane.showMessageDialog(null, gex, "Error",
+								JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			}
 

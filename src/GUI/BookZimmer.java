@@ -1,11 +1,15 @@
 package GUI;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
 import Control.BHBookZimmer;
+
 import javax.swing.*;
+
 import com.toedter.calendar.JDateChooser;
 
 public class BookZimmer extends GUIHelp{
@@ -102,6 +106,10 @@ public class BookZimmer extends GUIHelp{
 		contentpane1.add(jb2);
 		jb3.setBounds(x_column1, y_line6, x_width, y_height);
 		contentpane1.add(jb3);
+		
+		//Color
+		contentpane1.setOpaque(true);
+		contentpane1.setBackground(new Color(209,218,248));
 	
 		return contentpane1;
 	}
@@ -198,6 +206,9 @@ public class BookZimmer extends GUIHelp{
 		weiter.setActionCommand("NEXT");
 		weiter.addActionListener(new BHBookZimmer(this));
 		contentpane2.add(weiter);
+		//Color
+		contentpane2.setOpaque(true);
+		contentpane2.setBackground(new Color(209,218,248));
 		
 		card.add("Card1", contentpane2);
 		contentPane.add(card);
@@ -207,6 +218,8 @@ public class BookZimmer extends GUIHelp{
 		jf.setSize(600,500);
 		jf.setLocation(300,50);
 		jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+			
 	}
 
 	public JPanel launchSecond() {
@@ -332,6 +345,9 @@ public class BookZimmer extends GUIHelp{
 		back.setActionCommand("BACK");
 		back.addActionListener(new BHBookZimmer(this));
 		contentpane3.add(back);
+		//Color
+		contentpane3.setOpaque(true);
+		contentpane3.setBackground(new Color(209,218,248));
 		
 		return contentpane3;
 	}

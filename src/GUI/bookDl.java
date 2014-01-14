@@ -1,19 +1,17 @@
 package GUI;
 
+import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import Control.BHBookDl;
-
+import Control.BHBook;
 import com.toedter.calendar.JDateChooser;
 
 public class BookDl extends GUIHelp{
 	
 	//Startpanel
-		
 		private JPanel contentpane1;
 		private JButton buttonSearch, buttonBook;
 		public JTextField jtfVorname, jtfName; 
@@ -21,11 +19,13 @@ public class BookDl extends GUIHelp{
 		public JDateChooser geb;
 		
 	//Frame	
-		private JFrame jf;
+		public JFrame jf;
 		public JPanel contentpane2;
-		private JLabel labelGast;
+		private JLabel labelGast2, labelDatum2, labelDl2;
 		private JTextField labelId2, labelVor2, labelName2, labelZimmer2, labelVon2, labelBis2;
 		public JTextField labelId2_2, labelVor2_2, labelName2_2, labelZimmer2_2, labelVon2_2, labelBis2_2;
+		public JDateChooser bookDate2;
+		private JButton buttonBook2;
 		
 	public JPanel launchStartPanel() {
 		
@@ -57,8 +57,8 @@ public class BookDl extends GUIHelp{
 		labelResult.setBounds(x_column1, y_line6, x_width, y_height);
 		contentpane1.add(labelResult);
 		buttonBook.setBounds(x_column1, y_line13, 200, y_height);
-		buttonBook.addActionListener(new BHBookDl(this));
-		buttonBook.setActionCommand("NewBooking");
+		buttonBook.addActionListener(new BHBook(this));
+		buttonBook.setActionCommand("NewBookingDl");
 		contentpane1.add(buttonBook);
 		
 		jtfVorname.setBounds(x_column3, y_line2, x_width, y_height);
@@ -75,7 +75,7 @@ public class BookDl extends GUIHelp{
 		jf = new JFrame("Dienstleistung buchen");
 		contentpane2 = new JPanel();
 		contentpane2.setLayout(null);
-		labelGast = new JLabel("Gastdaten: ");
+		labelGast2 = new JLabel("Gastdaten: ");
 		labelId2 = new JTextField("Gastnummer: ");
 		setTfForm(labelId2);
 		labelId2_2 = new JTextField();
@@ -100,13 +100,15 @@ public class BookDl extends GUIHelp{
 		setTfForm(labelBis2);
 		labelBis2_2 = new JTextField();
 		setTfForm(labelBis2_2);
+		labelDatum2 = new JLabel("Buchungsdatum:");
+		bookDate2 = new JDateChooser();
+		labelDl2 = new JLabel("Dienstleistungen: ");
+		buttonBook2 = new JButton("Buchen");
 		
 		jf.setContentPane(contentpane2);
 		
-		
-		
-		labelGast.setBounds(x_column1, y_line1, x_width, y_height);
-		contentpane2.add(labelGast);
+		labelGast2.setBounds(x_column1, y_line1, x_width, y_height);
+		contentpane2.add(labelGast2);
 		labelId2.setBounds(x_column1, y_line2, x_width, y_height);
 		contentpane2.add(labelId2);
 		labelId2_2.setBounds(x_column3, y_line2, x_width, y_height);
@@ -131,14 +133,23 @@ public class BookDl extends GUIHelp{
 		contentpane2.add(labelBis2);
 		labelBis2_2.setBounds(x_column5, y_line4, x_width, y_height);
 		contentpane2.add(labelBis2_2);
-		
+		labelDatum2.setBounds(x_column1, y_line5, x_width, y_height);
+		contentpane2.add(labelDatum2);
+		bookDate2.setBounds(x_column1, y_line6, 100, y_height);
+		bookDate2.setSelectableDateRange(new Date(), null);
+		contentpane2.add(bookDate2);
+		labelDl2.setBounds(x_column4, y_line5, x_width, y_height);
+		contentpane2.add(labelDl2);
+		buttonBook2.setBounds(x_column1, y_line10, x_width, y_height);
+		buttonBook2.addActionListener(new BHBook(this));
+		buttonBook2.setActionCommand("BOOK?Dl");
+		contentpane2.add(buttonBook2);
 		
 		jf.setVisible(true);
 		jf.setResizable(true);
 		jf.setSize(600,500);
 		jf.setLocation(300,50);
 		jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
 	}
 	
 	/*public static void main(String[] args)

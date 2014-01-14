@@ -5,9 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
-import GUI.BookZimmer;
-import GUI.StartFrame;
-import GUI.BookDl;
+import GUI.*;
 
 
 
@@ -43,6 +41,10 @@ import GUI.BookDl;
 			{
 				sf.launchStartFrame(new BookDl().launchStartPanel(), sf.getJPanel3());
 			}
+			else if (e.getActionCommand().equals("Zimmer stornieren")){
+				sf.launchStartFrame(new CancelZimmer().launchStartPanel(), sf.getJPanel3());
+			}
+			
 		}
 	}
 

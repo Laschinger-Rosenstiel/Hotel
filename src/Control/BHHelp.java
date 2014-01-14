@@ -41,6 +41,17 @@ public class BHHelp {
 			throw new GUIException("Bitte alle Felder ausführen!");
 	}
 	
+	public void checkBookingDateDl(Date bookDate) throws GUIException{
+		Calendar cNow = new GregorianCalendar();
+		Calendar cBookDate = new GregorianCalendar();
+		cNow.setTime(new Date());
+		cBookDate.setTime(bookDate);
+		//check ob Buchungsdatum nach Aufenthalt fehlt noch
+		if (cBookDate.before(cNow)) {
+			throw new GUIException("Buchungsdatum überprüfen!");
+		}
+	}
+	
 	
 	public void checkBookingDate(Date vonDate, Date bisDate) throws GUIException{
 		
@@ -85,14 +96,6 @@ public class BHHelp {
 			else
 			{
 				throw new GUIException("Falsches Passwort");
-			}
-		
+			}	
 	}
-		
-		
-	
-		
-	
-		
-	
 }

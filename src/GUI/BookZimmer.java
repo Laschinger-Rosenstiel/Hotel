@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import Control.BHBookZimmer;
+import Control.BHBook;
 
 import javax.swing.*;
 
@@ -14,7 +14,7 @@ import com.toedter.calendar.JDateChooser;
 
 public class BookZimmer extends GUIHelp{
 	
-	BHBookZimmer ButtonHandler = new BHBookZimmer(this);
+	BHBook ButtonHandler = new BHBook(this);
 	
 	//Startpanel
 	private JPanel contentpane1;
@@ -75,11 +75,11 @@ public class BookZimmer extends GUIHelp{
 		
 		jb2 = new JButton("Auf ausgewählten Gast buchen");
 		jb2.setActionCommand("ExistBooking");
-		jb2.addActionListener(new BHBookZimmer(this));
+		jb2.addActionListener(new BHBook(this));
 		
 		jb3 = new JButton("Suche");
 		jb3.setActionCommand("SEARCH");
-		jb3.addActionListener(new BHBookZimmer(this));
+		jb3.addActionListener(new BHBook(this));
 		
 		//Bounds setzen und zur Contentpane hinzufügen
 		labeltable1.setBounds(x_column1, y_line2, x_width, y_height);
@@ -204,7 +204,7 @@ public class BookZimmer extends GUIHelp{
 		
 		weiter.setBounds(x_column1, y_line10, x_width, y_height);
 		weiter.setActionCommand("NEXT");
-		weiter.addActionListener(new BHBookZimmer(this));
+		weiter.addActionListener(new BHBook(this));
 		contentpane2.add(weiter);
 		//Color
 		contentpane2.setOpaque(true);
@@ -337,13 +337,13 @@ public class BookZimmer extends GUIHelp{
 		bookZimmer = new JButton("Zimmer buchen");
 		bookZimmer.setBounds(x_column4, y_line10, x_width, y_height);
 		bookZimmer.setActionCommand("BOOK?");
-		bookZimmer.addActionListener(new BHBookZimmer(this));
+		bookZimmer.addActionListener(new BHBook(this));
 		contentpane3.add(bookZimmer);
 		
 		back = new JButton("Zurück");
 		back.setBounds(x_column1, y_line10, x_width, y_height);
 		back.setActionCommand("BACK");
-		back.addActionListener(new BHBookZimmer(this));
+		back.addActionListener(new BHBook(this));
 		contentpane3.add(back);
 		//Color
 		contentpane3.setOpaque(true);

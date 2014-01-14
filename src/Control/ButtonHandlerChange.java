@@ -39,8 +39,10 @@ public class ButtonHandlerChange extends BHHelp implements ActionListener
 			try{
 				checkStringEmpty(cf.jpf2.getText());
 				checkStringEmpty(cf.jpf3.getText());
+				checkStringEmpty(cf.jpf4.getText());
+				checkLogin(cf.jpf4.getText(), cf.pw);
 				checkLogin(cf.jpf2.getText(), cf.jpf3.getText());
-				if(cf.jpf2.getText().equals(cf.jpf3.getText()))
+				if(cf.jpf2.getText().equals(cf.jpf3.getText()) & cf.jpf4.getText().equals(cf.pw))
 				{
 					cf.setPw(cf.jpf2.getText());
 					cf.launchLoginFrame();

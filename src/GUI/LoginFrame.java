@@ -19,8 +19,8 @@ public class LoginFrame extends GUIHelp
 	public String pw ="lala";
 	//ChangeFrame
 	public JFrame cf;
-	public JLabel l3,l4;
-	public JPasswordField jpf2,jpf3;
+	public JLabel l3,l4,l5;
+	public JPasswordField jpf2,jpf3, jpf4;
 	private JButton b3,b4;
 	
 	
@@ -50,6 +50,8 @@ public class LoginFrame extends GUIHelp
 		b4.addActionListener(new ButtonHandlerChange(this));
 		jpf2 = new JPasswordField(40);
 		jpf3 = new JPasswordField(40);
+		jpf4 = new JPasswordField(40);
+		l5 = new JLabel("Altes Passwort", JLabel.CENTER);
 		l3 = new JLabel("Neues Passwort", JLabel.CENTER);
 		l4 = new JLabel("Bestätigen", JLabel.CENTER);
 		
@@ -87,17 +89,21 @@ public class LoginFrame extends GUIHelp
 	{
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
-		l3.setBounds(10, 40,120, 30);
+		l5.setBounds(10, 10,120, 30);
+		panel.add(l5);
+		jpf4.setBounds(350, 10, 120, 30);
+		panel.add(jpf4);
+		l3.setBounds(10, 50,120, 30);
 		panel.add(l3);
-		jpf2.setBounds(350, 40, 120, 30);
+		jpf2.setBounds(350, 50, 120, 30);
 		panel.add(jpf2);
-		l4.setBounds(10, 80, 120, 30);
+		l4.setBounds(10, 90, 120, 30);
 		panel.add(l4);
-		jpf3.setBounds(350, 80, 120, 30);
+		jpf3.setBounds(350, 90, 120, 30);
 		panel.add(jpf3);
-		b4.setBounds(10, 120, 300, 30);
+		b4.setBounds(10, 130, 300, 30);
 		panel.add(b4);
-		b3.setBounds(350, 120, 300, 30);
+		b3.setBounds(350, 130, 300, 30);
 		panel.add(b3);
 		panel.setOpaque(true);
 		panel.setBackground(new Color(209,218,248));

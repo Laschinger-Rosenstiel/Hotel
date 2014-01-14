@@ -141,11 +141,12 @@ public class BookDl extends GUIHelp{
 		
 	}
 	
-	public static void main(String[] args)
+	/*public static void main(String[] args)
 	{
 		BookDl bookDl = new BookDl();
 		bookDl.launchJFrame();
 		
 	}
+	*/
 	
 }

@@ -7,6 +7,7 @@ import javax.swing.*;
 import Control.ButtonHandlerChange;
 import Control.ButtonHandlerLogin;
 
+
 public class LoginFrame extends GUIHelp 
 {
 	//Login Frame
@@ -37,6 +38,7 @@ public class LoginFrame extends GUIHelp
 		l1 = new JLabel("Konto", JLabel.CENTER);
 		l2 = new JLabel("Passwort", JLabel.CENTER);
 		jpf = new JPasswordField(40);
+		jpf.addKeyListener(new ButtonHandlerLogin(this));
 		cb = new JComboBox(konto);
 		//cb.setSelectedIndex(2);
 		cb.addActionListener(new ButtonHandlerLogin(this));
@@ -51,6 +53,7 @@ public class LoginFrame extends GUIHelp
 		jpf2 = new JPasswordField(40);
 		jpf3 = new JPasswordField(40);
 		jpf4 = new JPasswordField(40);
+		jpf4.addKeyListener(new ButtonHandlerLogin(this));
 		l5 = new JLabel("Altes Passwort", JLabel.CENTER);
 		l3 = new JLabel("Neues Passwort", JLabel.CENTER);
 		l4 = new JLabel("Bestätigen", JLabel.CENTER);

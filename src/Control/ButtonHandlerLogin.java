@@ -2,6 +2,8 @@ package Control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -13,7 +15,7 @@ import GUI.StartFrame;
 
 
 
-public class ButtonHandlerLogin extends BHHelp implements ActionListener 
+public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyListener
 {
 	LoginFrame lf;
 	StartFrame sf;
@@ -55,35 +57,167 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener
 				try{
 
 					checkStringEmpty(lf.jpf.getText());
+					if(lf.jpf.getText().equals(lf.pw))
+					{
+						sf = new StartFrame();
+						sf.launchStartFrame(sf.getJPanel2(), sf.getJPanel4());
+					}
+					else
+					{
+						try{
+							checkLogin(lf.pw, lf.jpf.getText());
+						}
+						catch(GUIException gex)
+						{
+							JOptionPane.showMessageDialog(null, gex, "Error",
+									JOptionPane.ERROR_MESSAGE);
+						}
+					}
+
+
 				}
 				catch(GUIException gex)
 				{
 					JOptionPane.showMessageDialog(null, gex, "Error",
 							JOptionPane.ERROR_MESSAGE);
 				}
-				if(lf.jpf.getText().equals(lf.pw))
-				{
-					System.out.println("passwort überprüft");
-					sf.launchStartFrame(sf.getJPanel2(), sf.getJPanel4());
-					//lf.setVisible(false);
-				}
-				else
-				{
-					try{
-						checkLogin(lf.pw, lf.jpf.getText());
-					}
-					catch(GUIException gex)
-					{
-						JOptionPane.showMessageDialog(null, gex, "Error",
-								JOptionPane.ERROR_MESSAGE);
-					}
-				}
-
 
 			}
 			else if(s.equals("Manager"))
 			{
+
 				try{
+
+					checkStringEmpty(lf.jpf.getText());
+					if(lf.jpf.getText().equals(lf.pw))
+					{
+						sf = new StartFrame();
+						sf.launchStartFrame(sf.getJPanel2(), sf.getJPanel3());
+					}
+					else
+					{
+						try{
+							checkLogin(lf.pw, lf.jpf.getText());
+						}
+						catch(GUIException gex)
+						{
+							JOptionPane.showMessageDialog(null, gex, "Error",
+									JOptionPane.ERROR_MESSAGE);
+						}
+					}
+
+
+				}
+				catch(GUIException gex)
+				{
+					JOptionPane.showMessageDialog(null, gex, "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		}
+	}
+
+
+
+
+
+	@Override
+	public void keyPressed(KeyEvent e) 
+	{
+		if(e.getKeyCode()==KeyEvent.VK_ENTER)
+		{
+			sf = new StartFrame();
+			System.out.println("1");
+			String s = (String) lf.cb.getSelectedItem();
+			System.out.println("2");
+			if(s.equals("Rezeption"))
+			{
+				try{
+
+					checkStringEmpty(lf.jpf.getText());
+					if(lf.jpf.getText().equals(lf.pw))
+					{
+						sf = new StartFrame();
+						sf.launchStartFrame(sf.getJPanel2(), sf.getJPanel4());
+					}
+					else
+					{
+						try{
+							checkLogin(lf.pw, lf.jpf.getText());
+						}
+						catch(GUIException gex)
+						{
+							JOptionPane.showMessageDialog(null, gex, "Error",
+									JOptionPane.ERROR_MESSAGE);
+						}
+					}
+
+
+				}
+				catch(GUIException gex)
+				{
+					JOptionPane.showMessageDialog(null, gex, "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+
+			}
+			else if(s.equals("Manager"))
+			{
+
+				try{
+
+					checkStringEmpty(lf.jpf.getText());
+					if(lf.jpf.getText().equals(lf.pw))
+					{
+						sf = new StartFrame();
+						sf.launchStartFrame(sf.getJPanel2(), sf.getJPanel3());
+					}
+					else
+					{
+						try{
+							checkLogin(lf.pw, lf.jpf.getText());
+						}
+						catch(GUIException gex)
+						{
+							JOptionPane.showMessageDialog(null, gex, "Error",
+									JOptionPane.ERROR_MESSAGE);
+						}
+					}
+
+
+				}
+				catch(GUIException gex)
+				{
+					JOptionPane.showMessageDialog(null, gex, "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		}
+	}
+	
+
+
+
+
+		@Override
+		public void keyReleased(KeyEvent arg0) 
+		{
+			// TODO Auto-generated method stub
+
+		}
+
+
+
+
+		@Override
+		public void keyTyped(KeyEvent arg0) 
+		{
+			// TODO Auto-generated method stub
+
+		}
+	}
+
+	/*try{
 
 					checkStringEmpty(lf.jpf.getText());
 				}
@@ -112,4 +246,8 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener
 
 		}
 	}
-}
+	 */
+
+
+
+

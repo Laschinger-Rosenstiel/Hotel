@@ -29,7 +29,7 @@ public class StartFrame extends JFrame
 		jb3.setActionCommand("Zimmer stornieren");
 		jb3.addActionListener(new ButtonHandlerStartFrame(this));
 		jb4 = new JButton("Dienstleistung");
-		jb4.setActionCommand("Dienstleistung stornieren");
+		jb4.setActionCommand("Dl stornieren");
 		jb4.addActionListener(new ButtonHandlerStartFrame(this));
 		jb6 = new JButton("Verfügbarkeit");
 		jb6.setActionCommand("Verfügbarkeit prüfen");

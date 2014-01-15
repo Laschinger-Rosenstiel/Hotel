@@ -49,6 +49,15 @@ public class ButtonHandlerStartFrame implements ActionListener
 			else if (e.getActionCommand().equals("Zimmer stornieren")){
 				sf.launchStartFrame(new CancelZimmer().launchStartPanel(), sf.getJPanel4());
 			}
+			else if (e.getActionCommand().equals("Dl stornieren")){
+				sf.launchStartFrame(new CancelDl().launchStartPanel(), sf.getJPanel4());
+			}
+			else if (e.getActionCommand().equals("Verfügbarkeit prüfen")) {
+				sf.launchStartFrame(new CheckZimmer().launchStartPanel(), sf.getJPanel4());
+			}
+			else if (e.getActionCommand().equals("Preis berechnen")) {
+				sf.launchStartFrame(new CalcPreis().launchStartPanel(), sf.getJPanel4());
+			}
 		}
 		else if(sf.getS().equals("Manager"))
 		{
@@ -68,6 +77,17 @@ public class ButtonHandlerStartFrame implements ActionListener
 			{
 				sf.launchStartFrame(new CancelZimmer().launchStartPanel(), sf.getJPanel3());
 			}
+			else if (e.getActionCommand().equals("Dl stornieren")){
+				sf.launchStartFrame(new CancelDl().launchStartPanel(), sf.getJPanel3());
+			}
+			else if (e.getActionCommand().equals("Verfügbarkeit prüfen")) {
+				sf.launchStartFrame(new CheckZimmer().launchStartPanel(), sf.getJPanel3());
+			}
+			else if (e.getActionCommand().equals("Preis berechnen")) {
+				sf.launchStartFrame(new CalcPreis().launchStartPanel(), sf.getJPanel3());
+		
+		
+		
 		}
 	}
 
@@ -94,4 +114,4 @@ public class ButtonHandlerStartFrame implements ActionListener
 */
 
 }
-
+}

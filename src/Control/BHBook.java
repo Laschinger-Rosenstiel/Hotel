@@ -128,6 +128,10 @@ public class BHBook extends BHHelp implements ActionListener{
 				JOptionPane.showMessageDialog(null, gex, "Error",
                         JOptionPane.ERROR_MESSAGE);
 			}			
+			catch (NullPointerException nex) {
+				JOptionPane.showMessageDialog(null, "Bitte Buchungsdatum eintragen", "Error",
+						JOptionPane.ERROR_MESSAGE);
+			}
 		}
 		
 		else if (e.getActionCommand().equals("NewBookingDl")) {

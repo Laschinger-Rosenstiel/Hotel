@@ -1,8 +1,6 @@
 package GUI;
 
 import java.awt.Color;
-import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,9 +25,10 @@ public class CancelZimmer extends GUIHelp{
 		buttonCancelZimmer = new JButton("Stornieren");
 		buttonCancelZimmer.addActionListener(ButtonHandler);
 		buttonCancelZimmer.setActionCommand("CancelZimmer?");
-	
+		buttonCancelZimmer.setBounds(x_column1, y_line10, x_width, y_height);
+		contentpane1.add(buttonCancelZimmer);
 		
-		labelCancelZimmer.setBounds(x_column1, y_line1, x_width, y_height);
+		labelCancelZimmer.setBounds(x_column1, y_line1, 200, y_height);
 		contentpane1.add(labelCancelZimmer);
 		
 		//Color

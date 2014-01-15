@@ -5,16 +5,21 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import GUI.CancelDl;
 import GUI.CancelZimmer;
 
 public class BHCancel implements ActionListener{
 
 	CancelZimmer guiZimmer;
+	CancelDl guiDl;
 	
 	public BHCancel (CancelZimmer guiZimmer) {
 		this.guiZimmer = guiZimmer;
 	}
 	
+	public BHCancel (CancelDl guiDl) {
+		this.guiDl = guiDl;
+	}
 
 	public void actionPerformed(ActionEvent e) throws NullPointerException {
 		

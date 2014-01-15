@@ -36,7 +36,7 @@ public class StartFrame extends JFrame
 		jb6.addActionListener(new ButtonHandlerStartFrame(this));
 		jb5 = new JButton("Preis");
 		jb5.setActionCommand("Preis berechnen");
-		jb6.addActionListener(new ButtonHandlerStartFrame(this));
+		jb5.addActionListener(new ButtonHandlerStartFrame(this));
 		jb7 = new JButton("Gast");
 		jb7.setActionCommand("Gast anlegen");
 		jb7.addActionListener(new ButtonHandlerStartFrame(this));

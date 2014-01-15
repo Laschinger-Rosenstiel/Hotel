@@ -4,17 +4,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
-
+import GUI.CalcPreis;
 import GUI.CheckZimmer; 
 
 public class BHOther extends BHHelp implements ActionListener{
 	CheckZimmer guiZimmer;
+	CalcPreis guiPreis;
 	
 	public BHOther (CheckZimmer guiZimmer) {
 		this.guiZimmer = guiZimmer;
 	}
 	
-	
+	public BHOther (CalcPreis guiPreis) {
+		this.guiPreis = guiPreis;
+	}
 
 	public void actionPerformed(ActionEvent e) throws NullPointerException {
 		
@@ -34,7 +37,7 @@ public class BHOther extends BHHelp implements ActionListener{
 			}			
 		}
 		
-		else if (e.getActionCommand().equals("blabla")){
+		else if (e.getActionCommand().equals("Search")){
 
 		}
 	}

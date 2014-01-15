@@ -2,9 +2,7 @@ package GUI;
 
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import Control.BHBook;
 
@@ -34,8 +32,6 @@ public class BookZimmer extends GUIHelp{
 	private JLabel labeltable3, labeljtfVorname2, labeljtfName2, labeljtfGeb2, labeljtfStr2, labeljtfPlz2, labeljtfOrt2, labeljtfLand2, labeljtfTel2;
 	private JButton weiter;
 	public JDateChooser geb2;
-	Date now = new Date();
-	Calendar calendar = new GregorianCalendar();
 	
 	//Frame 2nd Card
 	public JPanel contentpane3 = null;
@@ -99,6 +95,9 @@ public class BookZimmer extends GUIHelp{
 		contentpane1.add(jtfVorname);
 		jtfName.setBounds(x_column3, y_line4, x_width, y_height);
 		contentpane1.add(jtfName);
+		
+		
+		setGebRoom(geb);
 		geb.setBounds(x_column3, y_line5, x_width, y_height);
 		contentpane1.add(geb);
 		
@@ -177,10 +176,7 @@ public class BookZimmer extends GUIHelp{
 		jtfName2.setBounds(x_column3, y_line3, x_width, y_height);
 		contentpane2.add(jtfName2);
 		
-		calendar.setTime(now);
-		calendar.add(Calendar.YEAR, -120);
-		Date past = calendar.getTime();
-		geb2.setSelectableDateRange(past, now);
+		setGebRoom(geb2);
 		geb2.setBounds(x_column3, y_line4, x_width, y_height);
 		contentpane2.add(geb2);
 		

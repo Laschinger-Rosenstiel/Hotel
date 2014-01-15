@@ -32,7 +32,7 @@ public class BookDl extends GUIHelp{
 		contentpane1 = new JPanel();
 		contentpane1.setLayout(null);
 		
-		labelSearch = new JLabel("Kundensuche:", JLabel.LEFT);
+		labelSearch = new JLabel("Gastsuche:", JLabel.LEFT);
 		labelVor = new JLabel("Vorname: ", JLabel.LEFT);
 		labelName = new JLabel("Nachname: ", JLabel.LEFT);
 		labelGeb = new JLabel("Geburtstag: ", JLabel.LEFT);
@@ -65,6 +65,7 @@ public class BookDl extends GUIHelp{
 		contentpane1.add(jtfVorname);
 		jtfName.setBounds(x_column3, y_line3, x_width, y_height);
 		contentpane1.add(jtfName);
+		setGebRoom(geb);
 		geb.setBounds(x_column3, y_line4, x_width, y_height);
 		contentpane1.add(geb);
 		

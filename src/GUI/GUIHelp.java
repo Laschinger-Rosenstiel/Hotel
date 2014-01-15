@@ -1,8 +1,13 @@
 package GUI;
 
 import java.awt.Font;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.JTextField;
+
+import com.toedter.calendar.JDateChooser;
 
 public class GUIHelp {
 	//Y-Koordinaten
@@ -29,6 +34,11 @@ public class GUIHelp {
 	//Standardgrößen
 	int x_width = 150;
 	int y_height = 20;
+	
+	Date now = new Date();
+	Calendar calendar = new GregorianCalendar();
+	
+	
 
 public JTextField setTfForm (JTextField tf){
 	Font fontTf=new Font(tf.getFont().getName(),Font.BOLD,tf.getFont().getSize());
@@ -37,4 +47,12 @@ public JTextField setTfForm (JTextField tf){
 	tf.setFont(fontTf);
 	return tf;
 }
+
+public void setGebRoom(JDateChooser geb) {
+	calendar.setTime(now);
+	calendar.add(Calendar.YEAR, -120);
+	Date past = calendar.getTime();
+	geb.setSelectableDateRange(past, now);
+}
+
 }

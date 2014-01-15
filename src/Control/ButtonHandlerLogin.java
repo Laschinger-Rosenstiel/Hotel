@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -19,13 +20,17 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyLi
 {
 	LoginFrame lf;
 	StartFrame sf;
-
+	String s;
 
 
 
 	public ButtonHandlerLogin(LoginFrame x)
 	{
 		lf = x;
+	}
+	public ButtonHandlerLogin(StartFrame x)
+	{
+		sf = x;
 	}
 
 
@@ -47,11 +52,10 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyLi
 		else if(e.getActionCommand().equals("Next"))
 		{
 
-
 			sf = new StartFrame();
 			System.out.println("1");
-			String s = (String) lf.cb.getSelectedItem();
-			System.out.println("2");
+			s = (String) lf.cb.getSelectedItem();
+			System.out.println(s);
 			if(s.equals("Rezeption"))
 			{
 				try{
@@ -60,7 +64,9 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyLi
 					if(lf.jpf.getText().equals(lf.pw))
 					{
 						sf = new StartFrame();
+						sf.setS(s);
 						sf.launchStartFrame(sf.getJPanel2(), sf.getJPanel4());
+						
 					}
 					else
 					{
@@ -92,6 +98,7 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyLi
 					if(lf.jpf.getText().equals(lf.pw))
 					{
 						sf = new StartFrame();
+						sf.setS(s);
 						sf.launchStartFrame(sf.getJPanel2(), sf.getJPanel3());
 					}
 					else
@@ -138,6 +145,7 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyLi
 					if(lf.jpf.getText().equals(lf.pw))
 					{
 						sf = new StartFrame();
+						sf.setS(s);
 						sf.launchStartFrame(sf.getJPanel2(), sf.getJPanel4());
 					}
 					else
@@ -170,6 +178,7 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyLi
 					if(lf.jpf.getText().equals(lf.pw))
 					{
 						sf = new StartFrame();
+						sf.setS(s);
 						sf.launchStartFrame(sf.getJPanel2(), sf.getJPanel3());
 					}
 					else

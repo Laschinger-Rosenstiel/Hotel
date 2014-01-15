@@ -12,7 +12,7 @@ public class StartFrame extends JFrame
 	private JButton jb1, jb2, jb3, jb4, jb5, jb6, jb7,jb8, jb9; 
 	public JLabel label1, label2, label3, label4, label5;
 	JPanel p2, p3, p4;
-	
+	String s = "";
 
 	public StartFrame()
 	{ 
@@ -51,6 +51,7 @@ public class StartFrame extends JFrame
 		label3 = new JLabel("Weitere ", JLabel.CENTER);
 		label4 = new JLabel("Stammdaten ", JLabel.CENTER);
 		label5 = new JLabel("Buchungssystem ", JLabel.CENTER);
+		
 		
 
 	}
@@ -155,6 +156,14 @@ public class StartFrame extends JFrame
 		{
 			//exception
 		}
+	}
+	public void setS(String x)
+	{
+		s = x;
+	}
+	public String getS()
+	{
+		return s;
 	}
 
 	

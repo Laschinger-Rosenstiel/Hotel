@@ -16,7 +16,7 @@ import Control.ButtonHandlerData;
 
 public class DataZimmer extends GUIHelp
 {
-	public JFrame jf, cf;
+	public JFrame cf;
 	private JButton b1,b2, b3, b4;
 	public JTextField jtf1, jtf2;
 	public JComboBox cb;
@@ -28,7 +28,7 @@ public class DataZimmer extends GUIHelp
 	public DataZimmer()
 	{
 		//First JFrame
-		jf = new JFrame();
+		//jf = new JFrame();
 		b1 = new JButton("Ändern");
 		b1.setActionCommand("Change");
 		b1.addActionListener(new ButtonHandlerData(this));
@@ -69,10 +69,10 @@ public class DataZimmer extends GUIHelp
 		panel.setOpaque(true);
 		panel.setBackground(new Color(209,218,248));
 		
-		jf.add(panel);
+		/*jf.add(panel);
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf.setVisible(true);
-		
+		*/
 		return panel;
 	}
 	

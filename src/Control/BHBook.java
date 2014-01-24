@@ -31,7 +31,7 @@ public class BHBook extends BHHelp implements ActionListener{
 		else if (e.getActionCommand().equals("NEXT")) {
 			
 			try {
-				checkStringEmpty(guiZimmer.jtfVorname2.getText());
+				/*checkStringEmpty(guiZimmer.jtfVorname2.getText());
 				checkStringEmpty(guiZimmer.jtfName2.getText());
 				checkStringEmpty(guiZimmer.jtfStr2.getText());
 				checkStringEmpty(guiZimmer.jtfHn2.getText());
@@ -43,6 +43,12 @@ public class BHBook extends BHHelp implements ActionListener{
 				checkNumber(guiZimmer.jtfPlz2.getText());
 				checkBirthday(guiZimmer.geb2.getDate());
 				checkTel(guiZimmer.jtfTel2_1.getText(), guiZimmer.jtfTel2_2.getText(), guiZimmer.jtfTel2_3.getText());			
+				*/
+				
+				WriteDB wdb = new WriteDB("INSERT INTO gast (Vorname, Name, Strasse, Hausnummer, PLZ, ORT)" + "VALUES('"+ guiZimmer.jtfVorname2.getText() + 
+						"', '"+ guiZimmer.jtfName2.getText()+"', '"+guiZimmer.jtfStr2.getText()+"', '"+guiZimmer.jtfHn2.getText()+"', '"+guiZimmer.jtfPlz2.getText()+"', '"+
+				guiZimmer.jtfOrt2.getText()+"')"); 
+
 				
 				guiZimmer.contentpane3 = guiZimmer.launchSecond();	
 				guiZimmer.labelVor3_2.setText(guiZimmer.jtfVorname2.getText());
@@ -70,11 +76,12 @@ public class BHBook extends BHHelp implements ActionListener{
 				guiZimmer.cardLayout.show(this.guiZimmer.card, "Card2");
 			}
 			
-			catch (GUIException gex){
+			/*catch (GUIException gex){
 			
 					JOptionPane.showMessageDialog(null, gex, "Error",
 				                                  JOptionPane.ERROR_MESSAGE);
 			}
+			*/
 			catch (NullPointerException ex) {
 				JOptionPane.showMessageDialog(guiZimmer.jf, "Bitte Geburtsdatum eintragen", "Error",
 						JOptionPane.ERROR_MESSAGE);

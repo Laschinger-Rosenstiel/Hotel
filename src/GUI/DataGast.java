@@ -12,19 +12,20 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import Control.ButtonHandlerData;
+import Control.JTableview;
 
 public class DataGast extends GUIHelp
 {
-	public JFrame jf;
+	//public JFrame jf;
 	private JButton b1,b2;
 	public JTextField tf1, tf2, tf3;
 	private JLabel l1,l2,l3,l4;
 	//add jtableview
-	//public JTableview jtv;
+	public JTableview jtv;
 	
 	public DataGast()
 	{
-		jf = new JFrame();
+		//jf = new JFrame();
 		b1 = new JButton("Ändern");
 		b1.setActionCommand("Change");
 		b1.addActionListener(new ButtonHandlerData(this));
@@ -38,7 +39,7 @@ public class DataGast extends GUIHelp
 		l2 = new JLabel("Name:", JLabel.LEFT);
 		l3 = new JLabel("Geburtsdatum:", JLabel.LEFT);
 		l4 = new JLabel("Gastsuche:", JLabel.LEFT);
-		
+		jtv = new JTableview("Select * From gast");
 	}
 	
 	public JPanel launchJFrame()
@@ -59,6 +60,10 @@ public class DataGast extends GUIHelp
 		panel.add(tf2);
 		tf3.setBounds(x_column3, y_line4, x_width, y_height);
 		panel.add(tf3);
+		JTable abc = jtv.getSQLTable();
+		JScrollPane scrollPane = new JScrollPane(abc); 
+		scrollPane.setBounds(x_column1, y_line5, 600, 600); 
+		panel.add(scrollPane);
 		b1.setBounds(x_column1, y_line13, x_width, y_height);
 		panel.add(b1);
 		b2.setBounds(x_column3, y_line13, x_width, y_height);
@@ -66,9 +71,9 @@ public class DataGast extends GUIHelp
 		panel.setOpaque(true);
 		panel.setBackground(new Color(209,218,248));
 		
-		jf.add(panel);
-		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jf.setVisible(true);
+		//jf.add(panel);
+		//.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//jf.setVisible(true);
 		
 		return panel;
 	}

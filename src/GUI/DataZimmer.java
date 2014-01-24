@@ -20,7 +20,7 @@ public class DataZimmer extends GUIHelp
 	private JButton b1,b2, b3, b4;
 	public JTextField jtf1, jtf2;
 	public JComboBox cb;
-	public JLabel l1,l2,l3;
+	public JLabel l1,l2,l3,l4;
 	public String[] typ ={"Einzelzimmer","Doppelzimmer"};
 	//add jtableview
 	//public JTableview jtv;
@@ -38,15 +38,17 @@ public class DataZimmer extends GUIHelp
 		b3 = new JButton("Anlegen");
 		b3.setActionCommand("Create");
 		b3.addActionListener(new ButtonHandlerData(this));
+		l4 = new JLabel("Stammdaten Zimmer:", JLabel.LEFT);
+		
 		
 		//Second JFrame
 		cf = new JFrame();
 		cb = new JComboBox(typ);
 		jtf1 = new JTextField(40);
 		jtf2 = new JTextField(40);
-		l1 = new JLabel("Zimmertyp", JLabel.CENTER);
-		l2 = new JLabel("Preis", JLabel.CENTER);
-		l3 = new JLabel("Zimmernr", JLabel.CENTER);
+		l1 = new JLabel("Zimmertyp:", JLabel.LEFT);
+		l2 = new JLabel("Preis:", JLabel.LEFT);
+		l3 = new JLabel("Zimmernr:", JLabel.LEFT);
 		b4 = new JButton("Bestätigen");
 		b4.setActionCommand("Confirme");
 		b4.addActionListener(new ButtonHandlerData(this));
@@ -56,29 +58,14 @@ public class DataZimmer extends GUIHelp
 	{
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
-		b1.setBounds(x_column2, y_line13, x_width, y_height);
+		l4.setBounds(x_column1, y_line1, x_width, y_height);
+		panel.add(l4);
+		b1.setBounds(x_column1, y_line13, x_width, y_height);
 		panel.add(b1);
-		b2.setBounds(x_column4, y_line13, x_width, y_height);
+		b2.setBounds(x_column3, y_line13, x_width, y_height);
 		panel.add(b2);
 		b3.setBounds(x_column4, y_line13, x_width, y_height);
 		panel.add(b3);
-		/*if(jtv == null)
-		{
-			//create new JTable
-			jtv = new JTableView();
-		}
-		else
-		{
-			//update JTable
-			jtv.updateJT();
-		}
-		 // 2. create JScrollPane with reference to the JTable
-		JScrollPane scrollPane = new JScrollPane(jtv.getSQLTable());
-		// 3. set bounds of the JTable with the JScrollPane
-		scrollPane.setBounds(x_column1, y_line1, x_column5, y_line12);
-		// 4. add JTable with JScrollPane to Jpanel
-		panel.add(scrollPane); 
-		*/
 		panel.setOpaque(true);
 		panel.setBackground(new Color(209,218,248));
 		
@@ -93,26 +80,28 @@ public class DataZimmer extends GUIHelp
 	{
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
-		l1.setBounds(x_column1, y_line1, x_width, y_height);
+		l1.setBounds(x_column1, y_line2, x_width, y_height);
 		panel.add(l1);
-		cb.setBounds(x_column2, y_line1, x_width, y_height);
+		cb.setBounds(x_column3, y_line2, x_width, y_height);
 		panel.add(cb);
-		l2.setBounds(x_column1, y_line2, x_width, y_height);
+		l2.setBounds(x_column1, y_line3, x_width, y_height);
 		panel.add(l2);
-		jtf1.setBounds(x_column2, y_line2, x_width, y_height);
+		jtf1.setBounds(x_column3, y_line3, x_width, y_height);
 		panel.add(jtf1);
-		l3.setBounds(x_column1, y_line3, x_width, y_height);
+		l3.setBounds(x_column1, y_line4, x_width, y_height);
 		panel.add(l3);
-		jtf2.setBounds(x_column2, y_line3, x_width, y_height);
+		jtf2.setBounds(x_column3, y_line4, x_width, y_height);
 		panel.add(jtf2);
-		b4.setBounds(x_column2, y_line4, x_width, y_height);
+		b4.setBounds(x_column3, y_line5, x_width, y_height);
 		panel.add(b4);
 		
 		panel.setOpaque(true);
 		panel.setBackground(new Color(209,218,248));
 		
 		cf.add(panel);
-		cf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		cf.setLocation(300, 50);
+		cf.setSize(600,500);
+		cf.setDefaultCloseOperation(cf.DISPOSE_ON_CLOSE);
 		cf.setVisible(true);
 				
 	}

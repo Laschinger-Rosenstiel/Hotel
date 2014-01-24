@@ -1,4 +1,4 @@
-package Control;
+/*package Control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,7 +34,7 @@ public class ButtonHandlerChange extends BHHelp implements ActionListener, KeyLi
 		if(e.getActionCommand().equals("BackToLogin"))
 		{
 			System.out.println("blub");
-			cf.cf.setVisible(false);
+			cf.cf.dispose();
 		}
 		else if(e.getActionCommand().equals("SavePw"))
 		{
@@ -48,7 +48,7 @@ public class ButtonHandlerChange extends BHHelp implements ActionListener, KeyLi
 				{
 					cf.setPw(cf.jpf2.getText());
 					cf.launchLoginFrame();
-					cf.cf.setVisible(false);
+					cf.cf.dispose();
 				}
 
 			}

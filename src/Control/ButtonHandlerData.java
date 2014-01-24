@@ -52,6 +52,10 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 			}
 			else if(e.getActionCommand().equals("Create"))
 			{
+				dz.launchCreateFrame();
+			}
+			else if(e.getActionCommand().equals("Confirme"))
+			{
 				
 			}
 		}
@@ -66,6 +70,10 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 				
 			}
 			else if(e.getActionCommand().equals("Create"))
+			{
+				dd.launchCreateFrame();
+			}
+			else if(e.getActionCommand().equals("Confirme"))
 			{
 				
 			}

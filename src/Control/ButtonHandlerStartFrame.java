@@ -37,10 +37,7 @@ public class ButtonHandlerStartFrame implements ActionListener
 			System.out.println("Das Ereignis hat den Wert: " +e.getActionCommand());
 			if (e.getActionCommand().equals("Zimmer buchen"))
 			{
-				BookZimmer bz = new BookZimmer();
-				System.out.println("vor ausführen bookzimmer()");
-				sf.launchStartFrame(bz.launchStartPanel(),sf.getJPanel4());
-				System.out.println("nach ausführen bookzimmer()");
+				sf.launchStartFrame(new BookZimmer().launchStartPanel(),sf.getJPanel4());
 			}
 			else if (e.getActionCommand().equals("Dl buchen"))
 			{
@@ -64,10 +61,7 @@ public class ButtonHandlerStartFrame implements ActionListener
 			System.out.println("Das Ereignis hat den Wert: " +e.getActionCommand());
 			if (e.getActionCommand().equals("Zimmer buchen"))
 			{
-				BookZimmer bz = new BookZimmer();
-				System.out.println("vor ausführen bookzimmer()");
-				sf.launchStartFrame(bz.launchStartPanel(),sf.getJPanel3());
-				System.out.println("nach ausführen bookzimmer()");
+				sf.launchStartFrame(new BookZimmer().launchStartPanel(),sf.getJPanel3());
 			}
 			else if (e.getActionCommand().equals("Dl buchen"))
 			{
@@ -77,16 +71,29 @@ public class ButtonHandlerStartFrame implements ActionListener
 			{
 				sf.launchStartFrame(new CancelZimmer().launchStartPanel(), sf.getJPanel3());
 			}
-			else if (e.getActionCommand().equals("Dl stornieren")){
+			else if (e.getActionCommand().equals("Dl stornieren"))
+			{
 				sf.launchStartFrame(new CancelDl().launchStartPanel(), sf.getJPanel3());
 			}
-			else if (e.getActionCommand().equals("Verfügbarkeit prüfen")) {
+			else if (e.getActionCommand().equals("Verfügbarkeit prüfen"))
+			{
 				sf.launchStartFrame(new CheckZimmer().launchStartPanel(), sf.getJPanel3());
 			}
-			else if (e.getActionCommand().equals("Preis berechnen")) {
+			else if (e.getActionCommand().equals("Preis berechnen")) 
+			{
 				sf.launchStartFrame(new CalcPreis().launchStartPanel(), sf.getJPanel3());
-		
-		
+			}
+			else if (e.getActionCommand().equals("Gast anlegen")) 
+			{
+					sf.launchStartFrame(new DataGast().launchJFrame(), sf.getJPanel3());
+			}
+			else if (e.getActionCommand().equals("Zimmer anlegen")) 
+			{
+				sf.launchStartFrame(new DataZimmer().launchJFrame(), sf.getJPanel3());
+			}
+			else if (e.getActionCommand().equals("Dienstleistung anlegen")) 
+			{
+				sf.launchStartFrame(new DataDienst().launchJFrame(), sf.getJPanel3());
 		
 		}
 	}

@@ -20,6 +20,8 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyLi
 {
 	LoginFrame lf;
 	StartFrame sf;
+	
+	
 	String s;
 
 
@@ -41,21 +43,47 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyLi
 		//System.out.println("Das Ereignis hat den Wert: " +e.getActionCommand());
 		if (e.getActionCommand().equals("Change"))
 		{
-
-			System.out.println("Passwort ändern");
+			//System.out.println("Passwort ändern");
 			lf.launchChangeFrame();
 			//lf.jf.setVisible(false);
-			System.out.println("blob");
+			//System.out.println("blob");
+		}
+		else if(e.getActionCommand().equals("BackToLogin"))
+		{
+			
+			System.out.println("blub");
+			lf.cf.dispose();
+		}
+		else if(e.getActionCommand().equals("SavePw"))
+		{
+			try{
+				checkStringEmpty(lf.jpf2.getText());
+				checkStringEmpty(lf.jpf3.getText());
+				checkStringEmpty(lf.jpf4.getText());
+				checkLogin(lf.jpf4.getText(), lf.pw);
+				checkLogin(lf.jpf2.getText(), lf.jpf3.getText());
+				if(lf.jpf2.getText().equals(lf.jpf3.getText()) & lf.jpf4.getText().equals(lf.pw))
+				{
+					lf.setPw(lf.jpf2.getText());
+					lf.launchLoginFrame();
+					lf.cf.dispose();
+				}
+
+			}
+			catch(GUIException gex)
+			{
+				JOptionPane.showMessageDialog(null, gex, "Error",
+						JOptionPane.ERROR_MESSAGE);
+			}
 
 		}
-
 		else if(e.getActionCommand().equals("Next"))
 		{
 
-			sf = new StartFrame();
-			System.out.println("1");
+			//sf = new StartFrame();
+			//System.out.println("1");
 			s = (String) lf.cb.getSelectedItem();
-			System.out.println(s);
+			//System.out.println(s);
 			if(s.equals("Rezeption"))
 			{
 				try{
@@ -63,9 +91,11 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyLi
 					checkStringEmpty(lf.jpf.getText());
 					if(lf.jpf.getText().equals(lf.pw))
 					{
+						
 						sf = new StartFrame();
 						sf.setS(s);
 						sf.launchStartFrame(sf.getJPanel2(), sf.getJPanel4());
+						lf.jf.dispose();
 						
 					}
 					else
@@ -100,6 +130,7 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyLi
 						sf = new StartFrame();
 						sf.setS(s);
 						sf.launchStartFrame(sf.getJPanel2(), sf.getJPanel3());
+						lf.jf.dispose();
 					}
 					else
 					{
@@ -115,11 +146,13 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyLi
 
 
 				}
+				
 				catch(GUIException gex)
 				{
 					JOptionPane.showMessageDialog(null, gex, "Error",
 							JOptionPane.ERROR_MESSAGE);
 				}
+				
 			}
 		}
 	}
@@ -133,10 +166,8 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyLi
 	{
 		if(e.getKeyCode()==KeyEvent.VK_ENTER)
 		{
-			sf = new StartFrame();
-			System.out.println("1");
+			//sf = new StartFrame();
 			String s = (String) lf.cb.getSelectedItem();
-			System.out.println("2");
 			if(s.equals("Rezeption"))
 			{
 				try{
@@ -147,6 +178,7 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyLi
 						sf = new StartFrame();
 						sf.setS(s);
 						sf.launchStartFrame(sf.getJPanel2(), sf.getJPanel4());
+						lf.jf.dispose();
 					}
 					else
 					{
@@ -180,6 +212,7 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyLi
 						sf = new StartFrame();
 						sf.setS(s);
 						sf.launchStartFrame(sf.getJPanel2(), sf.getJPanel3());
+						lf.jf.dispose();
 					}
 					else
 					{
@@ -225,38 +258,4 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyLi
 
 		}
 	}
-
-	/*try{
-
-					checkStringEmpty(lf.jpf.getText());
-				}
-				catch(GUIException gex)
-				{
-					JOptionPane.showMessageDialog(null, gex, "Error",
-							JOptionPane.ERROR_MESSAGE);
-				}
-				if(lf.jpf.getText().equals("lala"))
-				{
-					sf.launchStartFrame(sf.getJPanel2(), sf.getJPanel3());
-					//lf.setVisible(false);
-				}
-				else
-				{
-					try{
-						checkLogin(lf.pw, lf.jpf.getText());
-					}
-					catch(GUIException gex)
-					{
-						JOptionPane.showMessageDialog(null, gex, "Error",
-								JOptionPane.ERROR_MESSAGE);
-					}
-				}
-			}
-
-		}
-	}
-	 */
-
-
-
 

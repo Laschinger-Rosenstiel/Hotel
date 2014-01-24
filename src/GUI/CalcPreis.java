@@ -1,10 +1,14 @@
 package GUI;
 
+import java.awt.Color;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
 import Control.BHOther;
+
 import com.toedter.calendar.JDateChooser;
 
 public class CalcPreis extends GUIHelp{
@@ -61,6 +65,8 @@ public class CalcPreis extends GUIHelp{
 		contentpane1.add(buttonSearchGast);
 		labelBookings.setBounds(x_column1, y_line6, x_width, y_height);
 		contentpane1.add(labelBookings);
+		contentpane1.setOpaque(true);
+		contentpane1.setBackground(new Color(209,218,248));
 		
 		
 		return contentpane1;

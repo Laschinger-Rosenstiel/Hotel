@@ -18,7 +18,7 @@ public class StartFrame extends JFrame
 	{ 
 		// initialize new JFrames and gui objects
 
-		sf = new JFrame("Mainframe");
+		sf = new JFrame("BUCHUNGSSYSTEM");
 		jb1 = new JButton("Zimmer");
 		jb1.setActionCommand("Zimmer buchen");
 		jb1.addActionListener(new ButtonHandlerStartFrame(this));
@@ -95,8 +95,6 @@ public class StartFrame extends JFrame
 
 	public void launchStartFrame(JPanel a, JPanel b) throws NullPointerException
 	{
-		if(a!=null & b!=null)
-		{
 			p2 = a;
 			p3 = b;
 		 
@@ -150,12 +148,7 @@ public class StartFrame extends JFrame
 		sf.setExtendedState(sf.getExtendedState() | sf.MAXIMIZED_BOTH );
 		sf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		sf.setVisible(true);
-		
-		}
-		else
-		{
-			//exception
-		}
+	
 	}
 	public void setS(String x)
 	{
@@ -165,15 +158,6 @@ public class StartFrame extends JFrame
 	{
 		return s;
 	}
-
-	
-
-	/*public static void main(String[]args)
-	{
-		StartFrame startframe = new StartFrame();
-		startframe.launchStartFrame(startframe.getJPanel2(), startframe.getJPanel4());
-	}
-	*/
 	
 
 }

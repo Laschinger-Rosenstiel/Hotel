@@ -4,7 +4,7 @@ import java.awt.*;
 
 import javax.swing.*;
 
-import Control.ButtonHandlerChange;
+//import Control.ButtonHandlerChange;
 import Control.ButtonHandlerLogin;
 
 
@@ -46,10 +46,10 @@ public class LoginFrame extends GUIHelp
 		cf = new JFrame("Passwort ändern");
 		b3 = new JButton("Passwort speichern");
 		b3.setActionCommand("SavePw");
-		b3.addActionListener(new ButtonHandlerChange(this));
+		b3.addActionListener(new ButtonHandlerLogin(this));
 		b4 = new JButton("Zurück");
 		b4.setActionCommand("BackToLogin");
-		b4.addActionListener(new ButtonHandlerChange(this));
+		b4.addActionListener(new ButtonHandlerLogin(this));
 		jpf2 = new JPasswordField(40);
 		jpf3 = new JPasswordField(40);
 		jpf4 = new JPasswordField(40);
@@ -84,6 +84,7 @@ public class LoginFrame extends GUIHelp
 		jf.setLocation(200, 200);
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf.setVisible(true);
+		
 		
 		
 	}

@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.ScrollPane;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -17,61 +18,71 @@ import Control.JTableview;
 
 public class DataZimmer extends GUIHelp
 {
-	public JFrame cf;
-	private JButton b1,b2, b3, b4;
-	public JTextField jtf1, jtf2;
+	public JFrame createFrame;
+	private JButton bChange,bDel, bCreate, bConfirme;
+	public JTextField jtfZnr, jtfPreis;
 	public JComboBox cb;
 	public JLabel l1,l2,l3,l4;
 	public String[] typ ={"Einzelzimmer","Doppelzimmer"};
 	//add jtableview
 	public JTableview jtv;
+	public JPanel panel;
+	public JScrollPane scrollPane;
+	public JTable abc;
 	
 	public DataZimmer()
 	{
 		//First JFrame
 		//jf = new JFrame();
-		b1 = new JButton("Ändern");
-		b1.setActionCommand("Change");
-		b1.addActionListener(new ButtonHandlerData(this));
-		b2 = new JButton("Löschen");
-		b2.setActionCommand("Delete");
-		b2.addActionListener(new ButtonHandlerData(this));
-		b3 = new JButton("Anlegen");
-		b3.setActionCommand("Create");
-		b3.addActionListener(new ButtonHandlerData(this));
+		bChange = new JButton("Ändern");
+		bChange.setActionCommand("Change");
+		bChange.addActionListener(new ButtonHandlerData(this));
+		bDel = new JButton("Löschen");
+		bDel.setActionCommand("Delete");
+		bDel.addActionListener(new ButtonHandlerData(this));
+		bCreate = new JButton("Anlegen");
+		bCreate.setActionCommand("Create");
+		bCreate.addActionListener(new ButtonHandlerData(this));
 		l4 = new JLabel("Stammdaten Zimmer:", JLabel.LEFT);
-		jtv = new JTableview("Select * from Zimmer");
+		
 		
 		
 		//Second JFrame
-		cf = new JFrame();
+		createFrame = new JFrame();
 		cb = new JComboBox(typ);
-		jtf1 = new JTextField(40);
-		jtf2 = new JTextField(40);
+		jtfZnr = new JTextField(40);
+		jtfPreis = new JTextField(40);
 		l1 = new JLabel("Zimmertyp:", JLabel.LEFT);
 		l2 = new JLabel("Preis:", JLabel.LEFT);
 		l3 = new JLabel("Zimmernr:", JLabel.LEFT);
-		b4 = new JButton("Bestätigen");
-		b4.setActionCommand("Confirme");
-		b4.addActionListener(new ButtonHandlerData(this));
+		bConfirme = new JButton("Bestätigen");
+		bConfirme.setActionCommand("Confirme");
+		bConfirme.addActionListener(new ButtonHandlerData(this));
 	}
 	
-	public JPanel launchJFrame()
+	public JPanel launchJPanel()
 	{
-		JPanel panel = new JPanel();
+		
+		panel = null;
+		scrollPane = null;
+		abc = null;
+		jtv = null;
+		
+		panel = new JPanel();
 		panel.setLayout(null);
+		jtv = new JTableview("Select * from Zimmer");
 		l4.setBounds(x_column1, y_line1, x_width, y_height);
 		panel.add(l4);
 		JTable abc = jtv.getSQLTable();
-		JScrollPane scrollPane = new JScrollPane(abc); 
+		scrollPane = new JScrollPane(abc); 
 		scrollPane.setBounds(x_column1, y_line3, 600, 300); 
 		panel.add(scrollPane);
-		b1.setBounds(x_column1, y_line13, x_width, y_height);
-		panel.add(b1);
-		b2.setBounds(x_column3, y_line13, x_width, y_height);
-		panel.add(b2);
-		b3.setBounds(x_column4, y_line13, x_width, y_height);
-		panel.add(b3);
+		bChange.setBounds(x_column1, y_line13, x_width, y_height);
+		panel.add(bChange);
+		bDel.setBounds(x_column3, y_line13, x_width, y_height);
+		panel.add(bDel);
+		bCreate.setBounds(x_column4, y_line13, x_width, y_height);
+		panel.add(bCreate);
 		panel.setOpaque(true);
 		panel.setBackground(new Color(209,218,248));
 		
@@ -84,7 +95,7 @@ public class DataZimmer extends GUIHelp
 	
 	public void launchCreateFrame()
 	{
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		panel.setLayout(null);
 		l1.setBounds(x_column1, y_line2, x_width, y_height);
 		panel.add(l1);
@@ -92,23 +103,23 @@ public class DataZimmer extends GUIHelp
 		panel.add(cb);
 		l2.setBounds(x_column1, y_line3, x_width, y_height);
 		panel.add(l2);
-		jtf1.setBounds(x_column3, y_line3, x_width, y_height);
-		panel.add(jtf1);
+		jtfPreis.setBounds(x_column3, y_line3, x_width, y_height);
+		panel.add(jtfPreis);
 		l3.setBounds(x_column1, y_line4, x_width, y_height);
 		panel.add(l3);
-		jtf2.setBounds(x_column3, y_line4, x_width, y_height);
-		panel.add(jtf2);
-		b4.setBounds(x_column3, y_line5, x_width, y_height);
-		panel.add(b4);
+		jtfZnr.setBounds(x_column3, y_line4, x_width, y_height);
+		panel.add(jtfZnr);
+		bConfirme.setBounds(x_column3, y_line5, x_width, y_height);
+		panel.add(bConfirme);
 		
 		panel.setOpaque(true);
 		panel.setBackground(new Color(209,218,248));
 		
-		cf.add(panel);
-		cf.setLocation(300, 50);
-		cf.setSize(600,500);
-		cf.setDefaultCloseOperation(cf.DISPOSE_ON_CLOSE);
-		cf.setVisible(true);
+		createFrame.add(panel);
+		createFrame.setLocation(300, 50);
+		createFrame.setSize(600,500);
+		createFrame.setDefaultCloseOperation(createFrame.DISPOSE_ON_CLOSE);
+		createFrame.setVisible(true);
 				
 	}
 }

@@ -6,12 +6,18 @@ import java.awt.event.ActionListener;
 import GUI.DataDienst;
 import GUI.DataGast;
 import GUI.DataZimmer;
+import GUI.StartFrame;
 
 public class ButtonHandlerData extends BHHelp implements ActionListener
 {	
 	DataGast dg;
 	DataZimmer dz;
 	DataDienst dd;
+	ButtonHandlerStartFrame bh;
+	StartFrame sf;
+	
+	
+	
 	
 	public ButtonHandlerData(DataGast dg)
 	{
@@ -49,16 +55,47 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 			else if(e.getActionCommand().equals("Delete"))
 			{
 				
+				String id = (String) dz.jtv.getSQLTable().getValueAt(dz.jtv.getSQLTable().getSelectedRow(), 0).toString(); 
+
+				String query = "DELETE from " + "zimmer" + " WHERE " + 
+						"ZID" + " = '" + id + "'"; 
+						 writeDB(query); 
+						 dz.launchJPanel(); 
+						
+						  
+						 } 
+
 			}
 			else if(e.getActionCommand().equals("Create"))
 			{
 				dz.launchCreateFrame();
+								
 			}
 			else if(e.getActionCommand().equals("Confirme"))
 			{
-				
+				try 
+				{
+					checkStringEmpty(dz.jtfZnr.getText());
+					//checkNumber(dz.jtfPreis.getText());
+					
+					writeDB("INSERT INTO zimmer (ZID, Typ, Preis)" + "VALUES('"+ dz.jtfZnr.getText() + 
+							"', '"+ (String) dz.cb.getSelectedItem()+"', '"+ dz.jtfPreis.getText()+"')");
+					//dz.jtv = null;
+					//DataZimmer dz2 = new DataZimmer();
+					//dz2.launchJPanel();
+					dz.launchJPanel();
+					
+					dz.createFrame.dispose();
+					
+					
+				} 
+				catch (GUIException e1) 
+				{
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
-		}
+		
 		else if(dd!=null)
 		{
 			if(e.getActionCommand().equals("Change"))
@@ -81,5 +118,6 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 		
 		
 	}
+
 
 }

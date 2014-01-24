@@ -62,7 +62,7 @@ public class DataGast extends GUIHelp
 		panel.add(tf3);
 		JTable abc = jtv.getSQLTable();
 		JScrollPane scrollPane = new JScrollPane(abc); 
-		scrollPane.setBounds(x_column1, y_line5, 600, 600); 
+		scrollPane.setBounds(x_column1, y_line5, 600, 300); 
 		panel.add(scrollPane);
 		b1.setBounds(x_column1, y_line13, x_width, y_height);
 		panel.add(b1);

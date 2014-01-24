@@ -13,6 +13,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import Control.ButtonHandlerData;
+import Control.JTableview;
 
 public class DataDienst extends GUIHelp
 {
@@ -23,7 +24,7 @@ public class DataDienst extends GUIHelp
 	//public JComboBox cb;
 	//public String[] typ ={"Einzelzimmer","Doppelzimmer"};
 	//add jtableview
-	//public JTableview jtv;
+	public JTableview jtv;
 	
 	public DataDienst()
 	{
@@ -39,6 +40,7 @@ public class DataDienst extends GUIHelp
 		b3.setActionCommand("Create");
 		b3.addActionListener(new ButtonHandlerData(this));
 		l4 = new JLabel("Stammdaten Dienstleistung:", JLabel.LEFT);
+		jtv = new JTableview("Select * from dienstleistung");
 		
 		//Second JFrame
 		cf = new JFrame();
@@ -60,6 +62,10 @@ public class DataDienst extends GUIHelp
 		panel.setLayout(null);
 		l4.setBounds(x_column1, y_line1, x_width, y_height);
 		panel.add(l4);
+		JTable abc = jtv.getSQLTable();
+		JScrollPane scrollPane = new JScrollPane(abc); 
+		scrollPane.setBounds(x_column1, y_line5, 600, 300); 
+		panel.add(scrollPane);
 		b1.setBounds(x_column1, y_line13, x_width, y_height);
 		panel.add(b1);
 		b2.setBounds(x_column3, y_line13, x_width, y_height);

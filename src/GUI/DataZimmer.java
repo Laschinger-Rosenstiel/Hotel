@@ -13,6 +13,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import Control.ButtonHandlerData;
+import Control.JTableview;
 
 public class DataZimmer extends GUIHelp
 {
@@ -23,7 +24,7 @@ public class DataZimmer extends GUIHelp
 	public JLabel l1,l2,l3,l4;
 	public String[] typ ={"Einzelzimmer","Doppelzimmer"};
 	//add jtableview
-	//public JTableview jtv;
+	public JTableview jtv;
 	
 	public DataZimmer()
 	{
@@ -39,6 +40,7 @@ public class DataZimmer extends GUIHelp
 		b3.setActionCommand("Create");
 		b3.addActionListener(new ButtonHandlerData(this));
 		l4 = new JLabel("Stammdaten Zimmer:", JLabel.LEFT);
+		jtv = new JTableview("Select * from Zimmer");
 		
 		
 		//Second JFrame
@@ -60,6 +62,10 @@ public class DataZimmer extends GUIHelp
 		panel.setLayout(null);
 		l4.setBounds(x_column1, y_line1, x_width, y_height);
 		panel.add(l4);
+		JTable abc = jtv.getSQLTable();
+		JScrollPane scrollPane = new JScrollPane(abc); 
+		scrollPane.setBounds(x_column1, y_line3, 600, 300); 
+		panel.add(scrollPane);
 		b1.setBounds(x_column1, y_line13, x_width, y_height);
 		panel.add(b1);
 		b2.setBounds(x_column3, y_line13, x_width, y_height);

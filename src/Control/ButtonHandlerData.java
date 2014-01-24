@@ -55,6 +55,21 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 				
 			}
 		}
+		else if(dd!=null)
+		{
+			if(e.getActionCommand().equals("Change"))
+			{
+				
+			}
+			else if(e.getActionCommand().equals("Delete"))
+			{
+				
+			}
+			else if(e.getActionCommand().equals("Create"))
+			{
+				
+			}
+		}
 		
 		
 	}

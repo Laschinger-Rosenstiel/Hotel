@@ -12,6 +12,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import Control.ButtonHandlerData;
+
 public class DataZimmer extends GUIHelp
 {
 	public JFrame jf, cf;
@@ -29,13 +31,13 @@ public class DataZimmer extends GUIHelp
 		jf = new JFrame();
 		b1 = new JButton("Ändern");
 		b1.setActionCommand("Change");
-		b1.addActionListener(new ButtonHandlerDD(this));
+		b1.addActionListener(new ButtonHandlerData(this));
 		b2 = new JButton("Löschen");
 		b2.setActionCommand("Delete");
-		b2.addActionListener(new ButtonHandlerDD(this));
+		b2.addActionListener(new ButtonHandlerData(this));
 		b3 = new JButton("Anlegen");
 		b3.setActionCommand("Create");
-		b3.addActionListener(new ButtonHandlerDD(this));
+		b3.addActionListener(new ButtonHandlerData(this));
 		
 		//Second JFrame
 		cf = new JFrame();
@@ -47,7 +49,7 @@ public class DataZimmer extends GUIHelp
 		l3 = new JLabel("Zimmernr", JLabel.CENTER);
 		b4 = new JButton("Bestätigen");
 		b4.setActionCommand("Confirme");
-		b4.addActionListener(new ButtonHandlerDD(this));
+		b4.addActionListener(new ButtonHandlerData(this));
 	}
 	
 	public JPanel launchJFrame()

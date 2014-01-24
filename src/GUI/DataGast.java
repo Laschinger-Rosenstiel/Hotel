@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import Control.ButtonHandlerData;
+
 public class DataGast extends GUIHelp
 {
 	public JFrame jf;
@@ -21,10 +23,10 @@ public class DataGast extends GUIHelp
 		jf = new JFrame();
 		b1 = new JButton("Ändern");
 		b1.setActionCommand("Change");
-		b1.addActionListener(new ButtonHandlerDG());
+		b1.addActionListener(new ButtonHandlerData(this));
 		b2 = new JButton("Löschen");
 		b2.setActionCommand("Delete");
-		b2.addActionListener(new ButtonHandlerDG());
+		b2.addActionListener(new ButtonHandlerData(this));
 	}
 	
 	public JPanel launchJFrame()

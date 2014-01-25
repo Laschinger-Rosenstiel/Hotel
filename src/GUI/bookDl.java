@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import java.util.Date;
 import javax.swing.JButton;
@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import Control.BHBook;
+import control.BHBook;
 import com.toedter.calendar.JDateChooser;
 
 public class BookDl extends GUIHelp{

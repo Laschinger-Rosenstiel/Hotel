@@ -1,11 +1,11 @@
-package GUI;
+package gui;
 
 import java.awt.*;
 
 import javax.swing.*;
 
 //import Control.ButtonHandlerChange;
-import Control.ButtonHandlerLogin;
+import control.ButtonHandlerLogin;
 
 
 public class LoginFrame extends GUIHelp 

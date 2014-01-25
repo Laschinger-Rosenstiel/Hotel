@@ -1,10 +1,10 @@
-package GUI;
+package gui;
 
 import java.awt.*;
 
 import javax.swing.*;
 
-import Control.ButtonHandlerStartFrame;
+import control.ButtonHandlerStartFrame;
 
 public class StartFrame2 extends JFrame
 {

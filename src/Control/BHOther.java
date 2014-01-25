@@ -1,11 +1,12 @@
-package Control;
+package control;
+
+import gui.CalcPreis;
+import gui.CheckZimmer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
-import GUI.CalcPreis;
-import GUI.CheckZimmer; 
 
 public class BHOther extends BHHelp implements ActionListener{
 	CheckZimmer guiZimmer;

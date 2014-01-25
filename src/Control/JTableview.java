@@ -1,4 +1,4 @@
-package Control;
+package control;
 
 import java.sql.*; 
 import javax.swing.JOptionPane; 

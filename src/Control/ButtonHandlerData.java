@@ -1,12 +1,12 @@
-package Control;
+package control;
+
+import gui.DataDienst;
+import gui.DataGast;
+import gui.DataZimmer;
+import gui.StartFrame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import GUI.DataDienst;
-import GUI.DataGast;
-import GUI.DataZimmer;
-import GUI.StartFrame;
 
 public class ButtonHandlerData extends BHHelp implements ActionListener
 {	

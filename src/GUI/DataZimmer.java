@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -13,8 +13,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import Control.ButtonHandlerData;
-import Control.JTableview;
+import control.ButtonHandlerData;
+import control.JTableview;
 
 public class DataZimmer extends GUIHelp
 {

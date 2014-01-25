@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 import java.awt.Color;
 import java.util.Date;
 
@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 import com.toedter.calendar.JDateChooser;
 
-import Control.BHOther;
+import control.BHOther;
 
 public class CheckZimmer extends GUIHelp{
 

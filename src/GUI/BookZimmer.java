@@ -1,11 +1,11 @@
-package GUI;
+package gui;
 
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.util.Date;
 
-import Control.BHBook;
-import Control.JTableview;
+import control.BHBook;
+import control.JTableview;
 
 import javax.swing.*;
 

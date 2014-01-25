@@ -1,4 +1,7 @@
-package Control;
+package control;
+import gui.BookDl;
+import gui.BookZimmer;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -10,9 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import GUI.BookDl;
-import GUI.BookZimmer;
-import Model.Gast;
+import model.Gast;
 
 public class BHBook extends BHHelp implements ActionListener{
 	

@@ -1,10 +1,10 @@
-package GUI;
+package gui;
 
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import Control.BHCancel;
+import control.BHCancel;
 
 public class CancelZimmer extends GUIHelp{
 	

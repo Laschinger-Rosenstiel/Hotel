@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import java.awt.Color;
 
@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import Control.BHOther;
+import control.BHOther;
 
 import com.toedter.calendar.JDateChooser;
 

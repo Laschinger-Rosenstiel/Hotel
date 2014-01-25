@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.util.Date;
 
 import Control.BHBook;
+import Control.JTableview;
 
 import javax.swing.*;
 
@@ -37,14 +38,15 @@ public class BookZimmer extends GUIHelp{
 	public JPanel contentpane3 = null;
 	public JLabel labeltable4, labeltable5, labeltable6, labeljtfVon, labeljtfBis;
 	private JTextField labelVor3, labelName3, labelStr3, labelPlz3, labelOrt3, labelLand3;
-
+	private String tel;
 	public JTextField labelTel3;
 
 	private JTextField labelGeb3;
 	public JTextField labelVor3_2, labelName3_2, labelStr3_2, labelPlz3_2, labelOrt3_2, labelLand3_2, labelTel3_2, labelGeb3_2;
 	private JButton checkAvailability, bookZimmer, back;
 	public JDateChooser pickerVon, pickerBis;
-	
+	public JTableview availableZimmer;
+	public JScrollPane scrollPane;
 	
 	public BookZimmer() {
 	
@@ -327,6 +329,8 @@ public class BookZimmer extends GUIHelp{
 		contentpane3.add(pickerBis);
 		
 		checkAvailability = new JButton("Verügbare Zimmer anzeigen...");
+		checkAvailability.setActionCommand("Available?");
+		checkAvailability.addActionListener(new BHBook(this));
 		checkAvailability.setBounds(x_column1, y_line9, x_width, y_height);
 		contentpane3.add(checkAvailability);
 		
@@ -346,6 +350,66 @@ public class BookZimmer extends GUIHelp{
 		contentpane3.setBackground(new Color(209,218,248));
 		
 		return contentpane3;
+	}
+	
+	public void setTel(String tel){
+		this.tel = tel;
+	}
+	
+	public String getTel() {
+		return tel;
+	}
+	
+	public String getVorname() {
+		return jtfVorname2.getText();
+	}
+	
+	public String getName() {
+		return jtfName2.getText();
+	}
+	
+	public String getStrasse() {
+		return jtfStr2.getText();
+	}
+	
+	public String getHn(){
+		return jtfHn2.getText();
+	}
+	
+	public String getPlz(){
+		return jtfPlz2.getText();
+	}
+	
+	public String getOrt(){
+		return jtfOrt2.getText();
+	}
+	
+	public String getLand() {
+		return jtfLand2.getText();
+	}
+	
+	public String getTel2_1() {
+		return jtfTel2_1.getText();
+	}
+
+	public String getTel2_2(){
+		return jtfTel2_2.getText();
+	}
+	
+	public String getTel2_3(){
+		return jtfTel2_3.getText();
+	}
+	
+	public Date getGeb(){
+		return geb2.getDate();
+	}
+	
+	public Date getPickerVon(){
+		return pickerVon.getDate();
+	}
+	
+	public Date getPickerBis(){
+		return pickerBis.getDate();
 	}
 	
 	

@@ -85,7 +85,7 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 			{
 				try 
 				{
-					
+
 					checkStringEmpty(dz.jtfZnr.getText());	
 					writeDb("INSERT INTO zimmer (ZID, Typ, Preis)" + "VALUES('"+ dz.jtfZnr.getText() + 
 							"', '"+ (String) dz.cb.getSelectedItem()+"', '"+ dz.jtfPreis.getText()+"')");
@@ -110,119 +110,135 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 
 
 		}
-		
+
 
 		else if(dd!=null)
 		{
 			if(e.getActionCommand().equals("Change"))
 			{
-				
-				if(dd.jtvDienst.getSQLTable().getSelectedRow()== -1)
-					{
-						try {
-							throw new GUIException("Fehler: Zeile nicht markiert!");
-						} catch (GUIException e1) {
-							JOptionPane.showMessageDialog(null, e1, "Error",
-	                                  JOptionPane.ERROR_MESSAGE);
-						}
-					}
-				
-				 String id = (String) dd.jtvDienst.getSQLTable().getValueAt(dd.jtvDienst.getSQLTable().getSelectedRow(), 0).toString(); 
-				 String typ = (String) dd.jtvDienst.getSQLTable().getValueAt(dd.jtvDienst.getSQLTable().getSelectedRow(), 1).toString(); 
-				 String preis = (String) dd.jtvDienst.getSQLTable().getValueAt(dd.jtvDienst.getSQLTable().getSelectedRow(), 2).toString(); 
-				
-				dd.launchChangeFrameD(id,preis,typ );
-			}
-			else if(e.getActionCommand().equals("Create"))
-			{
-				dd.launchCreateFrameD();
-			}
-			else if(e.getActionCommand().equals("Delete"))
-			{
-				String id = (String) dd.jtvDienst.getSQLTable().getValueAt(dd.jtvDienst.getSQLTable().getSelectedRow(), 0).toString(); 
+				try {
 
-				String query = "DELETE from " + "dienstleistung" + " WHERE " + 
-						"DID" + " = '" + id + "'"; 
-				writeDb(query); 
+					if(dd.jtvDienst.getSQLTable().getSelectedRow()== -1)
+						throw new GUIException("Fehler: Zeile nicht markiert!");
+
+
+					String id = (String) dd.jtvDienst.getSQLTable().getValueAt(dd.jtvDienst.getSQLTable().getSelectedRow(), 0).toString(); 
+					String typ = (String) dd.jtvDienst.getSQLTable().getValueAt(dd.jtvDienst.getSQLTable().getSelectedRow(), 1).toString(); 
+					String preis = (String) dd.jtvDienst.getSQLTable().getValueAt(dd.jtvDienst.getSQLTable().getSelectedRow(), 2).toString(); 
+
+					dd.launchChangeFrameD(id,preis,typ );
+
+				} catch (GUIException e1) 
+				{
+					JOptionPane.showMessageDialog(null, e1, "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+
+
+
+		}
+		else if(e.getActionCommand().equals("Create"))
+		{
+			dd.launchCreateFrameD();
+		}
+		else if(e.getActionCommand().equals("Delete"))
+		{
+			String id = (String) dd.jtvDienst.getSQLTable().getValueAt(dd.jtvDienst.getSQLTable().getSelectedRow(), 0).toString(); 
+
+			String query = "DELETE from " + "dienstleistung" + " WHERE " + 
+					"DID" + " = '" + id + "'"; 
+			writeDb(query); 
+			dd.jtvDienst = new JTableview("Select * From dienstleistung");
+			JTable dienst = dd.jtvDienst.getSQLTable();
+			dd.scrollPaneD.setVisible(false);
+			dd.scrollPaneD = null;
+			dd.scrollPaneD = new JScrollPane(dienst);
+			dd.scrollPaneD.setBounds(10, 120, 600, 300);
+			dd.panelD1.add(dd.scrollPaneD);
+		}
+		else if(e.getActionCommand().equals("Confirme"))
+		{
+			try 
+			{
+
+				checkStringEmpty(dd.jtfTyp.getText());
+				checkPrize(dd.jtfPreis.getText());
+				checkID(dd.jtfID.getText());
+				writeDb("INSERT INTO dienstleistung (DID, Bezeichnung, Preis)" + "VALUES('"+ dd.jtfID.getText() + 
+						"', '"+ dd.jtfTyp.getText()+"', '"+ dd.jtfPreis.getText()+"')");
+
+				dd.createFrameD.dispose();
 				dd.jtvDienst = new JTableview("Select * From dienstleistung");
 				JTable dienst = dd.jtvDienst.getSQLTable();
 				dd.scrollPaneD.setVisible(false);
 				dd.scrollPaneD = null;
 				dd.scrollPaneD = new JScrollPane(dienst);
 				dd.scrollPaneD.setBounds(10, 120, 600, 300);
-				dd.panelD1.add(dd.scrollPaneD);
+				dd.panelD1.add(dd.scrollPaneD); 
+
+
+			} 
+			catch (GUIException e1) 
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
-			else if(e.getActionCommand().equals("Confirme"))
-			{
-				try 
-				{
-					
-					checkStringEmpty(dd.jtfTyp.getText());
-					checkPrize(dd.jtfPreis.getText());
-					checkID(dd.jtfID.getText());
-					writeDb("INSERT INTO dienstleistung (DID, Bezeichnung, Preis)" + "VALUES('"+ dd.jtfID.getText() + 
-							"', '"+ dd.jtfTyp.getText()+"', '"+ dd.jtfPreis.getText()+"')");
 
-					dd.createFrameD.dispose();
-					dd.jtvDienst = new JTableview("Select * From dienstleistung");
-					JTable dienst = dd.jtvDienst.getSQLTable();
-					dd.scrollPaneD.setVisible(false);
-					dd.scrollPaneD = null;
-					dd.scrollPaneD = new JScrollPane(dienst);
-					dd.scrollPaneD.setBounds(10, 120, 600, 300);
-					dd.panelD1.add(dd.scrollPaneD); 
-
-
-				} 
-				catch (GUIException e1) 
-				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			
 		}
-			else if(e.getActionCommand().equals("Confirme2"))
-			{
-				try 
-				{
-					
-					
-					checkStringEmpty(dd.jtfTyp2.getText());
-					checkPrize(dd.jtfPreis2.getText());
-					checkID(dd.jtfID2.getText());
-					
-					//writeDb("update dienstleistung set ID = (select ID) Gesamtpreis = (select Preis from hotel.zimmer where ZID = '"+ ZID +"')*"+days+" where BID = "+BID);
-					//writeDb("Update dienstleistung (DID, Bezeichnung, Preis)" + "VALUES('"+ dd.jtfID2.getText() + 
-					//		"', '"+ dd.jtfTyp2.getText()+"', '"+ dd.jtfPreis2.getText()+"')");
-					
-
-					dd.changeFrameD.dispose();
-					dd.jtvDienst = new JTableview("Select * From dienstleistung");
-					JTable dienst = dd.jtvDienst.getSQLTable();
-					dd.scrollPaneD.setVisible(false);
-					dd.scrollPaneD = null;
-					dd.scrollPaneD = new JScrollPane(dienst);
-					dd.scrollPaneD.setBounds(10, 120, 600, 300);
-					dd.panelD1.add(dd.scrollPaneD); 
-
-
-				} 
-				catch (GUIException e1) 
-				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			
-		}
-	}	
-		else 
+		else if(e.getActionCommand().equals("Confirme2"))
 		{
-			sf.launchStartFrame(sf.getJPanel4(),sf.getJPanel3());
-		}
+			System.out.println("1");
+			try 
+			{
+
+				System.out.println("1");
+				checkStringEmpty(dd.jtfTyp2.getText());
+				checkPrize(dd.jtfPreis2.getText());
+				checkID(dd.jtfID2.getText());
+				System.out.println("1");
+				if(dd.jtvDienst.getSQLTable().getSelectedRow()== -1)
+					throw new GUIException("Fehler: Zeile nicht markiert!");
+
+				System.out.println("1");
 
 
+
+				String id = (String) dd.jtvDienst.getSQLTable().getValueAt(dd.jtvDienst.getSQLTable().getSelectedRow(), 0).toString(); 
+				String typ = (String) dd.jtvDienst.getSQLTable().getValueAt(dd.jtvDienst.getSQLTable().getSelectedRow(), 1).toString(); 
+				String preis = (String) dd.jtvDienst.getSQLTable().getValueAt(dd.jtvDienst.getSQLTable().getSelectedRow(), 2).toString();
+
+				writeDb("update dienstleistung set Bezeichnung = '" +typ +"',  Preis = '"+preis+"' where DID = '"+ id +"' ");
+
+
+				//writeDb("update dienstleistung set ID = (select ID) Gesamtpreis = (select Preis from hotel.zimmer where ZID = '"+ ZID +"')*"+days+" where BID = "+BID);
+				//writeDb("Update dienstleistung (DID, Bezeichnung, Preis)" + "VALUES('"+ dd.jtfID2.getText() + 
+				//		"', '"+ dd.jtfTyp2.getText()+"', '"+ dd.jtfPreis2.getText()+"')");
+
+
+				dd.changeFrameD.dispose();
+				dd.jtvDienst = new JTableview("Select * From dienstleistung");
+				JTable dienst = dd.jtvDienst.getSQLTable();
+				dd.scrollPaneD.setVisible(false);
+				dd.scrollPaneD = null;
+				dd.scrollPaneD = new JScrollPane(dienst);
+				dd.scrollPaneD.setBounds(10, 120, 600, 300);
+				dd.panelD1.add(dd.scrollPaneD); 
+
+			}
+
+
+			catch (GUIException e1) {
+				JOptionPane.showMessageDialog(null, e1, "Error",
+						JOptionPane.ERROR_MESSAGE);
+
+			}
+		}	
 
 	}
 
 
 }
+
+
+

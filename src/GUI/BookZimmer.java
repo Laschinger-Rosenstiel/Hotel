@@ -16,11 +16,13 @@ public class BookZimmer extends GUIHelp{
 	BHBook ButtonHandler = new BHBook(this);
 	
 	//Startpanel
-	private JPanel contentpane1;
+	public JPanel contentpane1;
 	private JButton jb1, jb2, jb3;
 	public JTextField jtfVorname, jtfName, jtfGeb; 
 	private JLabel labeltable1, labeltable2, labeljtfVorname, labeljtfName, labeljtfGeb; 
 	public JDateChooser geb;
+	public JScrollPane scrollPaneSuche;
+	public JTableview sucheGast;
 	
 	//card Layout
 	public CardLayout cardLayout;
@@ -46,7 +48,7 @@ public class BookZimmer extends GUIHelp{
 	private JButton checkAvailability, bookZimmer, back;
 	public JDateChooser pickerVon, pickerBis;
 	public JTableview availableZimmer;
-	public JScrollPane scrollPane;
+	public JScrollPane scrollPaneZimmer;
 	
 	public BookZimmer() {
 	
@@ -79,6 +81,11 @@ public class BookZimmer extends GUIHelp{
 		jb3.setActionCommand("SEARCH");
 		jb3.addActionListener(new BHBook(this));
 		
+		
+		sucheGast = new JTableview("Select * From hotel.gast");
+		JTable suche = sucheGast.getSQLTable();
+		scrollPaneSuche = new JScrollPane(suche);
+		
 		//Bounds setzen und zur Contentpane hinzufügen
 		labeltable1.setBounds(x_column1, y_line2, x_width, y_height);
 		contentpane1.add(labeltable1);
@@ -103,10 +110,13 @@ public class BookZimmer extends GUIHelp{
 		geb.setBounds(x_column3, y_line5, x_width, y_height);
 		contentpane1.add(geb);
 		
-		jb2.setBounds(x_column1, y_line12, x_width, y_height);
+		jb2.setBounds(x_column1, y_line14, x_width, y_height);
 		contentpane1.add(jb2);
 		jb3.setBounds(x_column1, y_line6, x_width, y_height);
 		contentpane1.add(jb3);
+		
+		scrollPaneSuche.setBounds(x_column1, y_line8, 1000, 200);
+		contentpane1.add(scrollPaneSuche);
 		
 		//Color
 		contentpane1.setOpaque(true);
@@ -350,6 +360,18 @@ public class BookZimmer extends GUIHelp{
 		contentpane3.setBackground(new Color(209,218,248));
 		
 		return contentpane3;
+	}
+	
+	public String getVornameSuche() {
+		return jtfVorname.getText();
+	}
+	
+	public String getNameSuche() {
+		return jtfName.getText();
+	}
+	
+	public Date getGebSuche() {
+		return geb.getDate();
 	}
 	
 	public void setTel(String tel){

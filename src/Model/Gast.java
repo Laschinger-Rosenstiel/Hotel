@@ -2,6 +2,7 @@ package model;
 
 import java.util.Date;
 
+
 public class Gast {
 
 	private String Vorname;
@@ -15,16 +16,16 @@ public class Gast {
 	private Date Geb;
 	
 	
-	public Gast (String Vorname, String Name, String Strasse, String Hn, String Plz, String Ort, String Land, String Tel, Date Geb) {
-		this.setVorname(Vorname);
-		this.setName(Name);
-		this.setStrasse(Strasse);
-		this.setHn(Hn);
-		this.setPlz(Plz);
-		this.setOrt(Ort);
-		this.setLand(Land);
-		this.setTel(Tel);	
-		this.setGeb(Geb);
+	public Gast (String vor, String name, String str, String hn, String plz, String ort, String land, String tel, Date geb) {
+		Vorname = vor;
+		Name = name;
+		Strasse = str;
+		Hn = hn;
+		Plz = plz;
+		Ort = ort;
+		Land = land;
+		Tel = tel;
+		Geb = geb;
 	}
 	
 	public Gast (){

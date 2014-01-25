@@ -17,22 +17,19 @@ import control.JTableview;
 
 public class DataDienst extends GUIHelp
 {
-	public JFrame createFrameD;
-	private JButton bChange,bDel, bCreate, bConfirme;
-	public JTextField jtfTyp, jtfPreis, jtfID;
+	public JFrame createFrameD, changeFrameD;
+	private JButton bChange,bDel, bCreate, bConfirme, bConfirme2;
+	public JTextField jtfTyp, jtfPreis, jtfID,jtfTyp2, jtfPreis2, jtfID2;
 	public JLabel lTyp,lPreis,lID,lTitel;
-	//public JComboBox cb;
-	//public String[] typ ={"Einzelzimmer","Doppelzimmer"};
-	//add jtableview
 	public JTableview jtvDienst;
 	private String x = "Dienst";
 	public JPanel panelD1;
 	public JPanel panelD2;
+	public JPanel panelD3;
 	public JScrollPane scrollPaneD;
 	public DataDienst()
 	{
-		//First JFrame
-		
+		//First JPanel
 		bChange = new JButton("Ändern");
 		bChange.setActionCommand("Change");
 		bChange.addActionListener(new ButtonHandlerData(this));
@@ -45,10 +42,8 @@ public class DataDienst extends GUIHelp
 		lTitel = new JLabel("Dienstleistungen:", JLabel.LEFT);
 		jtvDienst = new JTableview("Select * from dienstleistung");
 		
-		
-		//Second JFrame
+		//Create JFrame
 		createFrameD = new JFrame();
-		//cb = new JComboBox(typ);
 		jtfTyp = new JTextField(40);
 		jtfPreis = new JTextField(40);
 		jtfID = new JTextField(40);
@@ -58,11 +53,20 @@ public class DataDienst extends GUIHelp
 		bConfirme = new JButton("Bestätigen");
 		bConfirme.setActionCommand("Confirme");
 		bConfirme.addActionListener(new ButtonHandlerData(this));
+		
+		//Change Frame
+		changeFrameD = new JFrame();
+		bConfirme2 = new JButton("Bestätigen");
+		bConfirme2.setActionCommand("Confirme2");
+		bConfirme2.addActionListener(new ButtonHandlerData(this));
+		jtfTyp2 = new JTextField(40);
+		jtfPreis2 = new JTextField(40);
+		jtfID2 = new JTextField(40);
+		
 	}
 	
 	public JPanel launchJPanel()
 	{
-		
 		
 		panelD1 = new JPanel();
 		panelD1.setLayout(null);
@@ -87,7 +91,7 @@ public class DataDienst extends GUIHelp
 		return panelD1;
 	}
 	
-	public JFrame launchCreateFrame()
+	public JFrame launchCreateFrameD()
 	{
 		createFrameD = null;
 		panelD2 = null;
@@ -109,8 +113,6 @@ public class DataDienst extends GUIHelp
 		panelD2.add(jtfID);
 		bConfirme.setBounds(x_column3, y_line4, x_width, y_height);
 		panelD2.add(bConfirme);
-		//cb.setBounds(x_column4, y_line13, x_width, y_height);
-		//panel.add(cb);
 		panelD2.setOpaque(true);
 		panelD2.setBackground(new Color(209,218,248));
 		panelD2.setVisible(true);
@@ -126,8 +128,44 @@ public class DataDienst extends GUIHelp
 				
 	}
 	
-	public String getX()
+	public JFrame launchChangeFrameD(String id, String preis, String typ)
 	{
-		return x;
+		changeFrameD = null;
+		panelD3 = null;
+		
+		JPanel panelD3 = new JPanel();
+		panelD3.setLayout(null);
+		panelD3.setVisible(false);
+		lTyp.setBounds(x_column1, y_line1, x_width, y_height);
+		panelD3.add(lTyp);
+		jtfTyp2.setBounds(x_column3, y_line1, x_width, y_height);
+		panelD3.add(jtfTyp2);
+		lPreis.setBounds(x_column1, y_line2, x_width, y_height);
+		panelD3.add(lPreis);
+		jtfPreis2.setBounds(x_column3, y_line2, x_width, y_height);
+		panelD3.add(jtfPreis2);
+		lID.setBounds(x_column1, y_line3, x_width, y_height);
+		panelD3.add(lID);
+		jtfID2.setBounds(x_column3, y_line3, x_width, y_height);
+		panelD3.add(jtfID2);
+		bConfirme2.setBounds(x_column3, y_line4, x_width, y_height);
+		panelD3.add(bConfirme2);
+		jtfID2.setText(id);
+		jtfTyp2.setText(typ);
+		jtfPreis2.setText(preis);
+		panelD3.setOpaque(true);
+		panelD3.setBackground(new Color(209,218,248));
+		panelD3.setVisible(true);
+		
+		changeFrameD = new JFrame();
+		changeFrameD.add(panelD3);
+		changeFrameD.setSize(600,500);
+		changeFrameD.setLocation(300, 50);
+		changeFrameD.setDefaultCloseOperation(changeFrameD.DISPOSE_ON_CLOSE);
+		changeFrameD.setVisible(true);
+		
+		
+		
+		return changeFrameD;
 	}
 }

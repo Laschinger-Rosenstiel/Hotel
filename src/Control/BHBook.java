@@ -12,11 +12,14 @@ import javax.swing.JTable;
 
 import GUI.BookDl;
 import GUI.BookZimmer;
+import Model.Gast;
 
 public class BHBook extends BHHelp implements ActionListener{
 	
 	BookZimmer guiZimmer;
 	BookDl guiDl;
+	private Gast newGast = new Gast();
+	Gast existGast;
 	String tel;	
 	
 	public BHBook(BookZimmer bookZimmer) {
@@ -39,29 +42,39 @@ public class BHBook extends BHHelp implements ActionListener{
 		else if (e.getActionCommand().equals("NEXT")) {
 			
 			try {
+				System.out.println(guiZimmer.getVorname());
+				newGast.setVorname(guiZimmer.getVorname());
+				newGast.setName(guiZimmer.getName());
+				newGast.setStrasse(guiZimmer.getStrasse());	
+				newGast.setHn(guiZimmer.getHn());
+				newGast.setPlz(guiZimmer.getPlz());
+				newGast.setOrt(guiZimmer.getOrt());
+				newGast.setLand(guiZimmer.getLand());
+				newGast.setGeb(guiZimmer.getGeb());
 				
+				System.out.println(newGast.getVorname());
 				
-				checkStringEmpty(guiZimmer.getVorname());
-				checkStringEmpty(guiZimmer.getName());
-				checkStringEmpty(guiZimmer.getStrasse());
-				checkStringEmpty(guiZimmer.getHn());
-				checkStringEmpty(guiZimmer.getPlz());
-				checkStringEmpty(guiZimmer.getOrt());
-				checkStringEmpty(guiZimmer.getLand());
+				checkStringEmpty(newGast.getVorname());
+				checkStringEmpty(newGast.getName());
+				checkStringEmpty(newGast.getStrasse());
+				checkStringEmpty(newGast.getHn());
+				checkStringEmpty(newGast.getPlz());
+				checkStringEmpty(newGast.getOrt());
+				checkStringEmpty(newGast.getLand());
 				checkStringEmpty(guiZimmer.getTel2_1());
 				checkStringEmpty(guiZimmer.getTel2_2());
 				checkStringEmpty(guiZimmer.getTel2_3());
-				checkNumber(guiZimmer.getPlz());
-				checkBirthday(guiZimmer.getGeb());
+				checkNumber(newGast.getPlz());
+				checkBirthday(newGast.getGeb());
 				checkTel(guiZimmer.getTel2_1(), guiZimmer.getTel2_2(), guiZimmer.getTel2_3());			
 				
 				guiZimmer.contentpane3 = guiZimmer.launchSecond();	
-				guiZimmer.labelVor3_2.setText(guiZimmer.getVorname());
-				guiZimmer.labelName3_2.setText(guiZimmer.getName());
-				guiZimmer.labelStr3_2.setText(guiZimmer.getStrasse() + " " + guiZimmer.getHn());
-				guiZimmer.labelPlz3_2.setText(guiZimmer.getPlz());
-				guiZimmer.labelOrt3_2.setText(guiZimmer.getOrt());
-				guiZimmer.labelLand3_2.setText(guiZimmer.getLand());
+				guiZimmer.labelVor3_2.setText(newGast.getVorname());
+				guiZimmer.labelName3_2.setText(newGast.getName());
+				guiZimmer.labelStr3_2.setText(newGast.getStrasse() + " " + newGast.getHn());
+				guiZimmer.labelPlz3_2.setText(newGast.getPlz());
+				guiZimmer.labelOrt3_2.setText(newGast.getOrt());
+				guiZimmer.labelLand3_2.setText(newGast.getLand());
 								
 				String Vorwahl = guiZimmer.getTel2_2();
 				
@@ -71,11 +84,13 @@ public class BHBook extends BHHelp implements ActionListener{
 					Vorwahl = splitResult[1];
 				}
 							
-				guiZimmer.setTel(guiZimmer.jtfTel2_1.getText() + " (0) "+ Vorwahl + " " + guiZimmer.jtfTel2_3.getText());
-				guiZimmer.labelTel3_2.setText(guiZimmer.getTel());
+				guiZimmer.setTel(guiZimmer.getTel2_1() + " (0) "+ Vorwahl + " " + guiZimmer.getTel2_3());
+				newGast.setTel(guiZimmer.getTel());
+				
+				guiZimmer.labelTel3_2.setText(newGast.getTel());
 											
 				SimpleDateFormat geb2 =new SimpleDateFormat("dd.MM.yyyy");
-				String geb = geb2.format(guiZimmer.getGeb());
+				String geb = geb2.format(newGast.getGeb());
 				guiZimmer.labelGeb3_2.setText(geb);
 							
 				guiZimmer.card.add("Card2", guiZimmer.contentpane3);
@@ -91,7 +106,7 @@ public class BHBook extends BHHelp implements ActionListener{
 			/*catch (NullPointerException ex) {
 				JOptionPane.showMessageDialog(guiZimmer.jf, "Bitte Geburtstag eintragen", "Error",
 						JOptionPane.ERROR_MESSAGE);
-			}*/	
+			}*/
 		}
 		
 		else if (e.getActionCommand().equals("Available?")) {
@@ -153,10 +168,10 @@ public class BHBook extends BHHelp implements ActionListener{
 					}
 					
 					String ZID = (String) guiZimmer.availableZimmer.getSQLTable().getValueAt(guiZimmer.availableZimmer.getSQLTable().getSelectedRow(), 0).toString();
-										
-					int GID = writeDbAi("INSERT INTO gast (Vorname, Name, Strasse, Hausnummer, Postleitzahl, Ort, Land, Telefonnummer, Geburtstag) " + "VALUES('"+ guiZimmer.getVorname() + 
-							"', '"+ guiZimmer.getName() +"', '"+ guiZimmer.getStrasse() +"', '"+ guiZimmer.getHn()+"', "+ guiZimmer.getPlz()+", '"
-							+guiZimmer.getOrt()+"', '"+ guiZimmer.getLand() +"', '"+ guiZimmer.getTel()+"', '"+ getSQLDate(guiZimmer.getGeb())+"')"); 
+					System.out.println(newGast.getVorname());			
+					int GID = writeDbAi("INSERT INTO gast (Vorname, Name, Strasse, Hausnummer, Postleitzahl, Ort, Land, Telefonnummer, Geburtstag) " + "VALUES('"+ newGast.getVorname() + 
+							"', '"+ newGast.getName() +"', '"+ newGast.getStrasse() +"', '"+ newGast.getHn()+"', "+ newGast.getPlz()+", '"
+							+newGast.getOrt()+"', '"+ newGast.getLand() +"', '"+ newGast.getTel()+"', '"+ getSQLDate(newGast.getGeb())+"')"); 
 					
 					int BID = writeDbAi("INSERT INTO buchung (GID, Erfassungsdatum) VALUES("+GID+", '" + getSQLDate(new Date()) + "')");
 					
@@ -184,10 +199,10 @@ public class BHBook extends BHHelp implements ActionListener{
 				JOptionPane.showMessageDialog(null, gex, "Error",
                         JOptionPane.ERROR_MESSAGE);
 			}			
-			catch (NullPointerException nex) {
+		/*	catch (NullPointerException nex) {
 				JOptionPane.showMessageDialog(null, "Bitte alle Felder ausfüllen!", "Error",
 						JOptionPane.ERROR_MESSAGE);
-			}
+			}*/
 		}
 		
 		else if (e.getActionCommand().equals("NewBookingDl")) {

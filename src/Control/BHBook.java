@@ -126,7 +126,7 @@ public class BHBook extends BHHelp implements ActionListener{
 		}
 		else if (e.getActionCommand().equals("SEARCH")) {
 			
-			if (guiZimmer.getVornameSuche().equals("");
+			if (guiZimmer.getVornameSuche().equals(""))
 			
 			
 			guiZimmer.sucheGast = new JTableview("Select * From hotel.gast where gid = 2");

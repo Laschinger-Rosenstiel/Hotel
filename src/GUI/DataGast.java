@@ -22,6 +22,7 @@ public class DataGast extends GUIHelp
 	private JLabel l1,l2,l3,l4;
 	//add jtableview
 	public JTableview jtv;
+	private String x = "Gast";
 	
 	public DataGast()
 	{
@@ -42,7 +43,7 @@ public class DataGast extends GUIHelp
 		jtv = new JTableview("Select * From gast");
 	}
 	
-	public JPanel launchJFrame()
+	public JPanel launchJPanel()
 	{
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
@@ -76,5 +77,9 @@ public class DataGast extends GUIHelp
 		//jf.setVisible(true);
 		
 		return panel;
+	}
+	public String getX()
+	{
+		return x;
 	}
 }

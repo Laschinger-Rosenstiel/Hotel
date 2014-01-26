@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Font;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -53,6 +54,11 @@ public void setGebRoom(JDateChooser geb) {
 	calendar.add(Calendar.YEAR, -120);
 	Date past = calendar.getTime();
 	geb.setSelectableDateRange(past, now);
+}
+
+public String getSQLDate(Date date) {
+	SimpleDateFormat Sql =new SimpleDateFormat("yyyy-MM-dd");
+	return Sql.format(date);
 }
 
 }

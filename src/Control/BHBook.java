@@ -4,6 +4,7 @@ import gui.BookZimmer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -13,14 +14,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import model.Buchung;
+import model.Dienstleistung;
 import model.Gast;
+import model.Zimmer;
 
 public class BHBook extends BHHelp implements ActionListener{
 	
 	BookZimmer guiZimmer;
 	BookDl guiDl;
-	static Gast newGast = new Gast();
-	Gast existGast;
+	static Gast gast;
+	static Buchung buchung;
 	String tel;	
 	
 	public BHBook(BookZimmer bookZimmer) {
@@ -47,8 +51,7 @@ public class BHBook extends BHHelp implements ActionListener{
 				
 				Gast gast = new Gast(guiZimmer.getVorname(), guiZimmer.getName(), guiZimmer.getStrasse(), guiZimmer.getHn(),
 						guiZimmer.getPlz(), guiZimmer.getOrt(), guiZimmer.getLand(), "0", guiZimmer.getGeb());
-						
-				System.out.println(gast.getVorname());
+				gast.setExisting(false);
 				
 				checkStringEmpty(gast.getVorname());
 				checkStringEmpty(gast.getName());
@@ -87,11 +90,11 @@ public class BHBook extends BHHelp implements ActionListener{
 											
 				SimpleDateFormat gebForm =new SimpleDateFormat("dd.MM.yyyy");
 				String geb = gebForm.format(guiZimmer.getGeb());
-				System.out.println("Geburtstag: " + geb);
+				
 				
 				guiZimmer.labelGeb3_2.setText(geb);
 				
-				newGast = gast;
+				this.gast = gast;
 							
 				guiZimmer.card.add("Card2", guiZimmer.contentpane3);
 				guiZimmer.cardLayout.show(this.guiZimmer.card, "Card2");
@@ -109,6 +112,7 @@ public class BHBook extends BHHelp implements ActionListener{
 			}
 		}
 		
+		
 		else if (e.getActionCommand().equals("Available?")) {
 			Date von = guiZimmer.getPickerVon();
 			Date bis = guiZimmer.getPickerBis();
@@ -121,51 +125,154 @@ public class BHBook extends BHHelp implements ActionListener{
 			JTable available = guiZimmer.availableZimmer.getSQLTable();
 			
 			guiZimmer.scrollPaneZimmer = new JScrollPane(available);
-			guiZimmer.scrollPaneZimmer.setBounds(300, 280, 300, 100);
-			guiZimmer.contentpane3.add(guiZimmer.scrollPaneZimmer);			
+			guiZimmer.scrollPaneZimmer.setBounds(200, 280, 300, 100);
+			guiZimmer.contentpane3.add(guiZimmer.scrollPaneZimmer);
+
+			
 		}
 		else if (e.getActionCommand().equals("SEARCH")) {
 			
-			if (guiZimmer.getVornameSuche().equals("");
+			String gebSuche = "%";
+			String vorSuche = "%";
+			String nameSuche = "%";
+			String gidSuche = "%";
+			guiZimmer.sucheGast = null;
+			
+			try {
+				gebSuche = getSQLDate(guiZimmer.getGebSuche());
+			}
+			catch (NullPointerException ex) {
+				
+			}
 			
 			
-			guiZimmer.sucheGast = new JTableview("Select * From hotel.gast where gid = 2");
+			if (!guiZimmer.getGidSuche().equals(""))
+				gidSuche = guiZimmer.getGidSuche();
+		
+			
+			if (!guiZimmer.getVornameSuche().equals(""))
+				vorSuche = guiZimmer.getVornameSuche()+"%";
+			
+			
+		
+			if (!guiZimmer.getNameSuche().equals(""))
+				nameSuche = guiZimmer.getNameSuche() +"%";
+		
+			
+			String query = "Select * from hotel.gast where GID like '"+ gidSuche +"' AND Vorname like '"+vorSuche +
+					"' AND Name like '" + nameSuche +"' AND Geburtstag like '" + gebSuche+"'";
+			
+			guiZimmer.sucheGast = new JTableview(query);
+			
 			JTable suche = guiZimmer.sucheGast.getSQLTable();
 			
 			guiZimmer.scrollPaneSuche.setVisible(false);
 			guiZimmer.scrollPaneSuche = null;
 			guiZimmer.scrollPaneSuche = new JScrollPane(suche);
-			guiZimmer.scrollPaneSuche.setBounds(10, 320, 1000, 200);
+			guiZimmer.scrollPaneSuche.setBounds(10, 360, 1000, 200);
 			guiZimmer.contentpane1.add(guiZimmer.scrollPaneSuche);
 			
 		}
 		
+		else if (e.getActionCommand().equals("SEARCHDl")) {
+			
+			String gebSuche = "%";
+			String vorSuche = "%";
+			String nameSuche = "%";
+			String gidSuche = "%";
+			guiDl.sucheGast = null;
+			
+			try {
+				gebSuche = getSQLDate(guiDl.getGebSuche());
+			}
+			catch (NullPointerException ex) {
+				
+			}
+			
+			
+			if (!guiDl.getGidSuche().equals(""))
+				gidSuche = guiDl.getGidSuche();
+		
+			
+			if (!guiDl.getVorSuche().equals(""))
+				vorSuche = guiDl.getVorSuche()+"%";
+			
+			
+		
+			if (!guiDl.getNameSuche().equals(""))
+				nameSuche = guiDl.getNameSuche() +"%";
+		
+			String query = guiDl.getQuery() + " AND hotel.gast.GID like '"+gidSuche+"' AND hotel.gast.Vorname like '"+vorSuche+ "' AND hotel.gast.Name like'"+ nameSuche+"' AND hotel.gast.Geburtstag like '"+gebSuche+"'";
+			
+			
+			guiDl.sucheGast = new JTableview(query);
+			
+			JTable suche = guiDl.sucheGast.getSQLTable();
+			
+			guiDl.scrollPaneSuche.setVisible(false);
+			guiDl.scrollPaneSuche = null;
+			guiDl.scrollPaneSuche = new JScrollPane(suche);
+			guiDl.scrollPaneSuche.setBounds(10, 320, 1000, 200);
+			guiDl.contentpane1.add(guiDl.scrollPaneSuche);
+			
+		}
 		
 		else if (e.getActionCommand().equals("ExistBooking")) {
+			
+			try {
 			System.out.println("ExistBooking");	
-			/*gui.labelVor3_2.setText();
-			gui.labelName3_2.setText(gui.jtfName2.getText());
-			gui.labelStr3_2.setText(gui.jtfStr2.getText() + " " + gui.jtfHn2.getText());
-			gui.labelPlz3_2.setText(gui.jtfPlz2.getText());
-			gui.labelOrt3_2.setText(gui.jtfOrt2.getText());
-			gui.labelLand3_2.setText(gui.jtfLand2.getText());
-							
-			String Vorwahl = gui.jtfTel2_2.getText();
 			
-		
-			gui.labelTel3_2.setText(gui.jtfTel2_1.getText() + " (0) "+ Vorwahl + " " + gui.jtfTel2_3.getText());
-			
-			
-			
-			
-			SimpleDateFormat geb2 =new SimpleDateFormat("dd.MM.yyyy");
-			String geb = geb2.format(gui.geb2.getDate());
-			gui.labelGeb3_2.setText(geb);
-			*/			
+			if (guiZimmer.sucheGast.getSQLTable().getSelectedRow() == -1) {
+				 throw new GUIException("Fehler: Zeile nicht markiert!");
+			}
 			guiZimmer.launchJFrame();
-			guiZimmer.contentpane3 = guiZimmer.launchSecond();	
+			guiZimmer.contentpane3 = guiZimmer.launchSecond();
+			
+			int gid = Integer.parseInt((String) guiZimmer.sucheGast.getSQLTable().getValueAt(guiZimmer.sucheGast.getSQLTable().getSelectedRow(), 0).toString());
+			
+		//	guiZimmer.sucheGast.getSQLTable().getValueAt(guiZimmer.sucheGast.getSQLTable().getSelectedRow(), 0).toString();
+			String vorname = (String) guiZimmer.sucheGast.getSQLTable().getValueAt(guiZimmer.sucheGast.getSQLTable().getSelectedRow(), 1).toString();
+			String name = (String) guiZimmer.sucheGast.getSQLTable().getValueAt(guiZimmer.sucheGast.getSQLTable().getSelectedRow(), 2).toString();
+			String strasse = (String) guiZimmer.sucheGast.getSQLTable().getValueAt(guiZimmer.sucheGast.getSQLTable().getSelectedRow(), 3).toString();
+			String hn = (String) guiZimmer.sucheGast.getSQLTable().getValueAt(guiZimmer.sucheGast.getSQLTable().getSelectedRow(), 4).toString();
+			String plz = (String) guiZimmer.sucheGast.getSQLTable().getValueAt(guiZimmer.sucheGast.getSQLTable().getSelectedRow(), 5).toString();
+			String ort = (String) guiZimmer.sucheGast.getSQLTable().getValueAt(guiZimmer.sucheGast.getSQLTable().getSelectedRow(), 6).toString();
+			String land = (String) guiZimmer.sucheGast.getSQLTable().getValueAt(guiZimmer.sucheGast.getSQLTable().getSelectedRow(), 7).toString();
+			String geb = getDateSqlToGer((String) guiZimmer.sucheGast.getSQLTable().getValueAt(guiZimmer.sucheGast.getSQLTable().getSelectedRow(), 8).toString());
+			String tel = (String) guiZimmer.sucheGast.getSQLTable().getValueAt(guiZimmer.sucheGast.getSQLTable().getSelectedRow(), 9).toString();
+			
+			SimpleDateFormat toDate = new SimpleDateFormat("dd.MM.yyyy");
+			Date Geb = toDate.parse(geb);
+			
+			System.out.println(vorname);
+			
+			Gast exiGast = new Gast(vorname, name, strasse, hn, plz, ort, land, tel, Geb);
+			exiGast.setExisting(true);
+			exiGast.setGid(gid);
+			System.out.println(exiGast.getVorname());
+			
+			guiZimmer.labelVor3_2.setText(exiGast.getVorname());
+			guiZimmer.labelName3_2.setText(exiGast.getName());
+			guiZimmer.labelStr3_2.setText(exiGast.getStrasse() + " "+ exiGast.getHn());
+			guiZimmer.labelPlz3_2.setText(exiGast.getPlz());
+			guiZimmer.labelOrt3_2.setText(exiGast.getOrt());
+			guiZimmer.labelLand3_2.setText(exiGast.getLand());
+			guiZimmer.labelTel3_2.setText(exiGast.getTel());
+			
+			SimpleDateFormat gebForm =new SimpleDateFormat("dd.MM.yyyy");
+			guiZimmer.labelGeb3_2.setText(gebForm.format(exiGast.getGeb()));
+			
+			gast = exiGast;
 			guiZimmer.card.add("Card2", guiZimmer.contentpane3);
 			guiZimmer.cardLayout.show(this.guiZimmer.card, "Card2");
+			}
+			catch (GUIException gex) {
+				JOptionPane.showMessageDialog(null, gex, "Error",
+                        JOptionPane.ERROR_MESSAGE);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		
 		
@@ -176,39 +283,28 @@ public class BHBook extends BHHelp implements ActionListener{
 			
 			try {
 				checkBookingDate(guiZimmer.getPickerVon(), guiZimmer.getPickerBis());
+				
 				int answer = JOptionPane.showConfirmDialog(guiZimmer.jf, "Zimmer wirklich buchen?", "Error",JOptionPane.YES_NO_OPTION);
 				if (answer == JOptionPane.YES_OPTION) {
-					
+						
 					if (guiZimmer.availableZimmer.getSQLTable().getSelectedRow() == -1) {
 						 throw new GUIException("Fehler: Zeile nicht markiert!");
 					}
-					
 					String ZID = (String) guiZimmer.availableZimmer.getSQLTable().getValueAt(guiZimmer.availableZimmer.getSQLTable().getSelectedRow(), 0).toString();
-					System.out.println(newGast.getVorname());			
-					int GID = writeDbAi("INSERT INTO gast (Vorname, Name, Strasse, Hausnummer, Postleitzahl, Ort, Land, Telefonnummer, Geburtstag) " + "VALUES('"+ newGast.getVorname() + 
-							"', '"+ newGast.getName() +"', '"+ newGast.getStrasse() +"', '"+ newGast.getHn()+"', "+ newGast.getPlz()+", '"
-							+newGast.getOrt()+"', '"+ newGast.getLand() +"', '"+ newGast.getTel()+"', '"+ getSQLDate(guiZimmer.getGeb())+"')"); 
 					
-					int BID = writeDbAi("INSERT INTO buchung (GID, Erfassungsdatum) VALUES("+GID+", '" + getSQLDate(new Date()) + "')");
+					Zimmer zimmer = new Zimmer(ZID);
 					
-					writeDbAi("INSERT INTO hotel.`zimmer-buchung` (BID, ZID, Von, Bis) VALUES("+BID+", "+ZID+
-					", '" + getSQLDate(guiZimmer.getPickerVon()) + "', '" + getSQLDate(guiZimmer.getPickerBis())+"')");
-									
-					guiZimmer.jf.dispose();
-					
-					
-					Calendar von = new GregorianCalendar();
-					Calendar bis = new GregorianCalendar();
-					von = guiZimmer.pickerVon.getCalendar();
-					bis = guiZimmer.pickerBis.getCalendar();
-					
-					long time = bis.getTime().getTime() - von.getTime().getTime();  // Differenz in ms
-					long days = Math.round( (double)time / (24. * 60.*60.*1000.) );     // Differenz in Tagen
-					
-					writeDb("update hotel.buchung set Gesamtpreis = (select Preis from hotel.zimmer where ZID = '"+ ZID +"')*"+days+" where BID = "+BID);
+					Buchung buchung = new Buchung(gast, zimmer, new Date());
+					buchung.bookZimmer(guiZimmer.getPickerVon(), guiZimmer.getPickerBis());
+					this.buchung = buchung;
+					guiZimmer.launchThird();
 				
 					
-				}
+					
+					guiZimmer.card.add("Card3", guiZimmer.contentpane4);
+					guiZimmer.cardLayout.show(this.guiZimmer.card, "Card3");
+								
+			}
 			
 			}
 			catch (GUIException gex) {
@@ -221,11 +317,85 @@ public class BHBook extends BHHelp implements ActionListener{
 			}
 		}
 		
-		else if (e.getActionCommand().equals("NewBookingDl")) {
+		else if (e.getActionCommand().equals("Dl buchen")){
 			
-			guiDl.launchJFrame();
+			try{
+				int answer = JOptionPane.showConfirmDialog(guiZimmer.jf, "Dienstleistung wirklich buchen?", "Error",JOptionPane.YES_NO_OPTION);
+				if (answer == JOptionPane.YES_OPTION) {
+					
+				checkBookingDateDl(guiZimmer.bookDateDl.getDate());	
+			
+				if (guiZimmer.showDl.getSQLTable().getSelectedRow() == -1) {
+					throw new GUIException("Fehler: Zeile nicht markiert!");
+				} 
+			
+				guiZimmer.bookDateDl.getDate();
+				buchung.getBid();
+			
+				int did = Integer.parseInt((String) guiZimmer.showDl.getSQLTable().getValueAt(guiZimmer.showDl.getSQLTable().getSelectedRow(), 0).toString());
+				Dienstleistung dl = new Dienstleistung(did, guiZimmer.bookDateDl.getDate());
+				buchung.bookDl(buchung, dl);
+			}
+			}
+			catch (GUIException gex) {
+				JOptionPane.showMessageDialog(null, gex, "Error",
+                        JOptionPane.ERROR_MESSAGE);
+			}
+			catch (NullPointerException nex) {
+				JOptionPane.showMessageDialog(null, "Bitte alle Felder ausfüllen", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+			}
+			
+		}
 		
+		else if (e.getActionCommand().equals("Dl cancel")){
+			guiZimmer.jf.dispose();
+		}
 			
+		
+		else if (e.getActionCommand().equals("NewBookingDl")) {
+			try {
+				if (guiDl.sucheGast.getSQLTable().getSelectedRow() == -1) {
+			
+					throw new GUIException("Fehler: Zeile nicht markiert!");
+				}
+			
+				String gid = (String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 0).toString();
+				String vorname = (String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 1).toString();
+				String name = (String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 2).toString();
+				String geb = getDateSqlToGer((String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 3).toString());
+				int bid = Integer.parseInt((String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 4).toString());
+				String zid = (String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 5).toString();
+				String von = (String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 6).toString();
+				String bis = (String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 7).toString();
+				
+				
+				SimpleDateFormat toDate = new SimpleDateFormat("dd.MM.yyyy");
+				Date Geb = toDate.parse(geb);
+			
+				
+				Gast gast = new Gast(Integer.parseInt(gid), vorname, name, Geb);
+				Buchung buchung = new Buchung(bid);
+				this.buchung = buchung;
+				guiDl.launchJFrame();
+				this.gast = gast;
+				
+				System.out.println(gid);
+				guiDl.labelId2_2.setText(gid);
+				guiDl.labelVor2_2.setText(vorname);
+				guiDl.labelName2_2.setText(name);
+				guiDl.labelZimmer2_2.setText(zid);
+				guiDl.labelVon2_2.setText(von);
+				guiDl.labelBis2_2.setText(bis);
+				
+			}
+			catch (GUIException gex ){
+				JOptionPane.showMessageDialog(null, gex, "Error",
+                        JOptionPane.ERROR_MESSAGE);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		else if (e.getActionCommand().equals("BOOK?Dl")) {
 			try {			
@@ -233,6 +403,15 @@ public class BHBook extends BHHelp implements ActionListener{
 				int answer = JOptionPane.showConfirmDialog(guiDl.jf, "Dienstleistung wirklich buchen?", "Error",JOptionPane.YES_NO_OPTION);
 				if (answer == JOptionPane.YES_OPTION) {
 					System.out.println("Dienstleistung buchen!");	
+					if (guiDl.tableDl.getSQLTable().getSelectedRow() == -1) {
+						 throw new GUIException("Fehler: Zeile nicht markiert!");
+					}
+					int did = Integer.parseInt((String) guiDl.tableDl.getSQLTable().getValueAt(guiDl.tableDl.getSQLTable().getSelectedRow(), 0).toString());
+					
+					Dienstleistung dl = new Dienstleistung(did, guiDl.bookDate2.getDate());
+					
+					buchung.bookDl(buchung, dl);
+					
 					guiDl.jf.dispose();
 				}
 			}
@@ -240,10 +419,10 @@ public class BHBook extends BHHelp implements ActionListener{
 				JOptionPane.showMessageDialog(null, gex, "Error",
                         JOptionPane.ERROR_MESSAGE);
 			}
-			catch (NullPointerException ex) {
+/*			catch (NullPointerException ex) {
 				JOptionPane.showMessageDialog(guiDl.jf, "Bitte Buchungsdatum eintragen", "Error",
 						JOptionPane.ERROR_MESSAGE);
-			}
+			}*/
 			
 			
 			}

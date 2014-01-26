@@ -3,7 +3,7 @@ package model;
 import java.util.Date;
 
 
-public class Gast {
+public class Gast extends ModelHelper{
 
 	private String Vorname;
 	private String Name;
@@ -14,6 +14,8 @@ public class Gast {
 	private String Land;
 	private String Tel;
 	private Date Geb;
+	private boolean existing;
+	private int gid;
 	
 	
 	public Gast (String vor, String name, String str, String hn, String plz, String ort, String land, String tel, Date geb) {
@@ -28,8 +30,19 @@ public class Gast {
 		Geb = geb;
 	}
 	
-	public Gast (){
-		
+	public Gast (int gid, String vor, String name, Date geb){
+		this.gid = gid;
+		Vorname = vor;
+		Name = name;
+		Geb = geb;
+	}
+	
+	public void deleteGast(){
+		writeDb("delete from hotel.gast where GID = " + gid);
+	}
+	
+	public Gast(int gid) {
+		this.gid = gid;
 	}
 	
 	public String getVorname(){
@@ -102,6 +115,22 @@ public class Gast {
 
 	public void setGeb(Date geb) {
 		Geb = geb;
+	}
+
+	public boolean isExisting() {
+		return existing;
+	}
+
+	public void setExisting(boolean existing) {
+		this.existing = existing;
+	}
+
+	public int getGid() {
+		return gid;
+	}
+
+	public void setGid(int gid) {
+		this.gid = gid;
 	}
 
 	

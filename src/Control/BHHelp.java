@@ -16,6 +16,12 @@ import javax.swing.JOptionPane;
 
 public class BHHelp {
 
+	
+	public String getSQLDate(Date date) {
+		SimpleDateFormat Sql =new SimpleDateFormat("yyyy-MM-dd");
+		return Sql.format(date);
+	}
+	
 	public void checkNumber(String number) throws GUIException{
 		
 		try {
@@ -45,9 +51,14 @@ public class BHHelp {
 			}
 	}
 	
-	public String getSQLDate(Date date) {
-		SimpleDateFormat Sql =new SimpleDateFormat("yyyy-MM-dd");
-		return Sql.format(date);
+	
+	public String getDateSqlToGer(String date) {
+
+		String[] splitResult = date.split("-", 3);
+		String tag = splitResult[2];
+		String monat = splitResult[1];
+		String jahr = splitResult[0];
+		return tag + "." + monat + "." + jahr;
 	}
 	
 	public void checkStringEmpty(String check) throws GUIException {
@@ -98,6 +109,9 @@ public class BHHelp {
 			throw new GUIException("Telefonnummer überprüfen!");
 		}
 	}
+	
+	
+	
 	public void checkLogin(String x, String y) throws GUIException
 	{
 		
@@ -186,6 +200,7 @@ public class BHHelp {
 		
 	}
 	
+		
 	public String selectDB(String SQLquery) 
 	{ 
 		try 

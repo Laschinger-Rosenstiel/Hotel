@@ -18,22 +18,23 @@ import control.JTableview;
 
 public class DataZimmer extends GUIHelp
 {
-	public JFrame createFrame;
-	private JButton bChange,bDel, bCreate, bConfirme;
-	public JTextField jtfZnr, jtfPreis;
-	public JComboBox cb;
-	public JLabel l1,l2,l3,l4;
+	public JFrame createFrame, changeFrameZ;
+	private JButton bChange,bDel, bCreate, bConfirme,bConfirme2;
+	public JTextField jtfZnr, jtfPreis,jtfZnr2,jtfPreis2; 
+	public JComboBox cb, cb2;
+	public JLabel l1,l2,l3,l4,lTyp2,lPreis2,lZnr2;
 	public String[] typ ={"Einzelzimmer","Doppelzimmer"};
 	public JTableview jtv;
 	public JPanel panelZ1;
 	public JPanel panelZ2;
+	public JPanel panelZ3;
 	public JScrollPane scrollPaneZ;
 	public JTable abc;
-	private String x = "Zimmer";
+	private String x;
 
 	public DataZimmer()
 	{
-		//First JFrame
+		//JPanel
 		//jf = new JFrame();
 		bChange = new JButton("Ändern");
 		bChange.setActionCommand("Change");
@@ -46,9 +47,7 @@ public class DataZimmer extends GUIHelp
 		bCreate.addActionListener(new ButtonHandlerData(this));
 		l4 = new JLabel("Stammdaten Zimmer:", JLabel.LEFT);
 
-
-
-		//Second JFrame
+		//CreateJFrame
 		createFrame = new JFrame();
 		cb = new JComboBox(typ);
 		jtfZnr = new JTextField(40);
@@ -59,6 +58,19 @@ public class DataZimmer extends GUIHelp
 		bConfirme = new JButton("Bestätigen");
 		bConfirme.setActionCommand("Confirme");
 		bConfirme.addActionListener(new ButtonHandlerData(this));
+
+		//Change Frame
+		changeFrameZ = new JFrame();
+		bConfirme2 = new JButton("Bestätigen");
+		bConfirme2.setActionCommand("Confirme");
+		bConfirme2.addActionListener(new ButtonHandlerData(this));
+		lTyp2 = new JLabel("Zimmer:", JLabel.LEFT);
+		lPreis2 = new JLabel("Preis:", JLabel.LEFT);
+		lZnr2 = new JLabel("Zimmernummer:", JLabel.LEFT);
+		jtfZnr2 = new JTextField(40);
+		jtfPreis2 = new JTextField(40);
+		cb2 = new JComboBox(typ);
+
 	}
 
 	public JPanel launchJPanel()
@@ -85,12 +97,12 @@ public class DataZimmer extends GUIHelp
 		return panelZ1;
 	}
 
-	public void launchCreateFrame()
+	public JFrame launchCreateFrame()
 	{
 		createFrame = null;
 		panelZ2 = null;
 
-		panelZ2 = new JPanel();
+		panelZ3 = new JPanel();
 		panelZ2.setLayout(null);
 		panelZ2.setVisible(false);
 		l1.setBounds(x_column1, y_line2, x_width, y_height);
@@ -118,11 +130,49 @@ public class DataZimmer extends GUIHelp
 		createFrame.setDefaultCloseOperation(createFrame.DISPOSE_ON_CLOSE);
 		createFrame.setVisible(true);
 
+		return createFrame;
 
 
 	}
-	public String getX()
+
+	public JFrame launchChangeFrameZ(String id,String preis)
 	{
-		return x;
+		changeFrameZ = null;
+		panelZ3 = null;
+
+		JPanel panelZ3 = new JPanel();
+		panelZ3.setLayout(null);
+		panelZ3.setVisible(false);
+		lTyp2.setBounds(x_column1, y_line1, x_width, y_height);
+		panelZ3.add(lTyp2);
+		cb2.setBounds(x_column3, y_line1, x_width, y_height);
+		panelZ3.add(cb2);
+		lPreis2.setBounds(x_column1, y_line2, x_width, y_height);
+		panelZ3.add(lPreis2);
+		jtfPreis2.setBounds(x_column3, y_line2, x_width, y_height);
+		jtfPreis2.setText(preis);
+		panelZ3.add(jtfPreis2);
+		lZnr2.setBounds(x_column1, y_line3, x_width, y_height);
+		panelZ3.add(lZnr2);
+		jtfZnr2.setBounds(x_column3, y_line3, x_width, y_height);
+		jtfZnr2.setText(id);
+		panelZ3.add(jtfZnr2);
+		bConfirme2.setBounds(x_column3, y_line4, x_width, y_height);
+		panelZ3.add(bConfirme2);
+		panelZ3.setOpaque(true);
+		panelZ3.setBackground(new Color(209,218,248));
+		panelZ3.setVisible(true);
+
+		changeFrameZ = new JFrame();
+		changeFrameZ.add(panelZ3);
+		changeFrameZ.setSize(600,500);
+		changeFrameZ.setLocation(300, 50);
+		changeFrameZ.setDefaultCloseOperation(changeFrameZ.DISPOSE_ON_CLOSE);
+		changeFrameZ.setVisible(true);
+
+
+
+		return changeFrameZ;
 	}
+
 }

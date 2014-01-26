@@ -18,6 +18,19 @@ public class Gast extends ModelHelper{
 	private int gid;
 	
 	
+	public Gast (String id,String vor, String name, String str, String hn, String plz, String ort, String land, String tel, Date geb) {
+		Vorname = vor;
+		Name = name;
+		Strasse = str;
+		Hn = hn;
+		Plz = plz;
+		Ort = ort;
+		Land = land;
+		Tel = tel;
+		Geb = geb;
+		gid = Integer.parseInt(id);
+	}
+	
 	public Gast (String vor, String name, String str, String hn, String plz, String ort, String land, String tel, Date geb) {
 		Vorname = vor;
 		Name = name;
@@ -39,6 +52,12 @@ public class Gast extends ModelHelper{
 	
 	public void deleteGast(){
 		writeDb("delete from hotel.gast where GID = " + gid);
+	}
+	
+	public void changeGast()
+	{
+		writeDb("update gast set Vorname = '" + Vorname +"',  Name = '"+ Name +"', Strasse = '"+ Strasse +"', Hausnummer = '"+ Hn +"', Postleitzahl = '"+ Plz +"',"
+				+ "Ort = '" + Ort +"', Land = '" + Land +"', Geburtstag = '" + getSQLDate(Geb) +"', Telefonnummer = '" + Tel+"' where GID = "+gid);
 	}
 	
 	public Gast(int gid) {

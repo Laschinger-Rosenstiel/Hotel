@@ -69,6 +69,39 @@ public class BHCancel extends BHHelp implements ActionListener{
 					
 			}
 		
+		else if (e.getActionCommand().equals("CancelDl?")) {
+			
+			int answer = JOptionPane.showConfirmDialog(null, "Dienstleistungen wirklich löschen?", "Error",JOptionPane.YES_NO_OPTION);
+			if (answer == JOptionPane.YES_OPTION) {
+				try {
+				
+				if (guiDl.sucheBu.getSQLTable().getSelectedRow() == -1) {
+ 						throw new GUIException("Fehler: Zeile nicht markiert!");
+				}		
+				String Bid = (String) guiDl.sucheBu.getSQLTable().getValueAt(guiDl.sucheBu.getSQLTable().getSelectedRow(), 4).toString();
+				int bid = Integer.parseInt(Bid);
+				
+				String Gid = (String) guiDl.sucheBu.getSQLTable().getValueAt(guiZimmer.sucheBu.getSQLTable().getSelectedRow(), 0).toString();
+				int gid = Integer.parseInt(Gid);
+				
+				int anzahlBuchungen =Integer.parseInt(selectDB("SELECT count(GID) from hotel.buchung where GID = " + gid));
+				
+				if (anzahlBuchungen == 1){
+					Gast gast = new Gast(gid);
+					gast.deleteGast();
+			
+			
+		}
+		}
+				catch (GUIException gex) {
+					
+ 					JOptionPane.showMessageDialog(null, gex, "Error",
+ 	                        JOptionPane.ERROR_MESSAGE);
+		}
+		}
+		}
+			
+		
 		
 		else if (e.getActionCommand().equals("SearchBu")){
 			String gebSuche = "%";
@@ -98,7 +131,7 @@ public class BHCancel extends BHHelp implements ActionListener{
 				nameSuche = guiZimmer.getNameSuche() +"%";
 		
 			String query = guiZimmer.getQuery() + " AND hotel.gast.GID like '" + gidSuche + "' AND hotel.gast.Name like '" + nameSuche + "' AND hotel.gast.Vorname like '" + vorSuche + "' AND hotel.gast.Geburtstag like '"+gebSuche+"'";
-			
+			System.out.println(query);
 			guiZimmer.sucheBu = new JTableview(query);
 			
 			JTable suche = guiZimmer.sucheBu.getSQLTable();
@@ -110,6 +143,50 @@ public class BHCancel extends BHHelp implements ActionListener{
 			guiZimmer.contentpane1.add(guiZimmer.scrollPaneSuche);
 		
 		}
+		
+		else if (e.getActionCommand().equals("SearchDl")){
+			String gebSuche = "%";
+			String vorSuche = "%";
+			String nameSuche = "%";
+			String gidSuche = "%";
+			guiDl.sucheBu = null;
+			
+			try {
+				gebSuche = getSQLDate(guiDl.getGebSuche());
+			}
+			catch (NullPointerException ex) {
+				
+			}
+			
+			
+			if (!guiDl.getGidSuche().equals(""))
+				gidSuche = guiDl.getGidSuche();
+		
+			
+			if (!guiDl.getVorSuche().equals(""))
+				vorSuche = guiDl.getVorSuche()+"%";
+			
+			
+		
+			if (!guiDl.getNameSuche().equals(""))
+				nameSuche = guiDl.getNameSuche() +"%";
+		
+			String query = guiDl.getQuery() + " AND hotel.gast.GID like '" + gidSuche + "' AND hotel.gast.Name like '" + nameSuche + "' AND hotel.gast.Vorname like '" + vorSuche + "' AND hotel.gast.Geburtstag like '"+gebSuche+"'";
+			
+			guiDl.sucheBu = new JTableview(query);
+			
+			JTable suche = guiDl.sucheBu.getSQLTable();
+			
+			guiDl.scrollPaneSuche.setVisible(false);
+			guiDl.scrollPaneSuche = null;
+			guiDl.scrollPaneSuche = new JScrollPane(suche);
+			guiDl.scrollPaneSuche.setBounds(10, 280, 1000, 200);
+			guiDl.contentpane1.add(guiDl.scrollPaneSuche);
+		
+		}
+				
+				
+
+	}		
 	
 	}
-}

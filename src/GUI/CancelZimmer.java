@@ -70,7 +70,7 @@ public class CancelZimmer extends GUIHelp{
 		contentpane1.add(geb);
 		
 		buttonSearch.setBounds(x_column1, y_line6, x_width, y_height);
-		buttonSearch.addActionListener(ButtonHandler);
+		buttonSearch.addActionListener(new BHCancel(this));
 		buttonSearch.setActionCommand("SearchBu");
 		contentpane1.add(buttonSearch);
 		

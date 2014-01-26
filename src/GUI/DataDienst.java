@@ -17,101 +17,155 @@ import control.JTableview;
 
 public class DataDienst extends GUIHelp
 {
-	public JFrame jf, cf;
-	private JButton b1,b2, b3, b4;
-	public JTextField jtf1, jtf2, jtf3;
-	public JLabel l1,l2,l3,l4;
-	//public JComboBox cb;
-	//public String[] typ ={"Einzelzimmer","Doppelzimmer"};
-	//add jtableview
-	public JTableview jtv;
-	
+	public JFrame createFrameD, changeFrameD;
+	private JButton bChange,bDel, bCreate, bConfirme, bConfirme2;
+	public JTextField jtfTyp, jtfPreis, jtfID,jtfTyp2, jtfPreis2, jtfID2;
+	public JLabel lTyp,lPreis,lID,lTitel;
+	public JTableview jtvDienst;
+	private String x = "Dienst";
+	public JPanel panelD1;
+	public JPanel panelD2;
+	public JPanel panelD3;
+	public JScrollPane scrollPaneD;
 	public DataDienst()
 	{
-		//First JFrame
-		jf = new JFrame();
-		b1 = new JButton("Ändern");
-		b1.setActionCommand("Change");
-		b1.addActionListener(new ButtonHandlerData(this));
-		b2 = new JButton("Löschen");
-		b2.setActionCommand("Delete");
-		b2.addActionListener(new ButtonHandlerData(this));
-		b3 = new JButton("Anlegen");
-		b3.setActionCommand("Create");
-		b3.addActionListener(new ButtonHandlerData(this));
-		l4 = new JLabel("Stammdaten Dienstleistung:", JLabel.LEFT);
-		jtv = new JTableview("Select * from dienstleistung");
+		//First JPanel
+		bChange = new JButton("Ändern");
+		bChange.setActionCommand("Change");
+		bChange.addActionListener(new ButtonHandlerData(this));
+		bDel = new JButton("Löschen");
+		bDel.setActionCommand("Delete");
+		bDel.addActionListener(new ButtonHandlerData(this));
+		bCreate = new JButton("Anlegen");
+		bCreate.setActionCommand("Create");
+		bCreate.addActionListener(new ButtonHandlerData(this));
+		lTitel = new JLabel("Dienstleistungen:", JLabel.LEFT);
+		jtvDienst = new JTableview("Select * from dienstleistung");
 		
-		//Second JFrame
-		cf = new JFrame();
-		//cb = new JComboBox(typ);
-		jtf1 = new JTextField(40);
-		jtf2 = new JTextField(40);
-		jtf3 = new JTextField(40);
-		l1 = new JLabel("Dienstleistung:", JLabel.LEFT);
-		l2 = new JLabel("Preis:", JLabel.LEFT);
-		l3 = new JLabel("ID:", JLabel.LEFT);
-		b4 = new JButton("Bestätigen");
-		b4.setActionCommand("Confirme");
-		b4.addActionListener(new ButtonHandlerData(this));
+		//Create JFrame
+		createFrameD = new JFrame();
+		jtfTyp = new JTextField(40);
+		jtfPreis = new JTextField(40);
+		jtfID = new JTextField(40);
+		lTyp = new JLabel("Dienstleistung:", JLabel.LEFT);
+		lPreis = new JLabel("Preis:", JLabel.LEFT);
+		lID = new JLabel("ID:", JLabel.LEFT);
+		bConfirme = new JButton("Bestätigen");
+		bConfirme.setActionCommand("Confirme");
+		bConfirme.addActionListener(new ButtonHandlerData(this));
+		
+		//Change Frame
+		changeFrameD = new JFrame();
+		bConfirme2 = new JButton("Bestätigen");
+		bConfirme2.setActionCommand("Confirme2");
+		bConfirme2.addActionListener(new ButtonHandlerData(this));
+		jtfTyp2 = new JTextField(40);
+		jtfPreis2 = new JTextField(40);
+		jtfID2 = new JTextField(40);
+		
 	}
 	
-	public JPanel launchJFrame()
+	public JPanel launchJPanel()
 	{
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		l4.setBounds(x_column1, y_line1, x_width, y_height);
-		panel.add(l4);
-		JTable abc = jtv.getSQLTable();
-		JScrollPane scrollPane = new JScrollPane(abc); 
-		scrollPane.setBounds(x_column1, y_line5, 600, 300); 
-		panel.add(scrollPane);
-		b1.setBounds(x_column1, y_line13, x_width, y_height);
-		panel.add(b1);
-		b2.setBounds(x_column3, y_line13, x_width, y_height);
-		panel.add(b2);
-		b3.setBounds(x_column4, y_line13, x_width, y_height);
-		panel.add(b3);
 		
-		panel.setOpaque(true);
-		panel.setBackground(new Color(209,218,248));
+		panelD1 = new JPanel();
+		panelD1.setLayout(null);
+		jtvDienst = new JTableview("Select * from dienstleistung");
+		JTable dienstTab = jtvDienst.getSQLTable();
+		scrollPaneD = new JScrollPane(dienstTab);
+		scrollPaneD.setBounds(x_column1, y_line3, 600, 300); 
+		panelD1.add(scrollPaneD);
+		lTitel.setBounds(x_column1, y_line1, x_width, y_height);
+		lTitel.setBounds(x_column1, y_line1, x_width, y_height);
+		panelD1.add(lTitel);
+		bChange.setBounds(x_column1, y_line13, x_width, y_height);
+		panelD1.add(bChange);
+		bDel.setBounds(x_column3, y_line13, x_width, y_height);
+		panelD1.add(bDel);
+		bCreate.setBounds(x_column4, y_line13, x_width, y_height);
+		panelD1.add(bCreate);
 		
-		jf.add(panel);
-		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jf.setVisible(true);
+		panelD1.setOpaque(true);
+		panelD1.setBackground(new Color(209,218,248));
 		
-		
-		return panel;
+		return panelD1;
 	}
 	
-	public void launchCreateFrame()
+	public JFrame launchCreateFrameD()
 	{
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		l1.setBounds(x_column1, y_line1, x_width, y_height);
-		panel.add(l1);
-		jtf1.setBounds(x_column3, y_line1, x_width, y_height);
-		panel.add(jtf1);
-		l2.setBounds(x_column1, y_line2, x_width, y_height);
-		panel.add(l2);
-		jtf2.setBounds(x_column3, y_line2, x_width, y_height);
-		panel.add(jtf2);
-		l3.setBounds(x_column1, y_line3, x_width, y_height);
-		panel.add(l3);
-		jtf3.setBounds(x_column3, y_line3, x_width, y_height);
-		panel.add(jtf3);
-		b4.setBounds(x_column3, y_line4, x_width, y_height);
-		panel.add(b4);
-		//cb.setBounds(x_column4, y_line13, x_width, y_height);
-		//panel.add(cb);
-		panel.setOpaque(true);
-		panel.setBackground(new Color(209,218,248));
+		createFrameD = null;
+		panelD2 = null;
 		
-		cf.add(panel);
-		cf.setSize(600,500);
-		cf.setLocation(300, 50);
-		cf.setDefaultCloseOperation(cf.DISPOSE_ON_CLOSE);
-		cf.setVisible(true);
+		JPanel panelD2 = new JPanel();
+		panelD2.setLayout(null);
+		panelD2.setVisible(false);
+		lTyp.setBounds(x_column1, y_line1, x_width, y_height);
+		panelD2.add(lTyp);
+		jtfTyp.setBounds(x_column3, y_line1, x_width, y_height);
+		panelD2.add(jtfTyp);
+		lPreis.setBounds(x_column1, y_line2, x_width, y_height);
+		panelD2.add(lPreis);
+		jtfPreis.setBounds(x_column3, y_line2, x_width, y_height);
+		panelD2.add(jtfPreis);
+		lID.setBounds(x_column1, y_line3, x_width, y_height);
+		panelD2.add(lID);
+		jtfID.setBounds(x_column3, y_line3, x_width, y_height);
+		panelD2.add(jtfID);
+		bConfirme.setBounds(x_column3, y_line4, x_width, y_height);
+		panelD2.add(bConfirme);
+		panelD2.setOpaque(true);
+		panelD2.setBackground(new Color(209,218,248));
+		panelD2.setVisible(true);
+		
+		createFrameD = new JFrame();
+		createFrameD.add(panelD2);
+		createFrameD.setSize(600,500);
+		createFrameD.setLocation(300, 50);
+		createFrameD.setDefaultCloseOperation(createFrameD.DISPOSE_ON_CLOSE);
+		createFrameD.setVisible(true);
+		
+		return createFrameD;
 				
+	}
+	
+	public JFrame launchChangeFrameD(String id, String preis, String typ)
+	{
+		changeFrameD = null;
+		panelD3 = null;
+		
+		JPanel panelD3 = new JPanel();
+		panelD3.setLayout(null);
+		panelD3.setVisible(false);
+		lTyp.setBounds(x_column1, y_line1, x_width, y_height);
+		panelD3.add(lTyp);
+		jtfTyp2.setBounds(x_column3, y_line1, x_width, y_height);
+		panelD3.add(jtfTyp2);
+		lPreis.setBounds(x_column1, y_line2, x_width, y_height);
+		panelD3.add(lPreis);
+		jtfPreis2.setBounds(x_column3, y_line2, x_width, y_height);
+		panelD3.add(jtfPreis2);
+		lID.setBounds(x_column1, y_line3, x_width, y_height);
+		panelD3.add(lID);
+		jtfID2.setBounds(x_column3, y_line3, x_width, y_height);
+		panelD3.add(jtfID2);
+		bConfirme2.setBounds(x_column3, y_line4, x_width, y_height);
+		panelD3.add(bConfirme2);
+		jtfID2.setText(id);
+		jtfTyp2.setText(typ);
+		jtfPreis2.setText(preis);
+		panelD3.setOpaque(true);
+		panelD3.setBackground(new Color(209,218,248));
+		panelD3.setVisible(true);
+		
+		changeFrameD = new JFrame();
+		changeFrameD.add(panelD3);
+		changeFrameD.setSize(600,500);
+		changeFrameD.setLocation(300, 50);
+		changeFrameD.setDefaultCloseOperation(changeFrameD.DISPOSE_ON_CLOSE);
+		changeFrameD.setVisible(true);
+		
+		
+		
+		return changeFrameD;
 	}
 }

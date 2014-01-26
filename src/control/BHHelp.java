@@ -200,7 +200,31 @@ public class BHHelp {
 		
 	}
 	
+<<<<<<< HEAD
 		
+=======
+public void checkID(String number) throws GUIException{
+		
+		try {
+		Integer.parseInt(number);		
+		}
+		catch (NumberFormatException nex) {
+			throw new GUIException("Eingabe überprüfen");
+		}
+		
+	}
+public void checkPrize(String number) throws GUIException{
+	
+	try {
+	Double.parseDouble(number);		
+	}
+	catch (NumberFormatException nex) {
+		throw new GUIException("Eingabe überprüfen");
+	}
+	
+}
+	
+>>>>>>> dd7c5d2f6f6e9993f40217c2665ba0e50ea30b9c
 	public String selectDB(String SQLquery) 
 	{ 
 		try 

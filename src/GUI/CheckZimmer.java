@@ -1,24 +1,26 @@
 package gui;
 import java.awt.Color;
 import java.util.Date;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import com.toedter.calendar.JDateChooser;
 
 import control.BHOther;
+import control.JTableview;
 
 public class CheckZimmer extends GUIHelp{
 
 			BHOther ButtonHandler = new BHOther(this);
 		//Startpanel
-			private JPanel contentpane1;
+			public JPanel contentpane1;
 			private JButton buttonCheck;
 			private JLabel labelZeitraum, labelVon, labelBis, labelZimmer; 
 			public JDateChooser von, bis;
-			
+			public JTableview checkedZimmer;
+			public JScrollPane scrollPaneChecked;
 			
 		public JPanel launchStartPanel(){
 			//Objekte erzeugen
@@ -63,5 +65,13 @@ public class CheckZimmer extends GUIHelp{
 			contentpane1.setBackground(new Color(209,218,248));
 		
 			return contentpane1;
+		}
+		
+		public Date getPickerVon(){
+			return von.getDate();
+		}
+		
+		public Date getPickerBis(){
+			return bis.getDate();
 		}
 }

@@ -10,6 +10,7 @@ public class Buchung extends ModelHelper{
 	Date von;
 	Date bis;
 	int bid;
+	int dlbid;
 	Gast gast;
 	Zimmer zimmer;
 	
@@ -57,6 +58,7 @@ public class Buchung extends ModelHelper{
 		
 		String query = "insert into hotel.`dl-buchung` (DID, BID, Datum) values ("+dl.getDid()+", "+buchung.getBid()+", '"+getSQLDate(dl.getDate())+"')";
 		int DLBID = writeDbAi(query);
+		dlbid = DLBID;
 		String query2 = "update hotel.buchung set Gesamtpreis = Gesamtpreis + (select Preis from hotel.dienstleistung where DID = '" + dl.getDid() +"')";
 		writeDb(query2);
 	}
@@ -68,9 +70,24 @@ public class Buchung extends ModelHelper{
 		
 	}
 	
+	public void cancelDl (Buchung buchung, Dienstleistung dl){
+		this.bid = buchung.getBid();
+		dlbid = buchung.getDlbid();
+		
+		writeDb("update hotel.buchung set Gesamtpreis = Gesamtpreis - (select Preis from hotel.dienstleistung where DID = '" + dl.getDid() +"')");
+		writeDb("delete from hotel.`dl-buchung` where DLBID = "+dlbid);
+	}
+	
 	public int getBid() {
 		return bid;
 	}
 	
+	public int getDlbid(){
+		return dlbid;
+	}
+	
+	public void setDlbid(int dlbid){
+		this.dlbid = dlbid;
+	}
 }
 

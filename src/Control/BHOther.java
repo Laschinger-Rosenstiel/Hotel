@@ -5,8 +5,11 @@ import gui.CheckZimmer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class BHOther extends BHHelp implements ActionListener{
 	CheckZimmer guiZimmer;
@@ -27,6 +30,20 @@ public class BHOther extends BHHelp implements ActionListener{
 			
 			try {
 			checkBookingDate(guiZimmer.von.getDate(), guiZimmer.bis.getDate());
+			Date von = guiZimmer.getPickerVon();
+			Date bis = guiZimmer.getPickerBis();
+			
+			
+			String vonSql = getSQLDate(von);
+			String bisSql = getSQLDate(bis);
+			
+			guiZimmer.checkedZimmer = new JTableview("SELECT * from hotel.zimmer where hotel.zimmer.ZID not in (SELECT hotel.`zimmer-buchung`.ZID from hotel.`zimmer-buchung` where (Von between '"+vonSql+"' AND '"+bisSql+"') OR (Bis between '"+vonSql+"' AND '"+bisSql+"'))");
+			JTable available = guiZimmer.checkedZimmer.getSQLTable();
+			
+			guiZimmer.scrollPaneChecked = new JScrollPane(available);
+			guiZimmer.scrollPaneChecked.setBounds(10, 240, 400, 300);
+			guiZimmer.contentpane1.add(guiZimmer.scrollPaneChecked);
+
 			}
 			catch (GUIException gex) {
 				JOptionPane.showMessageDialog(null, gex, "Error",
@@ -39,7 +56,44 @@ public class BHOther extends BHHelp implements ActionListener{
 		}
 		
 		else if (e.getActionCommand().equals("Search")){
-
+			String gebSuche = "%";
+			String vorSuche = "%";
+			String nameSuche = "%";
+			String gidSuche = "%";
+			guiPreis.searchBu = null;
+			
+			try {
+				gebSuche = getSQLDate(guiPreis.getGebSuche());
+			}
+			catch (NullPointerException ex) {
+				
+			}
+			
+			
+			if (!guiPreis.getGidSuche().equals(""))
+				gidSuche = guiPreis.getGidSuche();
+		
+			
+			if (!guiPreis.getVorSuche().equals(""))
+				vorSuche = guiPreis.getVorSuche()+"%";
+			
+			
+		
+			if (!guiPreis.getNameSuche().equals(""))
+				nameSuche = guiPreis.getNameSuche() +"%";
+		
+			String query = guiPreis.getQuery() + " AND hotel.gast.GID like '" + gidSuche + "' AND hotel.gast.Name like '" + nameSuche + "' AND hotel.gast.Vorname like '" + vorSuche + "' AND hotel.gast.Geburtstag like '"+gebSuche+"'";
+			System.out.println(query);
+			guiPreis.searchBu = new JTableview(query);
+			
+			JTable suche = guiPreis.searchBu.getSQLTable();
+			
+			guiPreis.scrollPaneSuche.setVisible(false);
+			guiPreis.scrollPaneSuche = null;
+			guiPreis.scrollPaneSuche = new JScrollPane(suche);
+			guiPreis.scrollPaneSuche.setBounds(10, 320, 1000, 200);
+			guiPreis.contentpane1.add(guiPreis.scrollPaneSuche);
+		
 		}
 	}
 }

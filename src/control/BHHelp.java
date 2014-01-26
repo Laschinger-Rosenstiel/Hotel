@@ -200,9 +200,6 @@ public class BHHelp {
 		
 	}
 	
-<<<<<<< HEAD
-		
-=======
 public void checkID(String number) throws GUIException{
 		
 		try {
@@ -223,9 +220,7 @@ public void checkPrize(String number) throws GUIException{
 	}
 	
 }
-	
->>>>>>> dd7c5d2f6f6e9993f40217c2665ba0e50ea30b9c
-	public String selectDB(String SQLquery) 
+public String selectDB(String SQLquery) 
 	{ 
 		try 
 		{ 

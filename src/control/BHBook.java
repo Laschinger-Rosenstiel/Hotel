@@ -21,8 +21,9 @@ import model.Zimmer;
 
 public class BHBook extends BHHelp implements ActionListener{
 	
-	BookZimmer guiZimmer;
 	BookDl guiDl;
+	BookZimmer guiZimmer;
+	
 	static Gast gast;
 	static Buchung buchung;
 	String tel;	
@@ -132,7 +133,7 @@ public class BHBook extends BHHelp implements ActionListener{
 		}
 		else if (e.getActionCommand().equals("SEARCH")) {
 			
-<<<<<<< HEAD
+
 			String gebSuche = "%";
 			String vorSuche = "%";
 			String nameSuche = "%";
@@ -153,12 +154,7 @@ public class BHBook extends BHHelp implements ActionListener{
 			
 			if (!guiZimmer.getVornameSuche().equals(""))
 				vorSuche = guiZimmer.getVornameSuche()+"%";
-			
-=======
-			if (guiZimmer.getVornameSuche().equals(""))
->>>>>>> dd7c5d2f6f6e9993f40217c2665ba0e50ea30b9c
-			
-		
+					
 			if (!guiZimmer.getNameSuche().equals(""))
 				nameSuche = guiZimmer.getNameSuche() +"%";
 		

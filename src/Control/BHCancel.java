@@ -11,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import model.Buchung;
+import model.Dienstleistung;
 import model.Gast;
 
 public class BHCancel extends BHHelp implements ActionListener{
@@ -81,19 +82,19 @@ public class BHCancel extends BHHelp implements ActionListener{
 				String Bid = (String) guiDl.sucheBu.getSQLTable().getValueAt(guiDl.sucheBu.getSQLTable().getSelectedRow(), 4).toString();
 				int bid = Integer.parseInt(Bid);
 				
-				String Gid = (String) guiDl.sucheBu.getSQLTable().getValueAt(guiZimmer.sucheBu.getSQLTable().getSelectedRow(), 0).toString();
-				int gid = Integer.parseInt(Gid);
+				String Dlbid = (String) guiDl.sucheBu.getSQLTable().getValueAt(guiDl.sucheBu.getSQLTable().getSelectedRow(), 5).toString();
+				int dlbid = Integer.parseInt(Dlbid);
 				
-				int anzahlBuchungen =Integer.parseInt(selectDB("SELECT count(GID) from hotel.buchung where GID = " + gid));
+				String a = selectDB("select hotel.`dl-buchung`.DID from hotel.`dl-buchung` where hotel.`dl-buchung`.dlbid = " +dlbid);
+				Dienstleistung dl = new Dienstleistung(Integer.parseInt(a));
+				Buchung buchung = new Buchung(bid);
+				buchung.setDlbid(dlbid);
+				buchung.cancelDl(buchung, dl);
 				
-				if (anzahlBuchungen == 1){
-					Gast gast = new Gast(gid);
-					gast.deleteGast();
-			
-			
 		}
-		}
-				catch (GUIException gex) {
+		
+		
+			catch (GUIException gex) {
 					
  					JOptionPane.showMessageDialog(null, gex, "Error",
  	                        JOptionPane.ERROR_MESSAGE);

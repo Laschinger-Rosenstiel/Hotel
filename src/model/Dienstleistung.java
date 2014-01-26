@@ -12,6 +12,10 @@ public class Dienstleistung {
 		this.date = date;
 	}
 	
+	public Dienstleistung(int did) {
+		this.did = did;
+	}
+	
 	public int getDid(){
 		return did;
 	}

@@ -38,7 +38,7 @@ CREATE TABLE `zimmer` (
 
 LOCK TABLES `zimmer` WRITE;
 /*!40000 ALTER TABLE `zimmer` DISABLE KEYS */;
-INSERT INTO `zimmer` VALUES ('1.001','Einzelzimmer',80),('1.002','Doppelzimmer',100),('1.003','Einzelzimmer',80),('2.010','Doppelzimmer',110),('2.011','Doppelzimmer',110),('2.012','Doppelzimmer',110),('2.013','Doppelzimmer',110);
+INSERT INTO `zimmer` VALUES ('1.001','Einzelzimmer',80),('1.002','Doppelzimmer',100),('1.004','Einzelzimmer',80),('2.010','Doppelzimmer',110),('2.011','Doppelzimmer',110),('2.012','Doppelzimmer',110),('2.013','Doppelzimmer',110);
 /*!40000 ALTER TABLE `zimmer` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-01-26 15:18:33
+-- Dump completed on 2014-01-26 18:34:16

@@ -36,13 +36,13 @@ public class DataGast extends GUIHelp
 	{
 		// JPanel
 		bChange = new JButton("Ändern");
-		bChange.setActionCommand("Change");
+		bChange.setActionCommand("ChangeGast");
 		bChange.addActionListener(new ButtonHandlerData(this));
 		bSearch = new JButton("Suchen");
-		bSearch.setActionCommand("Search");
+		bSearch.setActionCommand("SearchGast");
 		bSearch.addActionListener(new ButtonHandlerData(this));
 		bDel = new JButton("Löschen");
-		bDel.setActionCommand("Delete");
+		bDel.setActionCommand("DeleteGast");
 		bDel.addActionListener(new ButtonHandlerData(this));
 		jtfVn = new JTextField(40);
 		jtfName = new JTextField(40);
@@ -56,7 +56,7 @@ public class DataGast extends GUIHelp
 		//ChangeFrame
 		changeFrameG = new JFrame();
 		bConfirme = new JButton("Bestätigen");
-		bConfirme.setActionCommand("Confirme");
+		bConfirme.setActionCommand("ConfirmeChangeGast");
 		bConfirme.addActionListener(new ButtonHandlerData(this));
 		jtfVn2 = new JTextField(40);
 		jtfName2 = new JTextField(40);

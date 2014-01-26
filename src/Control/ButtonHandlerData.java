@@ -17,7 +17,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import model.Dienstleistung;
 import model.Gast;
+import model.Zimmer;
 
 public class ButtonHandlerData extends BHHelp implements ActionListener
 {	
@@ -49,7 +51,7 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 
 		if(dg!=null)
 		{
-			if(e.getActionCommand().equals("Change"))
+			if(e.getActionCommand().equals("ChangeGast"))
 			{
 				try {
 
@@ -79,7 +81,7 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 				}
 
 			}
-			else if(e.getActionCommand().equals("Search"))
+			else if(e.getActionCommand().equals("SearchGast"))
 			{
 				String gebSuche = "";				
 				try{
@@ -102,14 +104,8 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 				dg.scrollPaneG.setBounds(10, 200, 600, 300);
 				dg.panelG1.add(dg.scrollPaneG);
 
-
-				/*	catch(NullPointerException ex)
-					{
-
-					}*/ 
-
 			}
-			else if (e.getActionCommand().equals("Confirme"))
+			else if (e.getActionCommand().equals("ConfirmeChangeGast"))
 			{
 				System.out.println("Willi hat Unrecht");
 				try
@@ -153,9 +149,8 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 					e1.printStackTrace();
 				}
 
-
 			}
-			else if(e.getActionCommand().equals("Delete"))
+			else if(e.getActionCommand().equals("DeleteGast"))
 			{
 				try {
 					if(dg.jtvGast.getSQLTable().getSelectedRow()== -1)
@@ -181,41 +176,99 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-
-
 			}
 		}
 		else if(dz!=null)
 		{
-			if(e.getActionCommand().equals("Change"))
+			if(e.getActionCommand().equals("ChangeZimmer"))
 			{
 				try 
 				{
-
 					if(dz.jtv.getSQLTable().getSelectedRow()== -1)
 						throw new GUIException("Fehler: Zeile nicht markiert!");
-
 
 					String id = (String) dz.jtv.getSQLTable().getValueAt(dz.jtv.getSQLTable().getSelectedRow(), 0).toString(); 
 					String typ = (String) dz.jtv.getSQLTable().getValueAt(dz.jtv.getSQLTable().getSelectedRow(), 1).toString(); 
 					String preis = (String) dz.jtv.getSQLTable().getValueAt(dz.jtv.getSQLTable().getSelectedRow(), 2).toString(); 
 
-					dz.launchChangeFrameZ(id,preis);
+					dz.launchChangeFrameZ(id,typ,preis);
 				} 
 				catch (GUIException gex) 
 				{
 					JOptionPane.showMessageDialog(null, gex, "Error",
-	                        JOptionPane.ERROR_MESSAGE);
+							JOptionPane.ERROR_MESSAGE);
 				}
 
 			}
-			else if(e.getActionCommand().equals("Create"))
+			else if(e.getActionCommand().equals("CreateZimmer"))
 			{
-				System.out.println("ssfijwe");
+				
 				dz.launchCreateFrame();
 
 			}
-			else if(e.getActionCommand().equals("Delete"))
+			else if(e.getActionCommand().equals("ConfirmeCreateZimmer"))
+			{
+				try 
+				{
+
+					checkStringEmpty(dz.jtfZnr.getText());	
+					checkStringEmpty((String) dz.cb.getSelectedItem());
+					checkStringEmpty(dz.jtfPreis.getText());
+					String zid = dz.jtfZnr.getText();
+					String typ = (String) dz.cb.getSelectedItem();
+					String preis =  dz.jtfPreis.getText();
+					
+					Double p = Double.parseDouble(preis);
+					
+					Zimmer zimmer = new Zimmer(zid,typ,p);
+					zimmer.createZimmer();
+					dz.createFrame.dispose();
+					dz.jtv = new JTableview("Select * From zimmer");
+					JTable zTable = dz.jtv.getSQLTable();
+					dz.scrollPaneZ.setVisible(false);
+					dz.scrollPaneZ = null;
+					dz.scrollPaneZ = new JScrollPane(zTable);
+					dz.scrollPaneZ.setBounds(10, 120, 600, 300);
+					dz.panelZ1.add(dz.scrollPaneZ);	 
+				} 
+				catch (GUIException e1) 
+				{
+					JOptionPane.showMessageDialog(null, e1, "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			else if(e.getActionCommand().equals("ConfirmeChangeZimmer"))
+			{
+				try {
+
+					if(dz.jtv.getSQLTable().getSelectedRow()== -1)
+						throw new GUIException("Fehler: Zeile nicht markiert!");
+
+					String id = dz.jtfZnr2.getText(); 
+					String typ = (String) dz.cb2.getSelectedItem(); 
+					String preis = dz.jtfPreis2.getText();
+					
+					Double p = Double.parseDouble(preis);
+					System.out.println(id+"__"+ typ+ "__"+ p);
+					Zimmer zimmer = new Zimmer(id,typ,p,dz.getZID());
+					zimmer.changeZimmer();
+					dz.changeFrameZ.dispose();
+					dz.jtv = new JTableview("Select * From zimmer");
+					JTable zTable = dz.jtv.getSQLTable();
+					dz.scrollPaneZ.setVisible(false);
+					dz.scrollPaneZ = null;
+					dz.scrollPaneZ = new JScrollPane(zTable);
+					dz.scrollPaneZ.setBounds(10, 120, 600, 300);
+					dz.panelZ1.add(dz.scrollPaneZ);	 
+					
+
+				} catch (GUIException e1) 
+				{
+					JOptionPane.showMessageDialog(null, e1, "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			else if(e.getActionCommand().equals("DeleteZimmer"))
 			{
 
 				String id = (String) dz.jtv.getSQLTable().getValueAt(dz.jtv.getSQLTable().getSelectedRow(), 0).toString(); 
@@ -232,46 +285,17 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 				dz.panelZ1.add(dz.scrollPaneZ);	 
 
 			}
-			else if(e.getActionCommand().equals("Confirme"))
-			{
-				try 
-				{
-
-					checkStringEmpty(dz.jtfZnr.getText());	
-					writeDb("INSERT INTO zimmer (ZID, Typ, Preis)" + "VALUES('"+ dz.jtfZnr.getText() + 
-							"', '"+ (String) dz.cb.getSelectedItem()+"', '"+ dz.jtfPreis.getText()+"')");
-
-					dz.createFrame.dispose();
-					dz.jtv = new JTableview("Select * From zimmer");
-					JTable zimmer = dz.jtv.getSQLTable();
-					dz.scrollPaneZ.setVisible(false);
-					dz.scrollPaneZ = null;
-					dz.scrollPaneZ = new JScrollPane(zimmer);
-					dz.scrollPaneZ.setBounds(10, 120, 600, 300);
-					dz.panelZ1.add(dz.scrollPaneZ);	 
-
-
-				} 
-				catch (GUIException e1) 
-				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-
-
 		}
 
 
 		else if(dd!=null)
 		{
-			if(e.getActionCommand().equals("Change"))
+			if(e.getActionCommand().equals("ChangeDienst"))
 			{
 				try {
 
 					if(dd.jtvDienst.getSQLTable().getSelectedRow()== -1)
 						throw new GUIException("Fehler: Zeile nicht markiert!");
-
 
 					String id = (String) dd.jtvDienst.getSQLTable().getValueAt(dd.jtvDienst.getSQLTable().getSelectedRow(), 0).toString(); 
 					String typ = (String) dd.jtvDienst.getSQLTable().getValueAt(dd.jtvDienst.getSQLTable().getSelectedRow(), 1).toString(); 
@@ -285,11 +309,12 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 							JOptionPane.ERROR_MESSAGE);
 				}
 			}
-			else if(e.getActionCommand().equals("Create"))
+			else if(e.getActionCommand().equals("CreateDienst"))
 			{
 				dd.launchCreateFrameD();
 			}
-			else if(e.getActionCommand().equals("Delete"))
+
+			else if(e.getActionCommand().equals("DeleteDienst"))
 			{
 				String id = (String) dd.jtvDienst.getSQLTable().getValueAt(dd.jtvDienst.getSQLTable().getSelectedRow(), 0).toString(); 
 
@@ -304,22 +329,29 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 				dd.scrollPaneD.setBounds(10, 120, 600, 300);
 				dd.panelD1.add(dd.scrollPaneD);
 			}
-			else if(e.getActionCommand().equals("Confirme"))
+			else if(e.getActionCommand().equals("ConfirmeCreateDienst"))
 			{
 				try 
 				{
 					checkStringEmpty(dd.jtfTyp.getText());
 					checkPrize(dd.jtfPreis.getText());
 					checkID(dd.jtfID.getText());
-					writeDb("INSERT INTO dienstleistung (DID, Bezeichnung, Preis)" + "VALUES('"+ dd.jtfID.getText() + 
-							"', '"+ dd.jtfTyp.getText()+"', '"+ dd.jtfPreis.getText()+"')");
-
+					
+					String did = dd.jtfID.getText();
+					String typ = dd.jtfTyp.getText();
+					String preis = dd.jtfPreis.getText();
+					int id = Integer.parseInt(did);
+					double p = Double.parseDouble(preis);
+					
+					Dienstleistung dienst = new Dienstleistung(id,typ,p);
+					dienst.createDient();
+					
 					dd.createFrameD.dispose();
 					dd.jtvDienst = new JTableview("Select * From dienstleistung");
-					JTable dienst = dd.jtvDienst.getSQLTable();
+					JTable dTable = dd.jtvDienst.getSQLTable();
 					dd.scrollPaneD.setVisible(false);
 					dd.scrollPaneD = null;
-					dd.scrollPaneD = new JScrollPane(dienst);
+					dd.scrollPaneD = new JScrollPane(dTable);
 					dd.scrollPaneD.setBounds(10, 120, 600, 300);
 					dd.panelD1.add(dd.scrollPaneD); 
 				} 
@@ -330,13 +362,11 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 				}
 
 			}
-			else if(e.getActionCommand().equals("Confirme2"))
+			else if(e.getActionCommand().equals("ConfirmeChangeDienst"))
 			{
 				System.out.println("1");
 				try 
 				{
-
-					System.out.println("1");
 					checkStringEmpty(dd.jtfTyp2.getText());
 					checkPrize(dd.jtfPreis2.getText());
 					checkID(dd.jtfID2.getText());
@@ -344,31 +374,28 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 					if(dd.jtvDienst.getSQLTable().getSelectedRow()== -1)
 						throw new GUIException("Fehler: Zeile nicht markiert!");
 
-					System.out.println("1");
-
-
-
-					String id = (String) dd.jtvDienst.getSQLTable().getValueAt(dd.jtvDienst.getSQLTable().getSelectedRow(), 0).toString(); 
-					String typ = (String) dd.jtvDienst.getSQLTable().getValueAt(dd.jtvDienst.getSQLTable().getSelectedRow(), 1).toString(); 
-					String preis = (String) dd.jtvDienst.getSQLTable().getValueAt(dd.jtvDienst.getSQLTable().getSelectedRow(), 2).toString();
-
-					writeDb("update dienstleistung set Bezeichnung = '" +typ +"',  Preis = '"+preis+"' where DID = '"+ id +"' ");
+					String id = dd.jtfID2.getText(); 
+					String typ = dd.jtfTyp2.getText(); 
+					String preis = dd.jtfPreis2.getText();
+					double p = Double.parseDouble(preis);
+					int i = Integer.parseInt(id);
+										
+					Dienstleistung dienst = new Dienstleistung(i, typ, p, dd.getX());
+					dienst.changeDienst();
+				
 					dd.changeFrameD.dispose();
 					dd.jtvDienst = new JTableview("Select * From dienstleistung");
-					JTable dienst = dd.jtvDienst.getSQLTable();
+					JTable dTable = dd.jtvDienst.getSQLTable();
 					dd.scrollPaneD.setVisible(false);
 					dd.scrollPaneD = null;
-					dd.scrollPaneD = new JScrollPane(dienst);
+					dd.scrollPaneD = new JScrollPane(dTable);
 					dd.scrollPaneD.setBounds(10, 120, 600, 300);
 					dd.panelD1.add(dd.scrollPaneD); 
 
 				}
-
-
 				catch (GUIException e1) {
 					JOptionPane.showMessageDialog(null, e1, "Error",
 							JOptionPane.ERROR_MESSAGE);
-
 				}
 			}	
 

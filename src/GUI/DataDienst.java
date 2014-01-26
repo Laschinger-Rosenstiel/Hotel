@@ -27,20 +27,23 @@ public class DataDienst extends GUIHelp
 	public JPanel panelD2;
 	public JPanel panelD3;
 	public JScrollPane scrollPaneD;
+	private int dnr;
+	
 	public DataDienst()
 	{
 		//First JPanel
 		bChange = new JButton("Ändern");
-		bChange.setActionCommand("Change");
+		bChange.setActionCommand("ChangeDienst");
 		bChange.addActionListener(new ButtonHandlerData(this));
 		bDel = new JButton("Löschen");
-		bDel.setActionCommand("Delete");
+		bDel.setActionCommand("DeleteDienst");
 		bDel.addActionListener(new ButtonHandlerData(this));
 		bCreate = new JButton("Anlegen");
-		bCreate.setActionCommand("Create");
+		bCreate.setActionCommand("CreateDienst");
 		bCreate.addActionListener(new ButtonHandlerData(this));
 		lTitel = new JLabel("Dienstleistungen:", JLabel.LEFT);
 		jtvDienst = new JTableview("Select * from dienstleistung");
+		
 		
 		//Create JFrame
 		createFrameD = new JFrame();
@@ -51,13 +54,13 @@ public class DataDienst extends GUIHelp
 		lPreis = new JLabel("Preis:", JLabel.LEFT);
 		lID = new JLabel("ID:", JLabel.LEFT);
 		bConfirme = new JButton("Bestätigen");
-		bConfirme.setActionCommand("Confirme");
+		bConfirme.setActionCommand("ConfirmeCreateDienst");
 		bConfirme.addActionListener(new ButtonHandlerData(this));
 		
 		//Change Frame
 		changeFrameD = new JFrame();
 		bConfirme2 = new JButton("Bestätigen");
-		bConfirme2.setActionCommand("Confirme2");
+		bConfirme2.setActionCommand("ConfirmeChangeDienst");
 		bConfirme2.addActionListener(new ButtonHandlerData(this));
 		jtfTyp2 = new JTextField(40);
 		jtfPreis2 = new JTextField(40);
@@ -153,6 +156,7 @@ public class DataDienst extends GUIHelp
 		jtfID2.setText(id);
 		jtfTyp2.setText(typ);
 		jtfPreis2.setText(preis);
+		dnr = Integer.parseInt(id);
 		panelD3.setOpaque(true);
 		panelD3.setBackground(new Color(209,218,248));
 		panelD3.setVisible(true);
@@ -164,8 +168,14 @@ public class DataDienst extends GUIHelp
 		changeFrameD.setDefaultCloseOperation(changeFrameD.DISPOSE_ON_CLOSE);
 		changeFrameD.setVisible(true);
 		
-		
-		
 		return changeFrameD;
+	}
+	public int getX()
+	{
+		return dnr;
+	}
+	public void setX(int y)
+	{
+		dnr=y;
 	}
 }

@@ -31,19 +31,20 @@ public class DataZimmer extends GUIHelp
 	public JScrollPane scrollPaneZ;
 	public JTable abc;
 	private String x;
+	private String zid;
 
 	public DataZimmer()
 	{
 		//JPanel
 		//jf = new JFrame();
 		bChange = new JButton("Ändern");
-		bChange.setActionCommand("Change");
+		bChange.setActionCommand("ChangeZimmer");
 		bChange.addActionListener(new ButtonHandlerData(this));
 		bDel = new JButton("Löschen");
-		bDel.setActionCommand("Delete");
+		bDel.setActionCommand("DeleteZimmer");
 		bDel.addActionListener(new ButtonHandlerData(this));
 		bCreate = new JButton("Anlegen");
-		bCreate.setActionCommand("Create");
+		bCreate.setActionCommand("CreateZimmer");
 		bCreate.addActionListener(new ButtonHandlerData(this));
 		l4 = new JLabel("Stammdaten Zimmer:", JLabel.LEFT);
 
@@ -56,13 +57,13 @@ public class DataZimmer extends GUIHelp
 		l2 = new JLabel("Preis:", JLabel.LEFT);
 		l3 = new JLabel("Zimmernr:", JLabel.LEFT);
 		bConfirme = new JButton("Bestätigen");
-		bConfirme.setActionCommand("Confirme");
+		bConfirme.setActionCommand("ConfirmeCreateZimmer");
 		bConfirme.addActionListener(new ButtonHandlerData(this));
 
 		//Change Frame
 		changeFrameZ = new JFrame();
 		bConfirme2 = new JButton("Bestätigen");
-		bConfirme2.setActionCommand("Confirme");
+		bConfirme2.setActionCommand("ConfirmeChangeZimmer");
 		bConfirme2.addActionListener(new ButtonHandlerData(this));
 		lTyp2 = new JLabel("Zimmer:", JLabel.LEFT);
 		lPreis2 = new JLabel("Preis:", JLabel.LEFT);
@@ -102,7 +103,7 @@ public class DataZimmer extends GUIHelp
 		createFrame = null;
 		panelZ2 = null;
 
-		panelZ3 = new JPanel();
+		panelZ2 = new JPanel();
 		panelZ2.setLayout(null);
 		panelZ2.setVisible(false);
 		l1.setBounds(x_column1, y_line2, x_width, y_height);
@@ -131,14 +132,14 @@ public class DataZimmer extends GUIHelp
 		createFrame.setVisible(true);
 
 		return createFrame;
-
-
 	}
 
-	public JFrame launchChangeFrameZ(String id,String preis)
+	public JFrame launchChangeFrameZ(String id,String typ,String preis)
 	{
 		changeFrameZ = null;
 		panelZ3 = null;
+		x = typ;
+		zid = id;
 
 		JPanel panelZ3 = new JPanel();
 		panelZ3.setLayout(null);
@@ -170,9 +171,16 @@ public class DataZimmer extends GUIHelp
 		changeFrameZ.setDefaultCloseOperation(changeFrameZ.DISPOSE_ON_CLOSE);
 		changeFrameZ.setVisible(true);
 
-
-
 		return changeFrameZ;
+	}
+	
+	public String getZID()
+	{
+		return zid;
+	}
+	public void setZID(String zid)
+	{
+		this.zid = zid;
 	}
 
 }

@@ -43,8 +43,6 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 		this.dd = dd;
 	}
 
-
-
 	public void actionPerformed(ActionEvent e)throws NullPointerException
 	{
 		System.out.println("Das Ereignis hat den Wert: " + e.getActionCommand());
@@ -107,7 +105,7 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 			}
 			else if (e.getActionCommand().equals("ConfirmeChangeGast"))
 			{
-				System.out.println("Willi hat Unrecht");
+				
 				try
 				{
 					SimpleDateFormat toDate = new SimpleDateFormat("dd.MM.yyyy");
@@ -124,7 +122,7 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 					checkBirthday(Geb);
 					Gast gast = new Gast(dg.id,dg.jtfVn2.getText(), dg.jtfName2.getText(), dg.jtfStr.getText(), dg.jtfHnr.getText(),dg.jtfPlz.getText(),
 							dg.jtfOrt.getText(), dg.jtfLand.getText(), dg.jtfTel.getText(), Geb);
-					gast.changeGast();
+					gast.updateGast();
 					dg.changeFrameG.dispose();
 					dg.jtvGast = new JTableview("Select * From gast");
 					JTable gtable = dg.jtvGast.getSQLTable();
@@ -204,6 +202,8 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 			{
 				
 				dz.launchCreateFrame();
+				dz.jtfZnr.setText("");
+				dz.jtfPreis.setText("");
 
 			}
 			else if(e.getActionCommand().equals("ConfirmeCreateZimmer"))
@@ -251,7 +251,7 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 					Double p = Double.parseDouble(preis);
 					System.out.println(id+"__"+ typ+ "__"+ p);
 					Zimmer zimmer = new Zimmer(id,typ,p,dz.getZID());
-					zimmer.changeZimmer();
+					zimmer.updateZimmer();
 					dz.changeFrameZ.dispose();
 					dz.jtv = new JTableview("Select * From zimmer");
 					JTable zTable = dz.jtv.getSQLTable();
@@ -272,10 +272,9 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 			{
 
 				String id = (String) dz.jtv.getSQLTable().getValueAt(dz.jtv.getSQLTable().getSelectedRow(), 0).toString(); 
-
-				String query = "DELETE from " + "zimmer" + " WHERE " + 
-						"ZID" + " = '" + id + "'"; 
-				writeDb(query); 
+				Zimmer zim = new Zimmer(id);
+				zim.deleteZimmer();
+				 
 				dz.jtv = new JTableview("Select * From zimmer");
 				JTable zimmer = dz.jtv.getSQLTable();
 				dz.scrollPaneZ.setVisible(false);
@@ -297,6 +296,7 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 					if(dd.jtvDienst.getSQLTable().getSelectedRow()== -1)
 						throw new GUIException("Fehler: Zeile nicht markiert!");
 
+					
 					String id = (String) dd.jtvDienst.getSQLTable().getValueAt(dd.jtvDienst.getSQLTable().getSelectedRow(), 0).toString(); 
 					String typ = (String) dd.jtvDienst.getSQLTable().getValueAt(dd.jtvDienst.getSQLTable().getSelectedRow(), 1).toString(); 
 					String preis = (String) dd.jtvDienst.getSQLTable().getValueAt(dd.jtvDienst.getSQLTable().getSelectedRow(), 2).toString(); 
@@ -312,20 +312,23 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 			else if(e.getActionCommand().equals("CreateDienst"))
 			{
 				dd.launchCreateFrameD();
+				dd.jtfTyp.setText("");
+				dd.jtfPreis.setText("");
+				dd.jtfID.setText("");
 			}
 
 			else if(e.getActionCommand().equals("DeleteDienst"))
 			{
-				String id = (String) dd.jtvDienst.getSQLTable().getValueAt(dd.jtvDienst.getSQLTable().getSelectedRow(), 0).toString(); 
+				String id = (String) dd.jtvDienst.getSQLTable().getValueAt(dd.jtvDienst.getSQLTable().getSelectedRow(), 0).toString();
+				int i = Integer.parseInt(id);
+				Dienstleistung dienst = new Dienstleistung(i);
+				dienst.deleteDienst();
 
-				String query = "DELETE from " + "dienstleistung" + " WHERE " + 
-						"DID" + " = '" + id + "'"; 
-				writeDb(query); 
 				dd.jtvDienst = new JTableview("Select * From dienstleistung");
-				JTable dienst = dd.jtvDienst.getSQLTable();
+				JTable dTable = dd.jtvDienst.getSQLTable();
 				dd.scrollPaneD.setVisible(false);
 				dd.scrollPaneD = null;
-				dd.scrollPaneD = new JScrollPane(dienst);
+				dd.scrollPaneD = new JScrollPane(dTable);
 				dd.scrollPaneD.setBounds(10, 120, 600, 300);
 				dd.panelD1.add(dd.scrollPaneD);
 			}
@@ -344,7 +347,7 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 					double p = Double.parseDouble(preis);
 					
 					Dienstleistung dienst = new Dienstleistung(id,typ,p);
-					dienst.createDient();
+					dienst.createDienst();
 					
 					dd.createFrameD.dispose();
 					dd.jtvDienst = new JTableview("Select * From dienstleistung");
@@ -381,7 +384,7 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 					int i = Integer.parseInt(id);
 										
 					Dienstleistung dienst = new Dienstleistung(i, typ, p, dd.getX());
-					dienst.changeDienst();
+					dienst.updateDienst();
 				
 					dd.changeFrameD.dispose();
 					dd.jtvDienst = new JTableview("Select * From dienstleistung");
@@ -391,7 +394,7 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 					dd.scrollPaneD = new JScrollPane(dTable);
 					dd.scrollPaneD.setBounds(10, 120, 600, 300);
 					dd.panelD1.add(dd.scrollPaneD); 
-
+					
 				}
 				catch (GUIException e1) {
 					JOptionPane.showMessageDialog(null, e1, "Error",

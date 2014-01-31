@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -117,6 +118,9 @@ public class BookDl extends GUIHelp{
 		setGebRoom(geb);
 		geb.setBounds(x_column3, y_line5, x_width, y_height);
 		contentpane1.add(geb);
+		
+		contentpane1.setOpaque(true);
+		contentpane1.setBackground(new Color(209,218,248));
 		
 		return contentpane1;
 	}

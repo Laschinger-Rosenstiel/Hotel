@@ -3,137 +3,136 @@ package model;
 import java.util.Date;
 
 
-public class Gast extends ModelHelper{
+public class Gast extends ModelHelp{
 
-	private String Vorname;
-	private String Name;
-	private String Strasse;
-	private String Hn;
-	private String Plz;
-	private String Ort;
-	private String Land;
-	private String Tel;
-	private Date Geb;
+	private String vorname;
+	private String name;
+	private String strasse;
+	private String hn;
+	private String plz;
+	private String ort;
+	private String land;
+	private String tel;
+	private Date geb;
 	private boolean existing;
 	private int gid;
 	
 	
 	public Gast (String id,String vor, String name, String str, String hn, String plz, String ort, String land, String tel, Date geb) {
-		Vorname = vor;
-		Name = name;
-		Strasse = str;
-		Hn = hn;
-		Plz = plz;
-		Ort = ort;
-		Land = land;
-		Tel = tel;
-		Geb = geb;
+		vorname = vor;
+		this.name = name;
+		this.strasse = str;
+		this.hn = hn;
+		this.plz = plz;
+		this.ort = ort;
+		this.land = land;
+		this.tel = tel;
+		this.geb = geb;
 		gid = Integer.parseInt(id);
 	}
 	
 	public Gast (String vor, String name, String str, String hn, String plz, String ort, String land, String tel, Date geb) {
-		Vorname = vor;
-		Name = name;
-		Strasse = str;
-		Hn = hn;
-		Plz = plz;
-		Ort = ort;
-		Land = land;
-		Tel = tel;
-		Geb = geb;
+		vorname = vor;
+		this.name = name;
+		strasse = str;
+		this.hn = hn;
+		this.plz = plz;
+		this.ort = ort;
+		this.land = land;
+		this.tel = tel;
+		this.geb = geb;
 	}
 	
 	public Gast (int gid, String vor, String name, Date geb){
 		this.gid = gid;
-		Vorname = vor;
-		Name = name;
-		Geb = geb;
+		vorname = vor;
+		this.name = name;
+		this.geb = geb;
+	}
+	public Gast(int gid) {
+		this.gid = gid;
 	}
 	
 	public void deleteGast(){
 		writeDb("delete from hotel.gast where GID = " + gid);
 	}
 	
-	public void changeGast()
+	public void updateGast()
 	{
-		writeDb("update gast set Vorname = '" + Vorname +"',  Name = '"+ Name +"', Strasse = '"+ Strasse +"', Hausnummer = '"+ Hn +"', Postleitzahl = '"+ Plz +"',"
-				+ "Ort = '" + Ort +"', Land = '" + Land +"', Geburtstag = '" + getSQLDate(Geb) +"', Telefonnummer = '" + Tel+"' where GID = "+gid);
+		writeDb("update gast set Vorname = '" + vorname +"',  Name = '"+ name +"', Strasse = '"+ strasse +"', Hausnummer = '"+ hn +"', Postleitzahl = '"+ plz +"',"
+				+ "Ort = '" + ort +"', Land = '" + land +"', Geburtstag = '" + getSQLDate(geb) +"', Telefonnummer = '" + tel+"' where GID = "+gid);
 	}
-	
-	public Gast(int gid) {
-		this.gid = gid;
-	}
-	
+		
 	public String getVorname(){
-		return this.Vorname;
+		return this.vorname;
 	}
 	
 	public void setVorname(String vorname){
-		this.Vorname = vorname;
+		this.vorname = vorname;
 	}
 
 	public String getName() {
-		return Name;
+		return name;
 	}
 
 	public void setName(String name) {
-		Name = name;
+		this.name = name;
 	}
 
 	public String getStrasse() {
-		return Strasse;
+		return strasse;
 	}
 
 	public void setStrasse(String strasse) {
-		Strasse = strasse;
+		this.strasse = strasse;
 	}
 
 	public String getHn() {
-		return Hn;
+		return hn;
 	}
 
 	public void setHn(String hn) {
-		Hn = hn;
+		this.hn = hn;
 	}
 
 	public String getPlz() {
-		return Plz;
+		return plz;
 	}
 
 	public void setPlz(String plz) {
-		Plz = plz;
+		this.plz = plz;
 	}
 
 	public String getOrt() {
-		return Ort;
+		return ort;
 	}
 
 	public void setOrt(String ort) {
-		Ort = ort;
+		this.ort = ort;
 	}
 
 	public String getLand() {
-		return Land;
+		return land;
 	}
 
 	public void setLand(String land) {
-		Land = land;
+		this.land = land;
 	}
 
 	public String getTel() {
-		return Tel;
+		return tel;
 	}
 
 	public void setTel(String tel) {
-		Tel = tel;
+		this.tel = tel;
 	}
 
 	public Date getGeb() {
-		return Geb;
+		return geb;
 	}
 
 	public void setGeb(Date geb) {
-		Geb = geb;
+		this.geb = geb;
 	}
 
 	public boolean isExisting() {

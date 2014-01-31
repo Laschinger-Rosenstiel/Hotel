@@ -12,7 +12,7 @@ import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class ModelHelper {
+public class ModelHelp {
 
 	public String getSQLDate(Date date) {
 		SimpleDateFormat Sql =new SimpleDateFormat("yyyy-MM-dd");

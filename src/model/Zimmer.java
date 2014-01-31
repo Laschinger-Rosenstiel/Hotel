@@ -1,6 +1,6 @@
 package model;
 
-public class Zimmer extends ModelHelper
+public class Zimmer extends ModelHelp
 {
 
 	String zid;
@@ -26,11 +26,7 @@ public class Zimmer extends ModelHelper
 		znr = zn;
 	}
 	
-	public String getZid(){
-		return zid;
-	}
-	
-	public void changeZimmer()
+	public void updateZimmer()
 	{
 		writeDb("update zimmer set ZID = '" + znr +"',  Typ = '"+ typ +"', Preis = '"+ preis+"' where ZID = "+zid);
 	}
@@ -39,6 +35,22 @@ public class Zimmer extends ModelHelper
 	{
 		writeDb("INSERT INTO zimmer (ZID, Typ, Preis)" + "VALUES('"+ zid + 
 				"', '"+ typ+"', '"+ preis+"')");
+	}
+	
+	public void deleteZimmer()
+	{
+		String query = "DELETE from " + "zimmer" + " WHERE " + 
+				"ZID" + " = '" + zid + "'"; 
+		writeDb(query);
+	}
+	
+	public void setZnr(String x)
+	{
+		znr = x;
+	}
+	
+	public String getZid(){
+		return zid;
 	}
 	
 }

@@ -4,15 +4,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class Buchung extends ModelHelper{
+public class Buchung extends ModelHelp{
 
-	Date erfassungsdatum;
-	Date von;
-	Date bis;
-	int bid;
-	int dlbid;
-	Gast gast;
-	Zimmer zimmer;
+	private Date erfassungsdatum;
+	
+	private Date von;
+	private Date bis;
+	private int bid;
+	private int dlbid;
+	private Gast gast;
+	private Zimmer zimmer;
 	
 	
 	public Buchung (Gast gast, Zimmer zimmer, Date heute) {

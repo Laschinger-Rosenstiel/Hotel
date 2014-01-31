@@ -2,7 +2,7 @@ package model;
 
 import java.util.Date;
 
-public class Dienstleistung extends ModelHelper {
+public class Dienstleistung extends ModelHelp {
 
 	int did;
 	Date date;
@@ -35,13 +35,20 @@ public class Dienstleistung extends ModelHelper {
 		this.did = did;
 	}
 	
-	public void createDient()
+	public void createDienst()
 	{
 		writeDb("INSERT INTO dienstleistung (DID, Bezeichnung, Preis)" + "VALUES('" + did + "', '" + typ + "', '" + preis +"')");
 	}
-	public void changeDienst()
+	public void updateDienst()
 	{
 		writeDb("update dienstleistung set DID = '" + did +"', Bezeichnung = '" + typ + "',  Preis = '" + preis + "' where DID = "+ dnr);
+	}
+	
+	public void deleteDienst()
+	{
+		String query = "DELETE from " + "dienstleistung" + " WHERE " + 
+				"DID" + " = '" + did + "'"; 
+		writeDb(query); 
 	}
 	
 	public int getDid(){

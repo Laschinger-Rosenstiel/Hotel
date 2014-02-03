@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -46,6 +47,9 @@ public JTextField setTfForm (JTextField tf){
 	tf.setEditable(false);
 	tf.setBorder(null);
 	tf.setFont(fontTf);
+	tf.setOpaque(true);
+	tf.setBackground(new Color(209,218,248));
+	
 	return tf;
 }
 

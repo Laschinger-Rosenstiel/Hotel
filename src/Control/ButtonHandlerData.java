@@ -4,16 +4,12 @@ import gui.DataDienst;
 import gui.DataGast;
 import gui.DataZimmer;
 import gui.StartFrame;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -151,29 +147,35 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 			else if(e.getActionCommand().equals("DeleteGast"))
 			{
 				try {
+					
+					
 					if(dg.jtvGast.getSQLTable().getSelectedRow()== -1)
-
 						throw new GUIException("Fehler: Zeile nicht markiert!");
-
-
-					String id = (String) dg.jtvGast.getSQLTable().getValueAt(dg.jtvGast.getSQLTable().getSelectedRow(), 0).toString(); 
-
-					String query = "DELETE from " + "gast" + " WHERE " + 
-							"GID" + " = '" + id + "'"; 
-					writeDb(query); 
-					dg.jtvGast = new JTableview("Select * From gast");
-					JTable gast = dg.jtvGast.getSQLTable();
-					dg.scrollPaneG.setVisible(false);
-					dg.scrollPaneG = null;
-					dg.scrollPaneG = new JScrollPane(gast);
-					dg.scrollPaneG.setBounds(10, 200, 600, 300);
-					dg.panelG1.add(dg.scrollPaneG);	 
-				}
-				catch (GUIException e1) 
-				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+					
+					int answer = JOptionPane.showConfirmDialog(null, "Gast, und alle seine zugehörigen Buchungungen wirklich löschen?", "Error",JOptionPane.YES_NO_OPTION);
+					if (answer == JOptionPane.YES_OPTION) {
+						
+	
+						String id = (String) dg.jtvGast.getSQLTable().getValueAt(dg.jtvGast.getSQLTable().getSelectedRow(), 0).toString(); 
+	
+						String query = "DELETE from " + "gast" + " WHERE " + 
+								"GID" + " = '" + id + "'"; 
+						writeDb(query); 
+						dg.jtvGast = new JTableview("Select * From gast");
+						JTable gast = dg.jtvGast.getSQLTable();
+						dg.scrollPaneG.setVisible(false);
+						dg.scrollPaneG = null;
+						dg.scrollPaneG = new JScrollPane(gast);
+						dg.scrollPaneG.setBounds(10, 200, 600, 300);
+						dg.panelG1.add(dg.scrollPaneG);	 
+						}
+					}
+					catch (GUIException e1) 
+					{
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				
 			}
 		}
 		else if(dz!=null)

@@ -58,6 +58,7 @@ public class LoginFrame extends GUIHelp
 		l3 = new JLabel("Neues Passwort", JLabel.CENTER);
 		l4 = new JLabel("Bestätigen", JLabel.CENTER);
 		
+		
 	}
 	
 	
@@ -114,9 +115,8 @@ public class LoginFrame extends GUIHelp
 		cf.add(panel);
 		cf.setSize(700, 300);
 		cf.setLocation(400, 200);
-		cf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		cf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		cf.setVisible(true);
-		
 	}
 	
 	public void setPw(String x)

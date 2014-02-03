@@ -6,9 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -299,11 +297,11 @@ public class BHBook extends BHHelp implements ActionListener{
 					this.buchung = buchung;
 					guiZimmer.launchThird();
 				
+					updateTable(guiZimmer.contentpane1, guiZimmer.scrollPaneSuche, guiZimmer.sucheGast, guiZimmer.getQuery(), guiZimmer.scrollPaneSuche.getX(), guiZimmer.scrollPaneSuche.getY(), guiZimmer.scrollPaneSuche.getWidth(), guiZimmer.scrollPaneSuche.getHeight());
 					
 					
 					guiZimmer.card.add("Card3", guiZimmer.contentpane4);
 					guiZimmer.cardLayout.show(this.guiZimmer.card, "Card3");
-								
 			}
 			
 			}
@@ -350,6 +348,7 @@ public class BHBook extends BHHelp implements ActionListener{
 		
 		else if (e.getActionCommand().equals("Dl cancel")){
 			guiZimmer.jf.dispose();
+			
 		}
 			
 		
@@ -419,10 +418,10 @@ public class BHBook extends BHHelp implements ActionListener{
 				JOptionPane.showMessageDialog(null, gex, "Error",
                         JOptionPane.ERROR_MESSAGE);
 			}
-/*			catch (NullPointerException ex) {
-				JOptionPane.showMessageDialog(guiDl.jf, "Bitte Buchungsdatum eintragen", "Error",
+			catch (NullPointerException ex) {
+				JOptionPane.showMessageDialog(guiDl.jf, "Bitte alle Felder ausfüllen", "Error",
 						JOptionPane.ERROR_MESSAGE);
-			}*/
+			}
 			
 			
 			}

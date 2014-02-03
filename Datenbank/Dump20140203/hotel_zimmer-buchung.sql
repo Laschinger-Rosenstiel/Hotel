@@ -18,35 +18,34 @@ USE `hotel`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `gast`
+-- Table structure for table `zimmer-buchung`
 --
 
-DROP TABLE IF EXISTS `gast`;
+DROP TABLE IF EXISTS `zimmer-buchung`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `gast` (
-  `GID` int(11) NOT NULL AUTO_INCREMENT,
-  `Vorname` varchar(45) DEFAULT NULL,
-  `Name` varchar(45) DEFAULT NULL,
-  `Strasse` varchar(45) DEFAULT NULL,
-  `Hausnummer` varchar(45) DEFAULT NULL,
-  `Postleitzahl` int(11) DEFAULT NULL,
-  `Ort` varchar(45) DEFAULT NULL,
-  `Land` varchar(45) DEFAULT NULL,
-  `Geburtstag` date DEFAULT NULL,
-  `Telefonnummer` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`GID`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+CREATE TABLE `zimmer-buchung` (
+  `ZBID` int(11) NOT NULL AUTO_INCREMENT,
+  `BID` int(11) NOT NULL,
+  `ZID` varchar(10) NOT NULL,
+  `Von` date NOT NULL,
+  `Bis` date NOT NULL,
+  PRIMARY KEY (`ZBID`),
+  KEY `Buchung_idx` (`BID`),
+  KEY `Zimmer_idx` (`ZID`),
+  CONSTRAINT `BID` FOREIGN KEY (`BID`) REFERENCES `buchung` (`BID`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `Zimmer` FOREIGN KEY (`ZID`) REFERENCES `zimmer` (`ZID`) ON DELETE NO ACTION ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `gast`
+-- Dumping data for table `zimmer-buchung`
 --
 
-LOCK TABLES `gast` WRITE;
-/*!40000 ALTER TABLE `gast` DISABLE KEYS */;
-INSERT INTO `gast` VALUES (1,'Wilhelm','Laschinger','Kirchweg','8',83346,'Bergen',NULL,'1991-06-13',NULL),(2,'Fabian','Rosenstiel','Arnulfstraße','117',85011,'München',NULL,'1924-01-18',NULL),(47,'Simon','Kurz','Neue Straße','8',83346,'Bergen','Deutschland','1991-05-07','+49 (0) 8662 3238');
-/*!40000 ALTER TABLE `gast` ENABLE KEYS */;
+LOCK TABLES `zimmer-buchung` WRITE;
+/*!40000 ALTER TABLE `zimmer-buchung` DISABLE KEYS */;
+INSERT INTO `zimmer-buchung` VALUES (48,59,'1.004','2014-01-28','2014-01-31'),(49,60,'1.001','2014-02-04','2014-02-09'),(50,61,'1.001','2014-02-20','2014-02-28'),(51,62,'1.002','2014-02-12','2014-02-27'),(52,63,'2.010','2014-02-08','2014-02-28');
+/*!40000 ALTER TABLE `zimmer-buchung` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -58,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-01-26 18:34:16
+-- Dump completed on 2014-02-03 17:52:08

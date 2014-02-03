@@ -18,34 +18,28 @@ USE `hotel`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `zimmer-buchung`
+-- Table structure for table `zimmer`
 --
 
-DROP TABLE IF EXISTS `zimmer-buchung`;
+DROP TABLE IF EXISTS `zimmer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `zimmer-buchung` (
-  `ZBID` int(11) NOT NULL AUTO_INCREMENT,
-  `BID` int(11) DEFAULT NULL,
-  `ZID` varchar(10) DEFAULT NULL,
-  `Von` date DEFAULT NULL,
-  `Bis` date DEFAULT NULL,
-  PRIMARY KEY (`ZBID`),
-  KEY `Buchung_idx` (`BID`),
-  KEY `Zimmer_idx` (`ZID`),
-  CONSTRAINT `Zimmer` FOREIGN KEY (`ZID`) REFERENCES `zimmer` (`ZID`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  CONSTRAINT `BID` FOREIGN KEY (`BID`) REFERENCES `buchung` (`BID`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
+CREATE TABLE `zimmer` (
+  `ZID` varchar(10) NOT NULL,
+  `Typ` varchar(12) NOT NULL,
+  `Preis` double NOT NULL,
+  PRIMARY KEY (`ZID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `zimmer-buchung`
+-- Dumping data for table `zimmer`
 --
 
-LOCK TABLES `zimmer-buchung` WRITE;
-/*!40000 ALTER TABLE `zimmer-buchung` DISABLE KEYS */;
-INSERT INTO `zimmer-buchung` VALUES (1,1,'1.001','2014-03-05','2014-03-10'),(2,2,'1.002','2014-03-20','2014-03-25'),(48,59,'1.004','2014-01-28','2014-01-31');
-/*!40000 ALTER TABLE `zimmer-buchung` ENABLE KEYS */;
+LOCK TABLES `zimmer` WRITE;
+/*!40000 ALTER TABLE `zimmer` DISABLE KEYS */;
+INSERT INTO `zimmer` VALUES ('1.001','Einzelzimmer',80),('1.002','Doppelzimmer',100),('1.004','Einzelzimmer',80),('2.010','Doppelzimmer',110),('2.011','Doppelzimmer',110),('2.012','Doppelzimmer',110),('2.013','Doppelzimmer',110);
+/*!40000 ALTER TABLE `zimmer` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -57,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-01-26 18:34:15
+-- Dump completed on 2014-02-03 17:52:09

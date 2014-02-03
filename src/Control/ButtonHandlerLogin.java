@@ -7,11 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 
 
@@ -45,6 +41,7 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyLi
 		{
 			//System.out.println("Passwort ändern");
 			lf.launchChangeFrame();
+			
 			//lf.jf.setVisible(false);
 			//System.out.println("blob");
 		}
@@ -57,14 +54,25 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyLi
 		else if(e.getActionCommand().equals("SavePw"))
 		{
 			try{
+				String user = (String) lf.cb.getSelectedItem();
+				String pwAlt = selectDB("Select Passwort from Benutzer where Benutzername = '"+user+"'");
+				System.out.println(pwAlt);
+				
+				
+				
 				checkStringEmpty(lf.jpf2.getText());
 				checkStringEmpty(lf.jpf3.getText());
 				checkStringEmpty(lf.jpf4.getText());
-				checkLogin(lf.jpf4.getText(), lf.pw);
+				checkLogin(lf.jpf4.getText(), pwAlt);
 				checkLogin(lf.jpf2.getText(), lf.jpf3.getText());
-				if(lf.jpf2.getText().equals(lf.jpf3.getText()) & lf.jpf4.getText().equals(lf.pw))
+				
+				System.out.println("Vergleich1: "+lf.jpf2.getText() + " mit "+lf.jpf3.getText());
+				System.out.println("Vergleich2: "+lf.jpf4.getText() + "mit " + pwAlt);
+				if(lf.jpf2.getText().equals(lf.jpf3.getText()) & lf.jpf4.getText().equals(pwAlt))
 				{
-					lf.setPw(lf.jpf2.getText());
+					//lf.setPw(lf.jpf2.getText());
+					writeDb("update hotel.benutzer set passwort ='"+lf.jpf2.getText()+"' where Benutzername = '"+user+"'");
+					
 					lf.launchLoginFrame();
 					lf.cf.dispose();
 				}
@@ -88,8 +96,10 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyLi
 			{
 				try{
 
+					String passwort = selectDB("Select Passwort from benutzer where Benutzername = 'Rezeption'");
+					
 					checkStringEmpty(lf.jpf.getText());
-					if(lf.jpf.getText().equals(lf.pw))
+					if(lf.jpf.getText().equals(passwort))
 					{
 						
 						sf = new StartFrame();
@@ -123,9 +133,9 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyLi
 			{
 
 				try{
-
+					String passwort = selectDB("Select Passwort from benutzer where Benutzername = 'Manager'");
 					checkStringEmpty(lf.jpf.getText());
-					if(lf.jpf.getText().equals(lf.pw))
+					if(lf.jpf.getText().equals(passwort))
 					{
 						sf = new StartFrame();
 						sf.setS(s);

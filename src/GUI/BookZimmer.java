@@ -1,5 +1,4 @@
 package gui;
-
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.util.Date;
@@ -23,6 +22,7 @@ public class BookZimmer extends GUIHelp{
 	public JDateChooser geb;
 	public JScrollPane scrollPaneSuche;
 	public JTableview sucheGast;
+	String query;
 	
 	//card Layout
 	public CardLayout cardLayout;
@@ -93,8 +93,8 @@ public class BookZimmer extends GUIHelp{
 		
 		
 		
-		
-		sucheGast = new JTableview("Select * From hotel.gast");
+		query = "Select * From hotel.gast";
+		sucheGast = new JTableview(query);
 		JTable suche = sucheGast.getSQLTable();
 		scrollPaneSuche = new JScrollPane(suche);
 		
@@ -392,7 +392,7 @@ public class BookZimmer extends GUIHelp{
 		bookDateDl = new JDateChooser();
 		scrollPaneShow = new JScrollPane(show);
 		bookDl = new JButton("Buchen");
-		cancelDl=new JButton("Abbrechen");
+		cancelDl=new JButton("Dienstleistungsbuchung beenden");
 		
 		
 		bookDateDl = new JDateChooser();
@@ -412,11 +412,20 @@ public class BookZimmer extends GUIHelp{
 		bookDl.setActionCommand("Dl buchen");
 		
 		contentpane4.add(bookDl);
-		cancelDl.setBounds(x_column1, y_line8, x_width, y_height);
+		cancelDl.setBounds(x_column1, y_line8, 250, y_height);
 		cancelDl.addActionListener(new BHBook(this));
 		cancelDl.setActionCommand("Dl cancel");
 		contentpane4.add(cancelDl);
+		
+		//Color
+		contentpane4.setOpaque(true);
+		contentpane4.setBackground(new Color(209,218,248));
+		
 		return contentpane4;
+	}
+	
+	public String getQuery() {
+		return query;
 	}
 	
 	public String getGidSuche() {

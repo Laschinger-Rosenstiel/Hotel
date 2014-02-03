@@ -7,8 +7,12 @@ import javax.swing.JFrame;
 import javax.swing.ListSelectionModel; 
 import javax.swing.table.DefaultTableModel; 
 
-public class JTableview 
+public class JTableview extends JTable 
 { 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTable SQLTable = null; 
 
 	// 2. create JTable view based on a generic SQL query 
@@ -42,10 +46,20 @@ public class JTableview
 		
 		tableview.setRowSelectionAllowed(true); 
 		tableview.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); 
-
+		
 	
-		DefaultTableModel model = (DefaultTableModel) tableview.getModel(); 
+		//DefaultTableModel model = (DefaultTableModel) tableview.getModel();
+		 DefaultTableModel model = new DefaultTableModel(){
+	            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 
+				public boolean isCellEditable(int i, int j){
+	                return false;
+	            }
+	        };
+		
 		
 		String sDbDriver=null, sDbUrl=null, sUsr="", sPwd=""; 
 		
@@ -98,8 +112,11 @@ public class JTableview
 		} 
 
 		
-		tableview.setModel(model); 
+		tableview.setModel(model);
 		return tableview; 
 	} 
+	
+
 } 
+
 

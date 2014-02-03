@@ -1,5 +1,4 @@
 package control;
-/*package Control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,8 +9,8 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import GUI.LoginFrame;
-import GUI.StartFrame;
+import gui.LoginFrame;
+import gui.StartFrame;
 
 
 

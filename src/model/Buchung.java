@@ -47,12 +47,13 @@ public class Buchung extends ModelHelp{
 		long time = Bis.getTime().getTime() - Von.getTime().getTime();  // Differenz in ms
 		long days = Math.round( (double)time / (24. * 60.*60.*1000.) );     // Differenz in Tagen
 		
-		this.bid = writeDbAi("INSERT INTO buchung (GID, Erfassungsdatum) VALUES("+gast.getGid()+", '" + getSQLDate(erfassungsdatum) + "')");
+		String preis = selectDB("select Preis from hotel.zimmer where ZID = '"+ zimmer.getZid()+"'");
+		
+		this.bid = writeDbAi("INSERT INTO buchung (GID, Erfassungsdatum, Gesamtpreis) VALUES("+gast.getGid()+", '" + getSQLDate(erfassungsdatum) + "', "+preis+"*"+days+")");
 		
 		writeDbAi("INSERT INTO hotel.`zimmer-buchung` (BID, ZID, Von, Bis) VALUES("+getBid()+", "+zimmer.getZid()+
-		", '" + getSQLDate(von) + "', '" + getSQLDate(bis)+"')");
-						
-		writeDb("update hotel.buchung set Gesamtpreis = (select Preis from hotel.zimmer where ZID = '"+ zimmer.getZid() +"')*"+days+" where BID = "+bid);
+		", '" + getSQLDate(von) + "', '" + getSQLDate(bis)+"'  )");
+		//writeDb("update hotel.buchung set Gesamtpreis = (select Preis from hotel.zimmer where ZID = '"+ zimmer.getZid() +"')*"+days+" where BID = "+bid);
 	}
 	
 	public void bookDl(Buchung buchung, Dienstleistung dl) {

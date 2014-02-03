@@ -18,33 +18,31 @@ USE `hotel`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `dl-buchung`
+-- Table structure for table `buchung`
 --
 
-DROP TABLE IF EXISTS `dl-buchung`;
+DROP TABLE IF EXISTS `buchung`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `dl-buchung` (
-  `DLBID` int(11) NOT NULL AUTO_INCREMENT,
-  `DID` int(11) NOT NULL,
-  `BID` int(11) DEFAULT NULL,
-  `Datum` date DEFAULT NULL,
-  PRIMARY KEY (`DLBID`),
-  KEY `Dienstleistung_idx` (`DID`),
-  KEY `BID_idx` (`BID`),
-  CONSTRAINT `Dienstleistung` FOREIGN KEY (`DID`) REFERENCES `dienstleistung` (`DID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `Buchung` FOREIGN KEY (`BID`) REFERENCES `buchung` (`BID`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+CREATE TABLE `buchung` (
+  `BID` int(11) NOT NULL AUTO_INCREMENT,
+  `GID` int(11) NOT NULL,
+  `Erfassungsdatum` date NOT NULL,
+  `Gesamtpreis` double NOT NULL,
+  PRIMARY KEY (`BID`),
+  KEY `Gast_idx` (`GID`),
+  CONSTRAINT `Gast` FOREIGN KEY (`GID`) REFERENCES `gast` (`GID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `dl-buchung`
+-- Dumping data for table `buchung`
 --
 
-LOCK TABLES `dl-buchung` WRITE;
-/*!40000 ALTER TABLE `dl-buchung` DISABLE KEYS */;
-INSERT INTO `dl-buchung` VALUES (1,2,2,'2014-03-21'),(2,3,2,'2014-03-22'),(4,1,2,'2014-01-31'),(17,1,1,'2014-03-06');
-/*!40000 ALTER TABLE `dl-buchung` ENABLE KEYS */;
+LOCK TABLES `buchung` WRITE;
+/*!40000 ALTER TABLE `buchung` DISABLE KEYS */;
+INSERT INTO `buchung` VALUES (59,47,'2014-01-26',490),(60,53,'2014-02-02',450),(61,53,'2014-02-02',640),(62,47,'2014-02-02',1500),(63,53,'2014-02-02',2200);
+/*!40000 ALTER TABLE `buchung` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -56,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-01-26 18:34:16
+-- Dump completed on 2014-02-03 17:52:08

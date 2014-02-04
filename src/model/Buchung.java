@@ -97,5 +97,21 @@ public class Buchung extends ModelHelp{
 	public void setDlbid(int dlbid){
 		this.dlbid = dlbid;
 	}
+	
+	public void setVon(Date von){
+		this.von = von;
+	}
+	
+	public void setBis(Date bis){
+		this.bis = bis;
+	}
+	
+	public Date getVon() {
+		return von;
+	}
+	
+	public Date getBis(){
+		return bis;
+	}
 }
 

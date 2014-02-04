@@ -24,6 +24,7 @@ public class BHBook extends BHHelp implements ActionListener{
 
 	static Gast gast;
 	static Buchung buchung;
+	static Date von1, bis1;
 	//String tel;	
 
 	public BHBook(BookZimmer bookZimmer) {
@@ -257,11 +258,22 @@ public class BHBook extends BHHelp implements ActionListener{
 		else if (e.getActionCommand().equals("Dl hinzufügen")){
 			//Dl Buchung, folgend auf Zimmer-Buchung
 			try{
+				if (guiZimmer.showDl.getSQLTable().getSelectedRow() == -1) 
+					throw new GUIException("Fehler: Zeile nicht markiert!");
+				
 				//wirklich buchen?
 				int answer = JOptionPane.showConfirmDialog(guiZimmer.jf, "Dienstleistung wirklich buchen?", "Error",JOptionPane.YES_NO_OPTION);
 				if (answer == JOptionPane.YES_OPTION) {
 					//Buchungsdatum wird geprüft
-					checkBookingDateDl(guiZimmer.bookDateDl.getDate());	
+					
+					Date von = guiZimmer.getPickerVon();
+					Date bis = guiZimmer.getPickerBis();
+					Date dlDate = guiZimmer.bookDateDl.getDate();
+					checkBookingDateDl(dlDate);	
+					//Prüfen ob im Buchungszeitraum
+					if (!checkDlRange(von, bis, dlDate))
+						throw new GUIException("Dienstleistungsdatum nicht im Buchungszeitraum");
+					
 					//Zeile ausgewählt?
 					if (guiZimmer.showDl.getSQLTable().getSelectedRow() == -1) {
 						throw new GUIException("Fehler: Zeile nicht markiert!");
@@ -300,6 +312,8 @@ public class BHBook extends BHHelp implements ActionListener{
 
 					throw new GUIException("Fehler: Zeile nicht markiert!");
 				}
+				
+				
 				//ausgewählte Zeile auslesen
 				String gid = (String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 0).toString();
 				String vorname = (String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 1).toString();
@@ -307,22 +321,28 @@ public class BHBook extends BHHelp implements ActionListener{
 				String geb = getDateSqlToGer((String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 3).toString());
 				int bid = Integer.parseInt((String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 4).toString());
 				String zid = (String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 5).toString();
-				String von = (String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 6).toString();
-				String bis = (String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 7).toString();
+				String von = getDateSqlToGer((String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 6).toString());
+				String bis = getDateSqlToGer((String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 7).toString());
 				
 				//SQL-Datum in deutsches Datum
 				SimpleDateFormat toDate = new SimpleDateFormat("dd.MM.yyyy");
 				Date Geb = toDate.parse(geb);
+				Date vonD = toDate.parse(von);
+				Date bisD = toDate.parse(bis); 
+				
 				//neues Gast-Objekt wird erzeugt
 				Gast gast = new Gast(Integer.parseInt(gid), vorname, name, Geb);
 				//neue Buchung wird erzeugt
 				Buchung buchung = new Buchung(bid);
+				buchung.setVon(vonD);
+				buchung.setBis(bisD);
 				//buchung und gast wird zwischengespeichert
 				this.buchung = buchung;
 				this.gast = gast;
 				//Frame für DL-Buchung wird geöffnet
 				guiDl.launchJFrame();
 				
+				guiDl.bookDate2.setSelectableDateRange(vonD, bisD);
 				//Labels werden nach Gastdaten gesetzt
 				guiDl.labelId2_2.setText(gid);
 				guiDl.labelVor2_2.setText(vorname);
@@ -348,17 +368,25 @@ public class BHBook extends BHHelp implements ActionListener{
 		else if (e.getActionCommand().equals("BOOK?Dl")) {
 			try {
 				//durchführen der Zimmerbuchung
-				
+				//Zeile markiert?
+				if (guiDl.tableDl.getSQLTable().getSelectedRow() == -1) {
+					throw new GUIException("Fehler: Zeile nicht markiert!");
+				}
 				//Buchungsdatum überprüfen
 				checkBookingDateDl(guiDl.bookDate2.getDate());
+				String a = getSQLDate(guiDl.bookDate2.getDate());
+				String von = getSQLDate(buchung.getVon());
+				String bis = getSQLDate(buchung.getBis());
+				
+				System.out.println(a + " " + von + " " + bis + " ");
 				//wirklich buchen?
 				int answer = JOptionPane.showConfirmDialog(guiDl.jf, "Dienstleistung wirklich buchen?", "Error",JOptionPane.YES_NO_OPTION);
 				if (answer == JOptionPane.YES_OPTION) {
-					//Zeile markiert?
-					if (guiDl.tableDl.getSQLTable().getSelectedRow() == -1) {
-						throw new GUIException("Fehler: Zeile nicht markiert!");
-					}
-					//Dienstleistungsnummer wird ausgelesen
+					
+					//Datum in Range?
+					if(!checkDlRange(buchung.getVon(), buchung.getBis(), guiDl.bookDate2.getDate()))
+						throw new GUIException("Buchungsdatum überprüfen");
+						//Dienstleistungsnummer wird ausgelesen
 					int did = Integer.parseInt((String) guiDl.tableDl.getSQLTable().getValueAt(guiDl.tableDl.getSQLTable().getSelectedRow(), 0).toString());
 					//DL-Objekt wird erzeugt
 					Dienstleistung dl = new Dienstleistung(did, guiDl.bookDate2.getDate());

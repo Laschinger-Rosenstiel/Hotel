@@ -83,7 +83,7 @@ public class BHCancel extends BHHelp implements ActionListener{
 					String Dlbid = (String) guiDl.sucheBu.getSQLTable().getValueAt(guiDl.sucheBu.getSQLTable().getSelectedRow(), 5).toString();
 					int dlbid = Integer.parseInt(Dlbid);
 					//did auslesen
-					String did = selectDB("select hotel.`dl-buchung`.DID from hotel.`dl-buchung` where hotel.`dl-buchung`.dlbid = " +dlbid);
+					String did = (String) guiDl.sucheBu.getSQLTable().getValueAt(guiDl.sucheBu.getSQLTable().getSelectedRow(), 7).toString();
 					//Dl und Buchungsobjekt erzeugen
 					Dienstleistung dl = new Dienstleistung(Integer.parseInt(did));
 					Buchung buchung = new Buchung(bid);

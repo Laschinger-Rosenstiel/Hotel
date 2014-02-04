@@ -120,7 +120,7 @@ public class BookZimmer extends GUIHelp{
 		setGebRoom(geb);
 		geb.setBounds(x_column3, y_line6, x_width, y_height);
 		contentpane1.add(geb);
-		jb2.setBounds(x_column1, y_line14, x_width, y_height);
+		jb2.setBounds(x_column1, y_line14, 250, y_height);
 		contentpane1.add(jb2);
 		jb3.setBounds(x_column1, y_line7, x_width, y_height);
 		contentpane1.add(jb3);
@@ -395,7 +395,7 @@ public class BookZimmer extends GUIHelp{
 		bookDateDl = new JDateChooser();
 		
 		//Datumsrauf für JDateChooser wird gesetzt
-		bookDateDl.setSelectableDateRange(new Date(), null);
+		bookDateDl.setSelectableDateRange(pickerVon.getDate(), pickerBis.getDate());
 		
 		//ActionListener und ActionCommands werden für die Buttons gesetzt
 		bookDl.addActionListener(new BHBook(this));

@@ -110,10 +110,10 @@ public class DataDienst extends GUIHelp
 		panelD2.add(lPreis);
 		jtfPreis.setBounds(x_column3, y_line2, x_width, y_height);
 		panelD2.add(jtfPreis);
-		lID.setBounds(x_column1, y_line3, x_width, y_height);
-		panelD2.add(lID);
-		jtfID.setBounds(x_column3, y_line3, x_width, y_height);
-		panelD2.add(jtfID);
+		//lID.setBounds(x_column1, y_line3, x_width, y_height);
+		//panelD2.add(lID);
+	//	jtfID.setBounds(x_column3, y_line3, x_width, y_height);
+		//panelD2.add(jtfID);
 		bConfirme.setBounds(x_column3, y_line4, x_width, y_height);
 		panelD2.add(bConfirme);
 		panelD2.setOpaque(true);
@@ -149,6 +149,7 @@ public class DataDienst extends GUIHelp
 		lID.setBounds(x_column1, y_line3, x_width, y_height);
 		panelD3.add(lID);
 		jtfID2.setBounds(x_column3, y_line3, x_width, y_height);
+		setTfForm(jtfID2);
 		panelD3.add(jtfID2);
 		bConfirme2.setBounds(x_column3, y_line4, x_width, y_height);
 		panelD3.add(bConfirme2);

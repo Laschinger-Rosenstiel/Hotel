@@ -49,7 +49,7 @@ public class CancelDl extends GUIHelp{
 		geb = new JDateChooser();
 		
 		//Query für SQL-Tabelle im Startpanel wird gesetzt
-		query = "select hotel.gast.GID, hotel.gast.Vorname, hotel.gast.Name, hotel.gast.Geburtstag, hotel.`dl-buchung`.BID, hotel.`dl-buchung`.DLBID, hotel.`dl-buchung`.Datum, hotel.dienstleistung.Bezeichnung, hotel.dienstleistung.Preis from hotel.gast, hotel.buchung, hotel.`dl-buchung`, hotel.dienstleistung where hotel.gast.GID = hotel.buchung.GID and hotel.buchung.BID = hotel.`dl-buchung`.BID and hotel.`dl-buchung`.DID = hotel.dienstleistung.DID and hotel.`dl-buchung`.Datum > '"+getSQLDate(new Date())+"'";
+		query = "select hotel.gast.GID, hotel.gast.Vorname, hotel.gast.Name, hotel.gast.Geburtstag, hotel.`dl-buchung`.BID, hotel.`dl-buchung`.DLBID, hotel.`dl-buchung`.Datum, hotel.dienstleistung.DID, hotel.dienstleistung.Bezeichnung, hotel.dienstleistung.Preis from hotel.gast, hotel.buchung, hotel.`dl-buchung`, hotel.dienstleistung where hotel.gast.GID = hotel.buchung.GID and hotel.buchung.BID = hotel.`dl-buchung`.BID and hotel.`dl-buchung`.DID = hotel.dienstleistung.DID and hotel.`dl-buchung`.Datum > '"+getSQLDate(new Date())+"'";
 		
 		//ActionListener und ActionCommand der Buttons wird gesetzt
 		buttonSearch.addActionListener(ButtonHandler);

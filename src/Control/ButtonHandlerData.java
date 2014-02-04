@@ -321,7 +321,7 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 					String typ = (String) dd.jtvDienst.getSQLTable().getValueAt(dd.jtvDienst.getSQLTable().getSelectedRow(), 1).toString(); 
 					String preis = (String) dd.jtvDienst.getSQLTable().getValueAt(dd.jtvDienst.getSQLTable().getSelectedRow(), 2).toString(); 
 
-					dd.launchChangeFrameD(id,preis,typ );
+					dd.launchChangeFrameD(id, preis,typ );
 
 				} catch (GUIException e1) 
 				{
@@ -334,14 +334,13 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 				dd.launchCreateFrameD();
 				dd.jtfTyp.setText("");
 				dd.jtfPreis.setText("");
-				dd.jtfID.setText("");
 			}
 
 			else if(e.getActionCommand().equals("DeleteDienst"))
 			{
 				try{
 					//Zeile markiert?
-					if(dz.jtv.getSQLTable().getSelectedRow()== -1)
+					if(dd.jtvDienst.getSQLTable().getSelectedRow()== -1)
 						throw new GUIException("Fehler: Zeile nicht markiert!");
 					//Lese Zimmer-ID aus und übergebe diese dem Zimmer-Konstruktor...> Zimmer-Objekt löscht das Zimmer aus der Db
 					String id = (String) dd.jtvDienst.getSQLTable().getValueAt(dd.jtvDienst.getSQLTable().getSelectedRow(), 0).toString();
@@ -368,17 +367,15 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 				{
 					checkStringEmpty(dd.jtfTyp.getText());
 					checkPrize(dd.jtfPreis.getText());
-					checkID(dd.jtfID.getText());
 					//Werte aus Textfeldern lesen
-					String did = dd.jtfID.getText();
+					//String did = dd.jtfID.getText();
 					String typ = dd.jtfTyp.getText();
 					String preis = dd.jtfPreis.getText();
-					int id = Integer.parseInt(did);
 					double p = Double.parseDouble(preis);
 					//Neues Dienstleistungs-Objekt führt createDienst Methode aus
-					Dienstleistung dienst = new Dienstleistung(id,typ,p);
+					Dienstleistung dienst = new Dienstleistung(typ,p);
 					dienst.createDienst();
-					//Tabelle wird aktuallisiert 
+					//Tabelle wird aktualisiert 
 					dd.createFrameD.dispose();
 					dd.jtvDienst = new JTableview("Select * From dienstleistung");
 					JTable dTable = dd.jtvDienst.getSQLTable();

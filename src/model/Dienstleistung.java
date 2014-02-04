@@ -22,6 +22,11 @@ public class Dienstleistung extends ModelHelp {
 		this.preis = preis;
 	}
 	
+	public Dienstleistung (String typ, double preis) {
+		this.typ = typ;
+		this.preis = preis;
+	}
+	
 	public Dienstleistung(int did,String typ,double preis,int dnr)
 	{
 		this.did = did;
@@ -37,7 +42,7 @@ public class Dienstleistung extends ModelHelp {
 	//Neue Dienstleistung auf die DB schreiben
 	public void createDienst()
 	{
-		writeDb("INSERT INTO dienstleistung (DID, Bezeichnung, Preis)" + "VALUES('" + did + "', '" + typ + "', '" + preis +"')");
+		writeDb("INSERT INTO dienstleistung (Bezeichnung, Preis)" + "VALUES('" + typ + "', '" + preis +"')");
 	}
 	//Ändern der Dienstleistungsdaten
 	public void updateDienst()

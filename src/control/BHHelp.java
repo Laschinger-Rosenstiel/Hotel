@@ -254,7 +254,22 @@ public class BHHelp {
 		contentpane.add(scrollPane);
 
 	}
-
+	
+	public boolean checkDlRange(Date von, Date bis, Date dldate){
+		Calendar vonC = new GregorianCalendar();
+		vonC.setTime(von);
+		
+		Calendar bisC = new GregorianCalendar();
+		bisC.setTime(bis);
+		
+		Calendar dlDateC = new GregorianCalendar();
+		dlDateC.setTime(dldate);
+		
+		if((dlDateC.before(bisC) && dlDateC.after(vonC)) || von.equals(dlDateC) || bis.equals(dlDateC))
+			return true;
+		else
+			return false;
+	}
 
 
 }

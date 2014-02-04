@@ -399,7 +399,7 @@ public class BookZimmer extends GUIHelp{
 		
 		//ActionListener und ActionCommands werden für die Buttons gesetzt
 		bookDl.addActionListener(new BHBook(this));
-		bookDl.setActionCommand("Dl buchen");
+		bookDl.setActionCommand("Dl hinzufügen");
 		cancelDl.addActionListener(new BHBook(this));
 		cancelDl.setActionCommand("Dl cancel");
 		

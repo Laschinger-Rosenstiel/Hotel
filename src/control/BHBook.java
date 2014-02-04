@@ -46,21 +46,20 @@ public class BHBook extends BHHelp implements ActionListener{
 		else if (e.getActionCommand().equals("NEXT")) {
 
 			try {
-				System.out.println(guiZimmer.getVorname());
 
 				//Überprüfung der Eingaben
-				checkStringEmpty(gast.getVorname());
-				checkStringEmpty(gast.getName());
-				checkStringEmpty(gast.getStrasse());
-				checkStringEmpty(gast.getHn());
-				checkStringEmpty(gast.getPlz());
-				checkStringEmpty(gast.getOrt());
-				checkStringEmpty(gast.getLand());
+				checkStringEmpty(guiZimmer.getVorname());
+				checkStringEmpty(guiZimmer.getName());
+				checkStringEmpty(guiZimmer.getStrasse());
+				checkStringEmpty(guiZimmer.getHn());
+				checkStringEmpty(guiZimmer.getPlz());
+				checkStringEmpty(guiZimmer.getOrt());
+				checkStringEmpty(guiZimmer.getLand());
 				checkStringEmpty(guiZimmer.getTel2_1());
 				checkStringEmpty(guiZimmer.getTel2_2());
 				checkStringEmpty(guiZimmer.getTel2_3());
-				checkNumber(gast.getPlz());
-				checkBirthday(gast.getGeb());
+				checkNumber(guiZimmer.getPlz());
+				checkBirthday(guiZimmer.getGeb());
 				checkTel(guiZimmer.getTel2_1(), guiZimmer.getTel2_2(), guiZimmer.getTel2_3());			
 
 				//aus Eingaben wird neues Objekt erzeugt
@@ -122,10 +121,12 @@ public class BHBook extends BHHelp implements ActionListener{
 
 		else if (e.getActionCommand().equals("Available?")) {
 			//Verfügbarkeitsprüfung wird durchgeführt
-
+			try {
 			Date von = guiZimmer.getPickerVon();
 			Date bis = guiZimmer.getPickerBis();
-
+			//Check Buchungsdatum	
+			checkBookingDate(von, bis);
+			
 			//Buchungsdatum wird in SQL-Datus-Format umgewandelt
 			String vonSql = getSQLDate(von);
 			String bisSql = getSQLDate(bis);
@@ -137,7 +138,13 @@ public class BHBook extends BHHelp implements ActionListener{
 			guiZimmer.scrollPaneZimmer = new JScrollPane(available);
 			guiZimmer.scrollPaneZimmer.setBounds(200, 280, 300, 100);
 			guiZimmer.contentpane3.add(guiZimmer.scrollPaneZimmer);
-		}
+			}
+			catch (GUIException gex) {
+				JOptionPane.showMessageDialog(null, gex, "Error",
+						JOptionPane.ERROR_MESSAGE);
+			}
+			
+			}
 
 		else if (e.getActionCommand().equals("ExistBooking")) {
 
@@ -247,8 +254,8 @@ public class BHBook extends BHHelp implements ActionListener{
 		}
 		
 
-		else if (e.getActionCommand().equals("Dl buchen")){
-			//Dl Buchung
+		else if (e.getActionCommand().equals("Dl hinzufügen")){
+			//Dl Buchung, folgend auf Zimmer-Buchung
 			try{
 				//wirklich buchen?
 				int answer = JOptionPane.showConfirmDialog(guiZimmer.jf, "Dienstleistung wirklich buchen?", "Error",JOptionPane.YES_NO_OPTION);
@@ -265,6 +272,7 @@ public class BHBook extends BHHelp implements ActionListener{
 					//Dienstleistungsobjekt wird erstellt
 					int did = Integer.parseInt((String) guiZimmer.showDl.getSQLTable().getValueAt(guiZimmer.showDl.getSQLTable().getSelectedRow(), 0).toString());
 					Dienstleistung dl = new Dienstleistung(did, guiZimmer.bookDateDl.getDate());
+					//buchung wird durchgeführt
 					buchung.bookDl(buchung, dl);
 				}
 			}
@@ -276,10 +284,99 @@ public class BHBook extends BHHelp implements ActionListener{
 				JOptionPane.showMessageDialog(null, "Bitte alle Felder ausfüllen", "Error",
 						JOptionPane.ERROR_MESSAGE);
 			}
+		}		
+
+		else if (e.getActionCommand().equals("Dl cancel")){
+			//Abbrechen der DL-Buchung nach Zimmer-Buchung
+			guiZimmer.jf.dispose();
 		}
 
+
 		
-		
+		else if (e.getActionCommand().equals("NewBookingDl")) {
+			try {//Dienstleistung buchen
+				//Zeile markiert?
+				if (guiDl.sucheGast.getSQLTable().getSelectedRow() == -1) {
+
+					throw new GUIException("Fehler: Zeile nicht markiert!");
+				}
+				//ausgewählte Zeile auslesen
+				String gid = (String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 0).toString();
+				String vorname = (String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 1).toString();
+				String name = (String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 2).toString();
+				String geb = getDateSqlToGer((String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 3).toString());
+				int bid = Integer.parseInt((String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 4).toString());
+				String zid = (String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 5).toString();
+				String von = (String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 6).toString();
+				String bis = (String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 7).toString();
+				
+				//SQL-Datum in deutsches Datum
+				SimpleDateFormat toDate = new SimpleDateFormat("dd.MM.yyyy");
+				Date Geb = toDate.parse(geb);
+				//neues Gast-Objekt wird erzeugt
+				Gast gast = new Gast(Integer.parseInt(gid), vorname, name, Geb);
+				//neue Buchung wird erzeugt
+				Buchung buchung = new Buchung(bid);
+				//buchung und gast wird zwischengespeichert
+				this.buchung = buchung;
+				this.gast = gast;
+				//Frame für DL-Buchung wird geöffnet
+				guiDl.launchJFrame();
+				
+				//Labels werden nach Gastdaten gesetzt
+				guiDl.labelId2_2.setText(gid);
+				guiDl.labelVor2_2.setText(vorname);
+				guiDl.labelName2_2.setText(name);
+				guiDl.labelZimmer2_2.setText(zid);
+				guiDl.labelVon2_2.setText(von);
+				guiDl.labelBis2_2.setText(bis);
+				
+				//update SQL-Table in Startpanel
+				updateTable(guiDl.contentpane1, guiDl.scrollPaneSuche, guiDl.sucheGast, guiDl.getQuery(), guiDl.scrollPaneSuche.getX(), guiDl.scrollPaneSuche.getY(), guiDl.scrollPaneSuche.getWidth(), guiDl.scrollPaneSuche.getHeight());
+				
+			}
+			catch (GUIException gex ){
+				JOptionPane.showMessageDialog(null, gex, "Error",
+						JOptionPane.ERROR_MESSAGE);
+			} catch (ParseException e1) {
+				JOptionPane.showMessageDialog(null, e1, "Error",
+						JOptionPane.ERROR_MESSAGE);
+				e1.printStackTrace();
+			}
+		}
+
+		else if (e.getActionCommand().equals("BOOK?Dl")) {
+			try {
+				//durchführen der Zimmerbuchung
+				
+				//Buchungsdatum überprüfen
+				checkBookingDateDl(guiDl.bookDate2.getDate());
+				//wirklich buchen?
+				int answer = JOptionPane.showConfirmDialog(guiDl.jf, "Dienstleistung wirklich buchen?", "Error",JOptionPane.YES_NO_OPTION);
+				if (answer == JOptionPane.YES_OPTION) {
+					//Zeile markiert?
+					if (guiDl.tableDl.getSQLTable().getSelectedRow() == -1) {
+						throw new GUIException("Fehler: Zeile nicht markiert!");
+					}
+					//Dienstleistungsnummer wird ausgelesen
+					int did = Integer.parseInt((String) guiDl.tableDl.getSQLTable().getValueAt(guiDl.tableDl.getSQLTable().getSelectedRow(), 0).toString());
+					//DL-Objekt wird erzeugt
+					Dienstleistung dl = new Dienstleistung(did, guiDl.bookDate2.getDate());
+					//buchung wird durchgeführt
+					buchung.bookDl(buchung, dl);
+					//Fenster wird geschlossen
+					guiDl.jf.dispose();
+				}
+			}
+			catch (GUIException gex){
+				JOptionPane.showMessageDialog(null, gex, "Error",
+						JOptionPane.ERROR_MESSAGE);
+			}
+			catch (NullPointerException ex) {
+				JOptionPane.showMessageDialog(guiDl.jf, "Bitte alle Felder ausfüllen", "Error",
+						JOptionPane.ERROR_MESSAGE);
+			}
+		}
 		else if (e.getActionCommand().equals("SEARCH")) {
 			//Standardparameter werden gesetzt, damit bei leeren Feld auf alles geprüft wird
 			String gebSuche = "%";
@@ -340,7 +437,6 @@ public class BHBook extends BHHelp implements ActionListener{
 
 			}
 
-
 			//Eingabefelder werden überprüft und bei Eingabe geändert 
 			if (!guiDl.getGidSuche().equals(""))
 				gidSuche = guiDl.getGidSuche();
@@ -363,88 +459,6 @@ public class BHBook extends BHHelp implements ActionListener{
 			guiDl.scrollPaneSuche = new JScrollPane(suche);
 			guiDl.scrollPaneSuche.setBounds(10, 320, 1000, 200);
 			guiDl.contentpane1.add(guiDl.scrollPaneSuche);
-
 		}
-
-		else if (e.getActionCommand().equals("Dl cancel")){
-			guiZimmer.jf.dispose();
-		}
-
-
-		else if (e.getActionCommand().equals("NewBookingDl")) {
-			try {
-				if (guiDl.sucheGast.getSQLTable().getSelectedRow() == -1) {
-
-					throw new GUIException("Fehler: Zeile nicht markiert!");
-				}
-
-				String gid = (String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 0).toString();
-				String vorname = (String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 1).toString();
-				String name = (String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 2).toString();
-				String geb = getDateSqlToGer((String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 3).toString());
-				int bid = Integer.parseInt((String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 4).toString());
-				String zid = (String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 5).toString();
-				String von = (String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 6).toString();
-				String bis = (String) guiDl.sucheGast.getSQLTable().getValueAt(guiDl.sucheGast.getSQLTable().getSelectedRow(), 7).toString();
-
-				SimpleDateFormat toDate = new SimpleDateFormat("dd.MM.yyyy");
-				Date Geb = toDate.parse(geb);
-
-				Gast gast = new Gast(Integer.parseInt(gid), vorname, name, Geb);
-				Buchung buchung = new Buchung(bid);
-				this.buchung = buchung;
-				guiDl.launchJFrame();
-				this.gast = gast;
-
-				System.out.println(gid);
-				guiDl.labelId2_2.setText(gid);
-				guiDl.labelVor2_2.setText(vorname);
-				guiDl.labelName2_2.setText(name);
-				guiDl.labelZimmer2_2.setText(zid);
-				guiDl.labelVon2_2.setText(von);
-				guiDl.labelBis2_2.setText(bis);
-
-			}
-			catch (GUIException gex ){
-				JOptionPane.showMessageDialog(null, gex, "Error",
-						JOptionPane.ERROR_MESSAGE);
-			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
-		else if (e.getActionCommand().equals("BOOK?Dl")) {
-			try {			
-				checkBookingDateDl(guiDl.bookDate2.getDate());
-				int answer = JOptionPane.showConfirmDialog(guiDl.jf, "Dienstleistung wirklich buchen?", "Error",JOptionPane.YES_NO_OPTION);
-				if (answer == JOptionPane.YES_OPTION) {
-					System.out.println("Dienstleistung buchen!");	
-					if (guiDl.tableDl.getSQLTable().getSelectedRow() == -1) {
-						throw new GUIException("Fehler: Zeile nicht markiert!");
-					}
-					int did = Integer.parseInt((String) guiDl.tableDl.getSQLTable().getValueAt(guiDl.tableDl.getSQLTable().getSelectedRow(), 0).toString());
-
-					Dienstleistung dl = new Dienstleistung(did, guiDl.bookDate2.getDate());
-
-					buchung.bookDl(buchung, dl);
-
-					guiDl.jf.dispose();
-				}
-			}
-			catch (GUIException gex){
-				JOptionPane.showMessageDialog(null, gex, "Error",
-						JOptionPane.ERROR_MESSAGE);
-			}
-			catch (NullPointerException ex) {
-				JOptionPane.showMessageDialog(guiDl.jf, "Bitte alle Felder ausfüllen", "Error",
-						JOptionPane.ERROR_MESSAGE);
-			}
-
-
-		}
-
-
 	}	
 }
-
-

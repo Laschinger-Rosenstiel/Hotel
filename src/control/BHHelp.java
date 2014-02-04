@@ -1,6 +1,5 @@
 package control;
 
-import java.awt.ScrollPane;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -20,23 +19,23 @@ import javax.swing.JTable;
 
 public class BHHelp {
 
-
+	//wandelt date in SQL-Format um
 	public String getSQLDate(Date date) {
 		SimpleDateFormat Sql =new SimpleDateFormat("yyyy-MM-dd");
 		return Sql.format(date);
 	}
-
+	//überprüft ob Postleitzahl
 	public void checkNumber(String number) throws GUIException{
 
 		try {
 			Integer.parseInt(number);		
 		}
 		catch (NumberFormatException nex) {
-			throw new GUIException("PLZ überprüfen");
+			throw new GUIException("Postleitzahl überprüfen");
 		}
-
 	}
 
+	//Überprüft Geburtsdatum
 	public void checkBirthday(Date geb) throws GUIException{
 		Calendar cPast = new GregorianCalendar();
 		Calendar cGeb = new GregorianCalendar();
@@ -55,7 +54,7 @@ public class BHHelp {
 		}
 	}
 
-
+	//wandelt SQL-Date in deutsches Datumsformat
 	public String getDateSqlToGer(String date) {
 
 		String[] splitResult = date.split("-", 3);
@@ -64,25 +63,23 @@ public class BHHelp {
 		String jahr = splitResult[0];
 		return tag + "." + monat + "." + jahr;
 	}
-
+	//String leer?
 	public void checkStringEmpty(String check) throws GUIException {
 
 		if (check.equals(""))
 			throw new GUIException("Bitte alle Felder ausführen!");
 	}
-
+	//Dl Buchungsdatum überprüfen
 	public void checkBookingDateDl(Date bookDate) throws GUIException{
 		Calendar cNow = new GregorianCalendar();
 		Calendar cBookDate = new GregorianCalendar();
 		cNow.setTime(new Date());
 		cBookDate.setTime(bookDate);
-		//check ob Buchungsdatum nach Aufenthalt fehlt noch
 		if (cBookDate.before(cNow)) {
 			throw new GUIException("Buchungsdatum überprüfen!");
 		}
 	}
-
-
+	//Zimmerbuchungsdatum überprüfen
 	public void checkBookingDate(Date vonDate, Date bisDate) throws GUIException{
 
 		Calendar cNow = new GregorianCalendar();
@@ -98,7 +95,7 @@ public class BHHelp {
 		if(cVonDate.after(cBisDate))
 			throw new GUIException("Buchungsdatum überprüfen!");		
 	}
-
+	//Telefonnummer überprüfen
 	public void checkTel(String a, String b, String c) throws GUIException{
 		try {
 			Integer.parseInt(b);
@@ -113,9 +110,7 @@ public class BHHelp {
 			throw new GUIException("Telefonnummer überprüfen!");
 		}
 	}
-
-
-
+	//Login prüfen
 	public void checkLogin(String x, String y) throws GUIException
 	{
 
@@ -131,26 +126,21 @@ public class BHHelp {
 			throw new GUIException("Falsches Passwort");
 		}	
 	}
-
+	//Methode um auf DB zu schreiben - gibt AutoIncrement-Feld zurück
 	public int writeDbAi(String SQLquery) {
 
 		try {
 			String sDbDriver=null, sDbUrl=null, sUsr="", sPwd=""; 
-			// set access data for database connection 
 			sDbDriver = "com.mysql.jdbc.Driver"; 
-			// url of data base scheme (f.e. jdbc:mysql://localhost:3306/test) 
-			sDbUrl = "jdbc:mysql://localhost:3306/Hotel"; 
-			// user name (f.e. root) 
-			sUsr = "root"; 
-			// password (f.e. init) 
+			sDbUrl = "jdbc:mysql://localhost:3306/Hotel";
+			sUsr = "root";  
 			sPwd = "init"; 
-			// select fitting database driver and connect 
 			Class.forName( sDbDriver ); 
 			Connection cn = DriverManager.getConnection( sDbUrl, sUsr, sPwd ); 
 
 			PreparedStatement stmt = cn.prepareStatement(SQLquery, 
 					Statement.RETURN_GENERATED_KEYS);
-			//...
+			
 			stmt.execute();
 			ResultSet res = stmt.getGeneratedKeys();
 			res.next();
@@ -169,27 +159,20 @@ public class BHHelp {
 
 	}
 
-
+	//Schreibbefehl auf die DB
 	public void writeDb(String SQLquery) 
 	{ 
 		try 
 		{ 
 			String sDbDriver=null, sDbUrl=null, sUsr="", sPwd=""; 
-			// set access data for database connection 
 			sDbDriver = "com.mysql.jdbc.Driver"; 
-			// url of data base scheme (f.e. jdbc:mysql://localhost:3306/test) 
 			sDbUrl = "jdbc:mysql://localhost:3306/Hotel"; 
-			// user name (f.e. root) 
 			sUsr = "root"; 
-			// password (f.e. init) 
 			sPwd = "init"; 
-			// select fitting database driver and connect 
 			Class.forName( sDbDriver ); 
 			Connection cn = DriverManager.getConnection( sDbUrl, sUsr, sPwd ); 
 			Statement st = cn.createStatement(); 
-			// insert resp. delete entry 
 			st.execute(SQLquery); 
-			// to avoid side effects close connection 
 			st.close(); 
 			cn.close(); 
 		} 
@@ -204,8 +187,8 @@ public class BHHelp {
 
 	}
 
+	//ID überprüfen
 	public void checkID(String number) throws GUIException{
-
 		try {
 			Integer.parseInt(number);		
 		}
@@ -214,8 +197,8 @@ public class BHHelp {
 		}
 
 	}
+	//Preisformat überprüfen
 	public void checkPrize(String number) throws GUIException{
-
 		try {
 			Double.parseDouble(number);		
 		}
@@ -224,6 +207,7 @@ public class BHHelp {
 		}
 
 	}
+	//Select-Methode für DB
 	public String selectDB(String SQLquery) 
 	{ 
 		try 
@@ -258,6 +242,7 @@ public class BHHelp {
 
 
 	}
+	//Updaten der SQL-Tabellen
 	public void updateTable(JPanel contentpane, JScrollPane scrollPane, JTableview jtv, String query, int x, int y, int width, int height){
 
 		scrollPane.setVisible(false);

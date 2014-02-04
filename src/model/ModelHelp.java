@@ -13,12 +13,14 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class ModelHelp {
-
+	
+	//rechnet date in SQL-Datumsformat
 	public String getSQLDate(Date date) {
 		SimpleDateFormat Sql =new SimpleDateFormat("yyyy-MM-dd");
 		return Sql.format(date);
 	}
 
+	//schreibt auf DB und gibt Autoinkrement zurück
 	public int writeDbAi(String SQLquery) {
 
 		try {
@@ -49,27 +51,20 @@ public class ModelHelp {
 		} 
 
 	}
-
+	//schreibt auf DB
 	public void writeDb(String SQLquery) 
 	{ 
 		try 
 		{ 
 			String sDbDriver=null, sDbUrl=null, sUsr="", sPwd=""; 
-			// set access data for database connection 
 			sDbDriver = "com.mysql.jdbc.Driver"; 
-			// url of data base scheme (f.e. jdbc:mysql://localhost:3306/test) 
 			sDbUrl = "jdbc:mysql://localhost:3306/Hotel"; 
-			// user name (f.e. root) 
 			sUsr = "root"; 
-			// password (f.e. init) 
 			sPwd = "init"; 
-			// select fitting database driver and connect 
 			Class.forName( sDbDriver ); 
 			Connection cn = DriverManager.getConnection( sDbUrl, sUsr, sPwd ); 
 			Statement st = cn.createStatement(); 
-			// insert resp. delete entry 
 			st.execute(SQLquery); 
-			// to avoid side effects close connection 
 			st.close(); 
 			cn.close(); 
 		} 
@@ -83,7 +78,7 @@ public class ModelHelp {
 		} 
 
 	}
-
+	//Select Befehl für DB
 	public String selectDB(String SQLquery) 
 	{ 
 		try 

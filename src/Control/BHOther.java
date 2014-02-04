@@ -27,16 +27,17 @@ public class BHOther extends BHHelp implements ActionListener{
 		
 		System.out.println("Das Ereignis hat den Wert: " + e.getActionCommand());
 		if (e.getActionCommand().equals("Available?")) {
-			
+			//Verfügbarkeitsprüfung
 			try {
 			checkBookingDate(guiZimmer.von.getDate(), guiZimmer.bis.getDate());
 			Date von = guiZimmer.getPickerVon();
 			Date bis = guiZimmer.getPickerBis();
 			
-			
+			//umwandeln in SQL-Format
 			String vonSql = getSQLDate(von);
 			String bisSql = getSQLDate(bis);
 			
+			//SQL-Tabelle wird erzeugt und zu Startpanel hinzugefügt
 			guiZimmer.checkedZimmer = new JTableview("SELECT * from hotel.zimmer where hotel.zimmer.ZID not in (SELECT hotel.`zimmer-buchung`.ZID from hotel.`zimmer-buchung` where (Von between '"+vonSql+"' AND '"+bisSql+"') OR (Bis between '"+vonSql+"' AND '"+bisSql+"'))");
 			JTable available = guiZimmer.checkedZimmer.getSQLTable();
 			
@@ -56,6 +57,7 @@ public class BHOther extends BHHelp implements ActionListener{
 		}
 		
 		else if (e.getActionCommand().equals("Search")){
+			//Suche, siehe andere Suchen bspw. BHBook
 			String gebSuche = "%";
 			String vorSuche = "%";
 			String nameSuche = "%";

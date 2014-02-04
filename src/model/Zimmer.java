@@ -25,18 +25,18 @@ public class Zimmer extends ModelHelp
 		preis = p;
 		znr = zn;
 	}
-	
+	//Ändert Zimmerdaten
 	public void updateZimmer()
 	{
 		writeDb("update zimmer set ZID = '" + znr +"',  Typ = '"+ typ +"', Preis = '"+ preis+"' where ZID = "+zid);
 	}
-	
+	//Schreibt neues Zimmer auf die DB
 	public void createZimmer()
 	{
 		writeDb("INSERT INTO zimmer (ZID, Typ, Preis)" + "VALUES('"+ zid + 
 				"', '"+ typ+"', '"+ preis+"')");
 	}
-	
+	//Löscht Zimmer von der DB
 	public void deleteZimmer()
 	{
 		String query = "DELETE from " + "zimmer" + " WHERE " + 

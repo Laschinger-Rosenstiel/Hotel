@@ -34,16 +34,17 @@ public class Dienstleistung extends ModelHelp {
 	public Dienstleistung(int did) {
 		this.did = did;
 	}
-	
+	//Neue Dienstleistung auf die DB schreiben
 	public void createDienst()
 	{
 		writeDb("INSERT INTO dienstleistung (DID, Bezeichnung, Preis)" + "VALUES('" + did + "', '" + typ + "', '" + preis +"')");
 	}
+	//Ändern der Dienstleistungsdaten
 	public void updateDienst()
 	{
 		writeDb("update dienstleistung set DID = '" + did +"', Bezeichnung = '" + typ + "',  Preis = '" + preis + "' where DID = "+ dnr);
 	}
-	
+	//Löscht Dienstleistung aus der DB
 	public void deleteDienst()
 	{
 		String query = "DELETE from " + "dienstleistung" + " WHERE " + 

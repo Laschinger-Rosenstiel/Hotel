@@ -52,13 +52,12 @@ public class StartFrame extends JFrame
 		label4 = new JLabel("Stammdaten ", JLabel.CENTER);
 		label5 = new JLabel("Buchungssystem ", JLabel.CENTER);
 		
-		
-
 	}
 	
 	
 	public JPanel getJPanel2()
 	{
+		//Panel wird erzeugt und befüllt
 		p2 = new JPanel();
 		p2.setLayout(null);
 		label5.setBounds(250, 250, 500, 500);
@@ -72,7 +71,7 @@ public class StartFrame extends JFrame
 	
 	public JPanel getJPanel3()
 	{
-		
+		//Panel wird erzeugt und befüllt
 		p3 = new JPanel();
 		p3.setLayout(new GridLayout(4,1));
 		p3.add(label4);
@@ -86,6 +85,7 @@ public class StartFrame extends JFrame
 	}
 	public JPanel getJPanel4()
 	{
+		//Panel wird erzeugt und befüllt
 		p4 = new JPanel();
 		p4.setLayout(new GridLayout(4,1));
 		p4.setOpaque(true);
@@ -134,6 +134,7 @@ public class StartFrame extends JFrame
 		gc.fill = GridBagConstraints.BOTH;
 		gc.weightx = 0.85;
 		gc.weighty = 1;
+		//add panel2
 		sf.add(p2,gc);
 		//Panel3
 		gc = new GridBagConstraints();
@@ -144,6 +145,7 @@ public class StartFrame extends JFrame
 		gc.fill = GridBagConstraints.BOTH;
 		gc.weightx = 0.15;
 		gc.weighty = 0.3;
+		//add panel3
 		sf.add(p3,gc);
 		sf.setExtendedState(sf.getExtendedState() | sf.MAXIMIZED_BOTH );
 		sf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -159,5 +161,4 @@ public class StartFrame extends JFrame
 		return s;
 	}
 	
-
 }

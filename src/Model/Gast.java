@@ -52,11 +52,11 @@ public class Gast extends ModelHelp{
 	public Gast(int gid) {
 		this.gid = gid;
 	}
-	
+	//Löscht Gast aus der DB
 	public void deleteGast(){
 		writeDb("delete from hotel.gast where GID = " + gid);
 	}
-	
+	//Ändert Gastdaten
 	public void updateGast()
 	{
 		writeDb("update gast set Vorname = '" + vorname +"',  Name = '"+ name +"', Strasse = '"+ strasse +"', Hausnummer = '"+ hn +"', Postleitzahl = '"+ plz +"',"

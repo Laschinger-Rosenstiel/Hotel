@@ -80,6 +80,7 @@ public class DataGast extends GUIHelp
 	
 	public JPanel launchJPanel()
 	{
+		//Panel wird erzeugt und befüllt
 		panelG1 = new JPanel();
 		panelG1.setLayout(null);
 		lVn.setBounds(x_column1, y_line2, x_width, y_height);
@@ -96,6 +97,7 @@ public class DataGast extends GUIHelp
 		panelG1.add(jtfName);
 		Geb.setBounds(x_column3, y_line4, x_width, y_height);
 		panelG1.add(Geb);
+		//Tabelle erzeugt und mit Gastdaten befüllt
 		JTable abc = jtvGast.getSQLTable();
 		scrollPaneG = new JScrollPane(abc); 
 		scrollPaneG.setBounds(x_column1, y_line5, 600, 300); 
@@ -116,11 +118,10 @@ public class DataGast extends GUIHelp
 	{
 		changeFrameG = null;
 		panelG2 = null;
-		
+		//Panel wird erzeugt und befüllt
 		JPanel panelG2 = new JPanel();
 		panelG2.setLayout(null);
 		panelG2.setVisible(false);
-		
 		id = x;
 		lVn2.setBounds(x_column1, y_line1, x_width, y_height);
 		panelG2.add(lVn2);
@@ -172,15 +173,13 @@ public class DataGast extends GUIHelp
 		panelG2.setOpaque(true);
 		panelG2.setBackground(new Color(209,218,248));
 		panelG2.setVisible(true);
-		
+		//Panel wird dem Frame übergeben
 		changeFrameG = new JFrame();
 		changeFrameG.add(panelG2);
 		changeFrameG.setSize(700,600);
 		changeFrameG.setLocation(300, 50);
 		changeFrameG.setDefaultCloseOperation(changeFrameG.DISPOSE_ON_CLOSE);
 		changeFrameG.setVisible(true);
-		
-		
 		
 		return changeFrameG;
 	}

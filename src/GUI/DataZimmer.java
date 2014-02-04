@@ -76,10 +76,11 @@ public class DataZimmer extends GUIHelp
 
 	public JPanel launchJPanel()
 	{
-
+		//Panel wird erzeugt und befüllt
 		panelZ1 = new JPanel();
 		panelZ1.setLayout(null);
 		jtv = new JTableview("Select * from zimmer");
+		//Tabelle wird erzeugt und mit allen Zimmerdaten aus der DB befüllt
 		JTable abc = jtv.getSQLTable();
 		scrollPaneZ = new JScrollPane(abc); 
 		scrollPaneZ.setBounds(x_column1, y_line3, 600, 300); 
@@ -102,7 +103,7 @@ public class DataZimmer extends GUIHelp
 	{
 		createFrame = null;
 		panelZ2 = null;
-
+		//Panel wird erzeugt und befüllt
 		panelZ2 = new JPanel();
 		panelZ2.setLayout(null);
 		panelZ2.setVisible(false);
@@ -123,7 +124,7 @@ public class DataZimmer extends GUIHelp
 		panelZ2.setOpaque(true);
 		panelZ2.setBackground(new Color(209,218,248));
 		panelZ2.setVisible(true);
-
+		//Panel wird dem Frame übergeben
 		createFrame = new JFrame();
 		createFrame.add(panelZ2);
 		createFrame.setLocation(300, 50);
@@ -140,7 +141,7 @@ public class DataZimmer extends GUIHelp
 		panelZ3 = null;
 		x = typ;
 		zid = id;
-
+		//Panel wird erzeugt und befüllt
 		JPanel panelZ3 = new JPanel();
 		panelZ3.setLayout(null);
 		panelZ3.setVisible(false);
@@ -163,7 +164,7 @@ public class DataZimmer extends GUIHelp
 		panelZ3.setOpaque(true);
 		panelZ3.setBackground(new Color(209,218,248));
 		panelZ3.setVisible(true);
-
+		//Panel wird dem Frame übergeben
 		changeFrameZ = new JFrame();
 		changeFrameZ.add(panelZ3);
 		changeFrameZ.setSize(600,500);

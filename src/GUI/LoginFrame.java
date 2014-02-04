@@ -42,6 +42,7 @@ public class LoginFrame extends GUIHelp
 		cb = new JComboBox(konto);
 		//cb.setSelectedIndex(2);
 		cb.addActionListener(new ButtonHandlerLogin(this));
+
 		//ChangeFrame
 		cf = new JFrame("Passwort ändern");
 		b3 = new JButton("Passwort speichern");
@@ -64,6 +65,7 @@ public class LoginFrame extends GUIHelp
 	
 	public void launchLoginFrame()
 	{
+		//Panel erzeugt und befüllt
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		l1.setBounds(10, 40,120, 30);
@@ -92,6 +94,7 @@ public class LoginFrame extends GUIHelp
 	
 	public void launchChangeFrame()
 	{
+		//Panel erzeugt und befüllt
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		l5.setBounds(10, 10,120, 30);
@@ -112,6 +115,7 @@ public class LoginFrame extends GUIHelp
 		panel.add(b3);
 		panel.setOpaque(true);
 		panel.setBackground(new Color(209,218,248));
+		//Panel an Frame übergeben
 		cf.add(panel);
 		cf.setSize(700, 300);
 		cf.setLocation(400, 200);

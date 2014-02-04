@@ -43,6 +43,7 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 	{
 		System.out.println("Das Ereignis hat den Wert: " + e.getActionCommand());
 
+		//Behandlung der DataGast Buttons
 		if(dg!=null)
 		{
 			if(e.getActionCommand().equals("ChangeGast"))
@@ -51,7 +52,7 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 
 					if(dg.jtvGast.getSQLTable().getSelectedRow()== -1)
 						throw new GUIException("Fehler: Zeile nicht markiert!");
-
+					//liest Werte aus der Datenbank
 					String id = (String) dg.jtvGast.getSQLTable().getValueAt(dg.jtvGast.getSQLTable().getSelectedRow(), 0).toString(); 
 					String vn = (String) dg.jtvGast.getSQLTable().getValueAt(dg.jtvGast.getSQLTable().getSelectedRow(), 1).toString(); 
 					String name = (String) dg.jtvGast.getSQLTable().getValueAt(dg.jtvGast.getSQLTable().getSelectedRow(), 2).toString(); 
@@ -63,7 +64,7 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 					String geb = (String) dg.jtvGast.getSQLTable().getValueAt(dg.jtvGast.getSQLTable().getSelectedRow(), 8).toString(); 
 					String tel = (String) dg.jtvGast.getSQLTable().getValueAt(dg.jtvGast.getSQLTable().getSelectedRow(), 9).toString(); 
 
-
+					//launcht ChangeFrame Textfelder werden mit den übergebenen Werten befüllt
 					dg.launchChangeFrameG(id,vn, name, str, hnr, plz, ort, land, tel, getDateSqlToGer(geb));
 
 
@@ -116,9 +117,12 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 					checkStringEmpty(dg.jtfLand.getText());
 					checkStringEmpty(dg.jtfTel.getText());
 					checkBirthday(Geb);
+					//Gast-Objekt wird erzeugt hierzu werden die aus den Textfeldern gelesenen Werte an den Gastkonstruktor übergeben
+					//Im Anschluss wird vom Gast-Objekt die updateGast Methode ausgeführt.
 					Gast gast = new Gast(dg.id,dg.jtfVn2.getText(), dg.jtfName2.getText(), dg.jtfStr.getText(), dg.jtfHnr.getText(),dg.jtfPlz.getText(),
 							dg.jtfOrt.getText(), dg.jtfLand.getText(), dg.jtfTel.getText(), Geb);
 					gast.updateGast();
+					// Fenster mit aktuellem Panel launchen
 					dg.changeFrameG.dispose();
 					dg.jtvGast = new JTableview("Select * From gast");
 					JTable gtable = dg.jtvGast.getSQLTable();
@@ -151,16 +155,16 @@ public class ButtonHandlerData extends BHHelp implements ActionListener
 					
 					if(dg.jtvGast.getSQLTable().getSelectedRow()== -1)
 						throw new GUIException("Fehler: Zeile nicht markiert!");
-					
+					//Abfrage wirklich löschen?
 					int answer = JOptionPane.showConfirmDialog(null, "Gast, und alle seine zugehörigen Buchungungen wirklich löschen?", "Error",JOptionPane.YES_NO_OPTION);
 					if (answer == JOptionPane.YES_OPTION) {
 						
 	
 						String id = (String) dg.jtvGast.getSQLTable().getValueAt(dg.jtvGast.getSQLTable().getSelectedRow(), 0).toString(); 
-	
-						String query = "DELETE from " + "gast" + " WHERE " + 
-								"GID" + " = '" + id + "'"; 
-						writeDb(query); 
+						int i = Integer.parseInt(id);
+						//Gast-Objekt wird erzeugt und die ausgewählte Gast-ID mit übergeben... im Anschluss wird deleteGast ausgeführt.
+						Gast g = new Gast(i);
+						g.deleteGast(); 
 						dg.jtvGast = new JTableview("Select * From gast");
 						JTable gast = dg.jtvGast.getSQLTable();
 						dg.scrollPaneG.setVisible(false);

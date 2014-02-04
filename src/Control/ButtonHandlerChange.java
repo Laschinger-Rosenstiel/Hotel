@@ -1,4 +1,4 @@
-package control;
+/*package control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -105,4 +105,5 @@ public class ButtonHandlerChange extends BHHelp implements ActionListener, KeyLi
 		// TODO Auto-generated method stub
 		
 	}
-}	
+}
+*/	

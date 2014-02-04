@@ -44,7 +44,6 @@ public class DataDienst extends GUIHelp
 		lTitel = new JLabel("Dienstleistungen:", JLabel.LEFT);
 		jtvDienst = new JTableview("Select * from dienstleistung");
 		
-		
 		//Create JFrame
 		createFrameD = new JFrame();
 		jtfTyp = new JTextField(40);
@@ -70,10 +69,11 @@ public class DataDienst extends GUIHelp
 	
 	public JPanel launchJPanel()
 	{
-		
+		//Panel wird erzeugt und befüllt
 		panelD1 = new JPanel();
 		panelD1.setLayout(null);
 		jtvDienst = new JTableview("Select * from dienstleistung");
+		//Tabelle erzeugen und mit den von der DB gelesenen Dienstleistungen befüllen
 		JTable dienstTab = jtvDienst.getSQLTable();
 		scrollPaneD = new JScrollPane(dienstTab);
 		scrollPaneD.setBounds(x_column1, y_line3, 600, 300); 
@@ -98,7 +98,7 @@ public class DataDienst extends GUIHelp
 	{
 		createFrameD = null;
 		panelD2 = null;
-		
+		//Panel wird erzeugt und befüllt
 		JPanel panelD2 = new JPanel();
 		panelD2.setLayout(null);
 		panelD2.setVisible(false);
@@ -119,7 +119,7 @@ public class DataDienst extends GUIHelp
 		panelD2.setOpaque(true);
 		panelD2.setBackground(new Color(209,218,248));
 		panelD2.setVisible(true);
-		
+		//Panel wird ans Frame übergeben
 		createFrameD = new JFrame();
 		createFrameD.add(panelD2);
 		createFrameD.setSize(600,500);
@@ -128,14 +128,13 @@ public class DataDienst extends GUIHelp
 		createFrameD.setVisible(true);
 		
 		return createFrameD;
-				
 	}
 	
 	public JFrame launchChangeFrameD(String id, String preis, String typ)
 	{
 		changeFrameD = null;
 		panelD3 = null;
-		
+		//Panel wird erzeugt und befüllt
 		JPanel panelD3 = new JPanel();
 		panelD3.setLayout(null);
 		panelD3.setVisible(false);
@@ -160,7 +159,7 @@ public class DataDienst extends GUIHelp
 		panelD3.setOpaque(true);
 		panelD3.setBackground(new Color(209,218,248));
 		panelD3.setVisible(true);
-		
+		//Panel wird ans Frame übergeben
 		changeFrameD = new JFrame();
 		changeFrameD.add(panelD3);
 		changeFrameD.setSize(600,500);

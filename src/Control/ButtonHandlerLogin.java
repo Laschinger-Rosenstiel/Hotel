@@ -56,7 +56,7 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyLi
 			try{
 				String user = (String) lf.cb.getSelectedItem();
 				String pwAlt = selectDB("Select Passwort from Benutzer where Benutzername = '"+user+"'");
-				System.out.println(pwAlt);
+				//System.out.println(pwAlt);
 				
 				
 				
@@ -66,8 +66,8 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyLi
 				checkLogin(lf.jpf4.getText(), pwAlt);
 				checkLogin(lf.jpf2.getText(), lf.jpf3.getText());
 				
-				System.out.println("Vergleich1: "+lf.jpf2.getText() + " mit "+lf.jpf3.getText());
-				System.out.println("Vergleich2: "+lf.jpf4.getText() + "mit " + pwAlt);
+				//System.out.println("Vergleich1: "+lf.jpf2.getText() + " mit "+lf.jpf3.getText());
+				//System.out.println("Vergleich2: "+lf.jpf4.getText() + "mit " + pwAlt);
 				if(lf.jpf2.getText().equals(lf.jpf3.getText()) & lf.jpf4.getText().equals(pwAlt))
 				{
 					//lf.setPw(lf.jpf2.getText());
@@ -97,7 +97,7 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyLi
 				try{
 
 					String passwort = selectDB("Select Passwort from benutzer where Benutzername = 'Rezeption'");
-					
+					System.out.println(passwort);
 					checkStringEmpty(lf.jpf.getText());
 					if(lf.jpf.getText().equals(passwort))
 					{
@@ -181,10 +181,11 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyLi
 			if(s.equals("Rezeption"))
 			{
 				try{
-
+					String passwort = selectDB("Select Passwort from benutzer where Benutzername = 'Rezeption'");
 					checkStringEmpty(lf.jpf.getText());
-					if(lf.jpf.getText().equals(lf.pw))
+					if(lf.jpf.getText().equals(passwort))
 					{
+						
 						sf = new StartFrame();
 						sf.setS(s);
 						sf.launchStartFrame(sf.getJPanel2(), sf.getJPanel4());
@@ -193,7 +194,7 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyLi
 					else
 					{
 						try{
-							checkLogin(lf.pw, lf.jpf.getText());
+							checkLogin(passwort, lf.jpf.getText());
 						}
 						catch(GUIException gex)
 						{
@@ -215,9 +216,9 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyLi
 			{
 
 				try{
-
+					String passwort = selectDB("Select Passwort from benutzer where Benutzername = 'Manager'");
 					checkStringEmpty(lf.jpf.getText());
-					if(lf.jpf.getText().equals(lf.pw))
+					if(lf.jpf.getText().equals(passwort))
 					{
 						sf = new StartFrame();
 						sf.setS(s);
@@ -227,7 +228,7 @@ public class ButtonHandlerLogin extends BHHelp implements ActionListener , KeyLi
 					else
 					{
 						try{
-							checkLogin(lf.pw, lf.jpf.getText());
+							checkLogin(passwort, lf.jpf.getText());
 						}
 						catch(GUIException gex)
 						{

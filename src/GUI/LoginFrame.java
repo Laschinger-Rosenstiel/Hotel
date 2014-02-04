@@ -17,7 +17,8 @@ public class LoginFrame extends GUIHelp
 	public JComboBox cb;
 	public JPasswordField jpf;
 	public String[] konto = {"Rezeption", "Manager"};
-	public String pw ="lala";
+	public String pw;
+	//public String pw ="lala";
 	//ChangeFrame
 	public JFrame cf;
 	public JLabel l3,l4,l5;

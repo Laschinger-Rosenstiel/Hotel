@@ -14,7 +14,7 @@ public class BookZimmer extends GUIHelp{
 	
 	BHBook ButtonHandler = new BHBook(this);
 	
-	//Startpanel
+	//Objekte für Startpanel werden erstellt
 	public JPanel contentpane1;
 	private JButton jb1, jb2, jb3;
 	public JTextField jtfGID, jtfVorname, jtfName, jtfGeb; 
@@ -24,11 +24,11 @@ public class BookZimmer extends GUIHelp{
 	public JTableview sucheGast;
 	String query;
 	
-	//card Layout
+	//card Layout wird erstellt und erzeugt
 	public CardLayout cardLayout;
 	public JPanel card = new JPanel();
 	
-	//Frame
+	//Objekte für JFrame werden erstellt
 	public JFrame jf;
 	private JPanel contentpane2;
 	public JTextField jtfVorname2, jtfName2, jtfGeb2, jtfStr2, jtfHn2, jtfPlz2, jtfOrt2, jtfLand2, jtfTel2_1, jtfTel2_2, jtfTel2_3;
@@ -36,13 +36,12 @@ public class BookZimmer extends GUIHelp{
 	private JButton weiter;
 	public JDateChooser geb2;
 	
-	//Frame 2nd Card
+	//Objekte für 2. Card des JFrame werden erstellt
 	public JPanel contentpane3 = null;
 	public JLabel labeltable4, labeltable5, labeltable6, labeljtfVon, labeljtfBis;
 	private JTextField labelVor3, labelName3, labelStr3, labelPlz3, labelOrt3, labelLand3;
 	private String tel;
 	public JTextField labelTel3;
-
 	private JTextField labelGeb3;
 	public JTextField labelVor3_2, labelName3_2, labelStr3_2, labelPlz3_2, labelOrt3_2, labelLand3_2, labelTel3_2, labelGeb3_2;
 	private JButton checkAvailability, back, bookZimmer;
@@ -50,7 +49,7 @@ public class BookZimmer extends GUIHelp{
 	public JTableview availableZimmer;
 	public JScrollPane scrollPaneZimmer;
 
-	//Frame 3rd Card
+	//Objekte für 3. Card des JFrame werden erstellt
 	public JPanel contentpane4 = null;
 	public JLabel labelDl, labelDatum;
 	public JTableview showDl;
@@ -58,15 +57,13 @@ public class BookZimmer extends GUIHelp{
 	public JDateChooser bookDateDl;
 	private JButton bookDl, cancelDl;
 	
-	public BookZimmer() {
-	
-	}
-	
+	//
 	public JPanel launchStartPanel() {
-		//Objekte erzeugen
+		//JPanel contentpane wird erzeugt, Layout wird auf null gesetzt
 		contentpane1 = new JPanel();
 		contentpane1.setLayout(null);
-
+		
+		//GUI Objekte für den Startpanel werden erzeugt
 		jtfVorname = new JTextField(20);
 		jtfName = new JTextField(30);
 		jtfGID = new JTextField(30);
@@ -77,23 +74,22 @@ public class BookZimmer extends GUIHelp{
 		labeljtfVorname = new JLabel("Vorname: ", JLabel.LEFT);
 		labeljtfName = new JLabel("Name: ", JLabel.LEFT);
 		labeljtfGeb = new JLabel("Geburtsdatum: ", JLabel.LEFT);
-		
-		
 		jb1 = new JButton("Neuer Gast...");
+		jb2 = new JButton("Auf ausgewählten Gast buchen");
+		jb3 = new JButton("Suche");
+		
+		//ButtonHandler, ActionListener und ActionCommands für Buttons werden erzeugt
 		jb1.setActionCommand("NewBooking");
 		jb1.addActionListener(ButtonHandler);
-		
-		jb2 = new JButton("Auf ausgewählten Gast buchen");
 		jb2.setActionCommand("ExistBooking");
 		jb2.addActionListener(new BHBook(this));
-		
-		jb3 = new JButton("Suche");
 		jb3.setActionCommand("SEARCH");
 		jb3.addActionListener(new BHBook(this));
 		
-		
-		
+		//Query für SQL-Tabelle auf Startpanel wird gesetzt
 		query = "Select * From hotel.gast";
+		
+		//Tabelle für bebuchbare Gäste wird erstellt (query, s.o.), Koordinaten gesetzt und zugeordnet
 		sucheGast = new JTableview(query);
 		JTable suche = sucheGast.getSQLTable();
 		scrollPaneSuche = new JScrollPane(suche);
@@ -120,40 +116,40 @@ public class BookZimmer extends GUIHelp{
 		contentpane1.add(jtfVorname);
 		jtfName.setBounds(x_column3, y_line5, x_width, y_height);
 		contentpane1.add(jtfName);
-		
-		
+		//Datumsraum für Geburtsdatum wird gesetzt
 		setGebRoom(geb);
 		geb.setBounds(x_column3, y_line6, x_width, y_height);
 		contentpane1.add(geb);
-		
 		jb2.setBounds(x_column1, y_line14, x_width, y_height);
 		contentpane1.add(jb2);
 		jb3.setBounds(x_column1, y_line7, x_width, y_height);
 		contentpane1.add(jb3);
-		
 		scrollPaneSuche.setBounds(x_column1, y_line9, 1000, 200);
 		contentpane1.add(scrollPaneSuche);
 		
 		//Color
 		contentpane1.setOpaque(true);
 		contentpane1.setBackground(new Color(209,218,248));
-	
+		//Contentpane wird zurückgegeben
 		return contentpane1;
 	}
 
 	public void launchJFrame() {
-			
+		//JFrame für Zimmer-Buchungsfenster wird erzeugt, contentpane2 wird erzeugt, Layout auf null	
 		jf = new JFrame("Zimmerbuchung");		
 		contentpane2 = new JPanel();
 		contentpane2.setLayout(null);
 		
 		JPanel contentPane = (JPanel)jf.getContentPane();
+		//Layout des CardLayout wird gesetzt
 		card.setLayout(cardLayout = new CardLayout());
 		
+		//contentpane3 wird unvisible wenn "zurück" gegangen wird
 		if (contentpane3 != null) {
 		contentpane3.setVisible(false);
 		}
 		
+		//GUI-Objekte für Popup-JFrame wwerden erzeugt
 		labeltable3 = new JLabel("Neuen Gast anlegen: ");
 		labeljtfVorname2 = new JLabel("Vorname: ", JLabel.LEFT);
 		labeljtfName2 = new JLabel("Name: ", JLabel.LEFT);
@@ -178,6 +174,10 @@ public class BookZimmer extends GUIHelp{
 		jtfTel2_3 = new JTextField(12);
 		
 		weiter = new JButton("Weiter...");
+		
+		//ActionListener und ActionCommand wird gesetzt
+		weiter.setActionCommand("NEXT");
+		weiter.addActionListener(new BHBook(this));
 		
 		//Bounds setzen und zur Contentpane hinzufügen		
 		labeltable3.setBounds(x_column1, y_line1, x_width, y_height);
@@ -227,64 +227,48 @@ public class BookZimmer extends GUIHelp{
 		contentpane2.add(jtfTel2_3);
 		
 		weiter.setBounds(x_column1, y_line10, x_width, y_height);
-		weiter.setActionCommand("NEXT");
-		weiter.addActionListener(new BHBook(this));
 		contentpane2.add(weiter);
-		//Color
+		
+		//Hintergrundfarbe wird gesetzt
 		contentpane2.setOpaque(true);
 		contentpane2.setBackground(new Color(209,218,248));
 		
+		//contentpane wird zu CardLayout hinzugefügt
 		card.add("Card1", contentpane2);
 		contentPane.add(card);
 		
+		//Frame wird visible gesetzt, größe angepasst und Close-Option gesetzt
 		jf.setVisible(true);
 		jf.setResizable(true);
 		jf.setSize(600,500);
 		jf.setLocation(300,50);
 		jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
-			
 	}
 
 	public JPanel launchSecond() {
-		//Objekte erzeugen
+		//contentpane2 wird invisible gesetzt
 		contentpane2.setVisible(false);
+		//contentpane3 wird erstellt und Layout auf null gesetzt
 		contentpane3 = new JPanel();
 		contentpane3.setLayout(null);
-					
-		labelVor3 = new JTextField("Vorname: ");
-		setTfForm(labelVor3);
-		labelName3 = new JTextField("Nachname: ");
-		setTfForm(labelName3);
-		labelStr3 = new JTextField("Straße: ");
-		setTfForm(labelStr3);
-		labelPlz3 = new JTextField("Postleitzahl: ");
-		setTfForm(labelPlz3);
-		labelOrt3 = new JTextField("Ort: ");
-		setTfForm(labelOrt3);
-		labelTel3 = new JTextField("Telefon: ");
-		setTfForm(labelTel3);
-		labelLand3 = new JTextField("Land: ");
-		setTfForm(labelLand3);
-		labelGeb3 = new JTextField("Geburtsdatum: ");
-		setTfForm(labelGeb3);
 		
+		//GUI-Objekte werden erstellt
+		labelVor3 = new JTextField("Vorname: ");
+		labelName3 = new JTextField("Nachname: ");
+		labelStr3 = new JTextField("Straße: ");
+		labelPlz3 = new JTextField("Postleitzahl: ");
+		labelOrt3 = new JTextField("Ort: ");
+		labelTel3 = new JTextField("Telefon: ");
+		labelLand3 = new JTextField("Land: ");
+		labelGeb3 = new JTextField("Geburtsdatum: ");
 		labelVor3_2 = new JTextField();
-		setTfForm(labelVor3_2);
 		labelName3_2 = new JTextField();
-		setTfForm(labelName3_2);
 		labelStr3_2 = new JTextField();
-		setTfForm(labelStr3_2);
 		labelPlz3_2 = new JTextField();
-		setTfForm(labelPlz3_2);
 		labelOrt3_2 = new JTextField();
-		setTfForm(labelOrt3_2);
 		labelTel3_2 = new JTextField();
-		setTfForm(labelTel3_2);
 		labelLand3_2 = new JTextField();
-		setTfForm(labelLand3_2);
 		labelGeb3_2 = new JTextField();
-		setTfForm(labelGeb3_2);
 		
 		labeltable4 = new JLabel("Gaststammdaten:");
 		labeltable5 = new JLabel("Datum auswählen:");
@@ -295,12 +279,44 @@ public class BookZimmer extends GUIHelp{
 		pickerVon = new JDateChooser();
 		pickerBis = new JDateChooser();
 		
+		checkAvailability = new JButton("Verügbare Zimmer anzeigen...");
+		bookZimmer = new JButton("Zimmer buchen");
+		back = new JButton("Zurück");
 		
 		
-		//Bounds setzen und zur Contentpane hinzufügen
+		//ActionListener und ActionCommand für Buttons werden gesetzt
+		checkAvailability.setActionCommand("Available?");
+		checkAvailability.addActionListener(new BHBook(this));
+		bookZimmer.setActionCommand("BOOK?");
+		bookZimmer.addActionListener(new BHBook(this));
+		back.setActionCommand("BACK");
+		back.addActionListener(new BHBook(this));
+		
+		//Datumsraum für JDateChooser werden gesetzt
+		pickerVon.setSelectableDateRange(new Date(), null);
+		pickerBis.setSelectableDateRange(new Date(), null);
+		
+		//Textfelder werden zu "Labels" formatiert
+		setTfForm(labelVor3);
+		setTfForm(labelName3);
+		setTfForm(labelStr3);
+		setTfForm(labelPlz3);
+		setTfForm(labelOrt3);
+		setTfForm(labelTel3);
+		setTfForm(labelLand3);
+		setTfForm(labelGeb3);
+		setTfForm(labelVor3_2);
+		setTfForm(labelName3_2);
+		setTfForm(labelStr3_2);
+		setTfForm(labelPlz3_2);
+		setTfForm(labelOrt3_2);
+		setTfForm(labelTel3_2);
+		setTfForm(labelLand3_2);
+		setTfForm(labelGeb3_2);
+		
+		//Bounds der GUI-Objekte setzen und zur Contentpane hinzufügen
 		labeltable4.setBounds(x_column1, y_line1, x_width, y_height);
 		contentpane3.add(labeltable4);
-		
 		labelVor3.setBounds(x_column1, y_line2, 100, y_height);
 		contentpane3.add(labelVor3);
 		labelName3.setBounds(x_column1, y_line3, 100, y_height);
@@ -317,7 +333,6 @@ public class BookZimmer extends GUIHelp{
 		contentpane3.add(labelGeb3);
 		labelTel3.setBounds(x_column4, y_line5, 100, y_height);
 		contentpane3.add(labelTel3);
-		
 		labelVor3_2.setBounds(x_column3, y_line2, x_width, y_height);
 		contentpane3.add(labelVor3_2);
 		labelName3_2.setBounds(x_column3, y_line3, x_width, y_height);
@@ -334,96 +349,83 @@ public class BookZimmer extends GUIHelp{
 		contentpane3.add(labelTel3_2);
 		labelGeb3_2.setBounds(x_column5, y_line5, x_width, y_height);
 		contentpane3.add(labelGeb3_2);
-		
 		labeltable5.setBounds(x_column1, y_line6, x_width, y_height);
 		contentpane3.add(labeltable5);
-		
 		labeltable6.setBounds(200, y_line6, x_width, y_height);
 		contentpane3.add(labeltable6);
-		
 		labeljtfVon.setBounds(x_column1, y_line7, 40, y_height);
 		contentpane3.add(labeljtfVon);	
-		
 		labeljtfBis.setBounds(x_column1, y_line8, 40, y_height);
 		contentpane3.add(labeljtfBis);		
-
-		pickerVon.setSelectableDateRange(new Date(), null);
 		pickerVon.setBounds(x_column2, y_line7, 100, y_height);
 		contentpane3.add(pickerVon);
-		pickerBis.setSelectableDateRange(new Date(), null);
 		pickerBis.setBounds(x_column2, y_line8, 100, y_height);
 		contentpane3.add(pickerBis);
-		
-		checkAvailability = new JButton("Verügbare Zimmer anzeigen...");
-		checkAvailability.setActionCommand("Available?");
-		checkAvailability.addActionListener(new BHBook(this));
 		checkAvailability.setBounds(x_column1, y_line9, x_width, y_height);
 		contentpane3.add(checkAvailability);
-		
-		bookZimmer = new JButton("Zimmer buchen");
 		bookZimmer.setBounds(x_column4, y_line10, x_width, y_height);
-		bookZimmer.setActionCommand("BOOK?");
-		bookZimmer.addActionListener(new BHBook(this));
 		contentpane3.add(bookZimmer);
-		
-		back = new JButton("Zurück");
 		back.setBounds(x_column1, y_line10, x_width, y_height);
-		back.setActionCommand("BACK");
-		back.addActionListener(new BHBook(this));
 		contentpane3.add(back);
-		//Color
+		
+		//Hintergrundfarbe wird gesetzt
 		contentpane3.setOpaque(true);
 		contentpane3.setBackground(new Color(209,218,248));
 		
+		//contentpane wird zurückgegeben
 		return contentpane3;
 	}
 	
 	public JPanel launchThird() {
-		//Objekte erzeugen
+		//contenpane3 wird invisible gesetzt
 		contentpane3.setVisible(false);
+		//JPanel contentpane wird erzeugt, Layout wird auf null gesetzt
 		contentpane4 = new JPanel();
 		contentpane4.setLayout(null);
 		
+		//GUI-Objekte werden erzeugt
 		labelDl = new JLabel("Dienstleistung buchen:");
 		labelDatum = new JLabel("Buchungsdatum: ");
 		showDl = new JTableview("select * from dienstleistung");
 		JTable show = showDl.getSQLTable();
-		
 		bookDateDl = new JDateChooser();
 		scrollPaneShow = new JScrollPane(show);
 		bookDl = new JButton("Buchen");
 		cancelDl=new JButton("Dienstleistungsbuchung beenden");
-		
-		
 		bookDateDl = new JDateChooser();
 		
+		//Datumsrauf für JDateChooser wird gesetzt
+		bookDateDl.setSelectableDateRange(new Date(), null);
+		
+		//ActionListener und ActionCommands werden für die Buttons gesetzt
+		bookDl.addActionListener(new BHBook(this));
+		bookDl.setActionCommand("Dl buchen");
+		cancelDl.addActionListener(new BHBook(this));
+		cancelDl.setActionCommand("Dl cancel");
+		
+		//Koordinaten, Größe wird gesetzt und Objekte zu contentpane hinzugefügt
 		labelDl.setBounds(x_column1, y_line1, x_width, y_height);
 		contentpane4.add(labelDl);
 		labelDatum.setBounds(x_column4, y_line1, x_width, y_height);
 		contentpane4.add(labelDatum);
-		bookDateDl.setSelectableDateRange(new Date(), null);
 		bookDateDl.setBounds(x_column4, y_line2, x_width, y_height);
 		contentpane4.add(bookDateDl);
-		
 		scrollPaneShow.setBounds(x_column1, y_line2, 200, 200);
 		contentpane4.add(scrollPaneShow);
 		bookDl.setBounds(x_column4, y_line8, x_width, y_height);
-		bookDl.addActionListener(new BHBook(this));
-		bookDl.setActionCommand("Dl buchen");
-		
 		contentpane4.add(bookDl);
 		cancelDl.setBounds(x_column1, y_line8, 250, y_height);
-		cancelDl.addActionListener(new BHBook(this));
-		cancelDl.setActionCommand("Dl cancel");
 		contentpane4.add(cancelDl);
 		
-		//Color
+		//Hintergrundfarbe
 		contentpane4.setOpaque(true);
 		contentpane4.setBackground(new Color(209,218,248));
 		
+		//Contentpane wird zurückgegeben
 		return contentpane4;
 	}
 	
+	//getter- und setter-Methoden
 	public String getQuery() {
 		return query;
 	}

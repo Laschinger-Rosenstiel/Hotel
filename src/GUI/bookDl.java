@@ -21,7 +21,7 @@ import com.toedter.calendar.JDateChooser;
 
 public class BookDl extends GUIHelp{
 	
-	//Startpanel
+	//erstellen GUI-Objekte Startpanel
 		public JPanel contentpane1;
 		private JButton buttonSearch, buttonBook;
 		public JTextField jtfGid, jtfVorname, jtfName; 
@@ -31,7 +31,7 @@ public class BookDl extends GUIHelp{
 		public JTableview sucheGast;
 		public String query;
 		
-	//Frame	
+	//erstellen GUI-Objekte für Popup-Frame	zur Dl-Buchung
 		public JFrame jf;
 		public JPanel contentpane2;
 		private JLabel labelGast2, labelDatum2, labelDl2;
@@ -44,10 +44,11 @@ public class BookDl extends GUIHelp{
 		
 		
 	public JPanel launchStartPanel() {
-		
+		//JPanel contentpane wird erzeugt, Layout wird auf null gesetzt
 		contentpane1 = new JPanel();
 		contentpane1.setLayout(null);
 		
+		//GUI Objekte für den Startpanel werden erzeugt
 		labelSearch = new JLabel("Gastsuche:", JLabel.LEFT);
 		labelGid = new JLabel("GID: ", JLabel.LEFT);
 		labelVor = new JLabel("Vorname: ", JLabel.LEFT);
@@ -62,6 +63,29 @@ public class BookDl extends GUIHelp{
 		jtfName = new JTextField(20);
 		geb = new JDateChooser();
 		
+		//Berechnung des Datums für Eingrenzung der zur Dl-Buchung bereitstehenden Zimmerbuchungen
+		Calendar past = new GregorianCalendar();
+		Calendar future = new GregorianCalendar();
+		Date now = new Date();
+		past.setTime(now);
+		past.add(Calendar.DAY_OF_MONTH, -30);
+		future.setTime(now);
+		future.add(Calendar.DAY_OF_MONTH, 30);
+		SimpleDateFormat Sql = new SimpleDateFormat("yyyy-MM-dd");		
+		Sql.format(future.getTime());
+		Sql.format(past.getTime());
+		
+		//Query für Tabelle auf dem Startpanel
+		query = "SELECT hotel.gast.GID, hotel.gast.Vorname, hotel.gast.Name, hotel.gast.Geburtstag, hotel.buchung.BID, hotel.`zimmer-buchung`.ZID, hotel.`zimmer-buchung`.Von, hotel.`zimmer-buchung`.Bis from hotel.gast, hotel.buchung, hotel.`zimmer-buchung` where hotel.gast.GID = hotel.buchung.GID AND hotel.buchung.BID = hotel.`zimmer-buchung`.BID AND hotel.`zimmer-buchung`.Bis >= '"+getSQLDate(new Date())+"'";
+
+		//ActionListener und ActionCommand für Buttons werden gesetzt
+		buttonSearch.addActionListener(new BHBook(this));
+		buttonSearch.setActionCommand("SEARCHDl");
+		buttonBook.addActionListener(new BHBook(this));
+		buttonBook.setActionCommand("NewBookingDl");
+		
+		//Größe und Koordinaten der GUI-Objekte wird gesetzt, Standardvorgaben durch Vererbung von Klasse GUIHelp
+		//Zuordnung zu contentpane
 		labelSearch.setBounds(x_column1, y_line1, x_width, y_height);
 		contentpane1.add(labelSearch);
 		labelGid.setBounds(x_column1, y_line2, x_width, y_height);
@@ -72,43 +96,6 @@ public class BookDl extends GUIHelp{
 		contentpane1.add(labelName);
 		labelGeb.setBounds(x_column1, y_line5, x_width, y_height);
 		contentpane1.add(labelGeb);
-		buttonSearch.addActionListener(new BHBook(this));
-		buttonSearch.setActionCommand("SEARCHDl");
-		buttonSearch.setBounds(x_column1, y_line6, x_width, y_height);
-		contentpane1.add(buttonSearch);
-		labelResult.setBounds(x_column1, y_line7, x_width, y_height);
-		contentpane1.add(labelResult);
-		
-		
-			
-		Calendar past = new GregorianCalendar();
-		Calendar future = new GregorianCalendar();
-		Date now = new Date();
-		
-		past.setTime(now);
-		past.add(Calendar.DAY_OF_MONTH, -30);
-		
-		future.setTime(now);
-		future.add(Calendar.DAY_OF_MONTH, 30);
-
-		SimpleDateFormat Sql = new SimpleDateFormat("yyyy-MM-dd");		
-		Sql.format(future.getTime());
-		Sql.format(past.getTime());
-		System.out.println(Sql.format(future.getTime()) +" "+Sql.format(past.getTime()));
-		
-		//query = "SELECT hotel.gast.GID, hotel.gast.Vorname, hotel.gast.Name, hotel.gast.Geburtstag, hotel.buchung.BID, hotel.`zimmer-buchung`.ZID, hotel.`zimmer-buchung`.Von, hotel.`zimmer-buchung`.Bis from hotel.gast, hotel.buchung, hotel.`zimmer-buchung` where hotel.gast.GID = hotel.buchung.GID AND hotel.buchung.BID = hotel.`zimmer-buchung`.BID AND (hotel.`zimmer-buchung`.Von between '"+Sql.format(past.getTime())+"' and '"+Sql.format(future.getTime())+"' OR hotel.`zimmer-buchung`.Bis between '"+Sql.format(past.getTime())+"' and '"+Sql.format(future.getTime())+"')";
-		query = "SELECT hotel.gast.GID, hotel.gast.Vorname, hotel.gast.Name, hotel.gast.Geburtstag, hotel.buchung.BID, hotel.`zimmer-buchung`.ZID, hotel.`zimmer-buchung`.Von, hotel.`zimmer-buchung`.Bis from hotel.gast, hotel.buchung, hotel.`zimmer-buchung` where hotel.gast.GID = hotel.buchung.GID AND hotel.buchung.BID = hotel.`zimmer-buchung`.BID";
-		sucheGast = new JTableview(query);
-		JTable suche = sucheGast.getSQLTable();
-		scrollPaneSuche = new JScrollPane(suche);
-		scrollPaneSuche.setBounds(x_column1, y_line8, 1000, 200);
-		contentpane1.add(scrollPaneSuche);
-		
-		buttonBook.setBounds(x_column1, y_line14, 200, y_height);
-		buttonBook.addActionListener(new BHBook(this));
-		buttonBook.setActionCommand("NewBookingDl");
-		contentpane1.add(buttonBook);
-		
 		jtfGid.setBounds(x_column3, y_line2, x_width, y_height);
 		contentpane1.add(jtfGid);
 		jtfVorname.setBounds(x_column3, y_line3, x_width, y_height);
@@ -118,49 +105,75 @@ public class BookDl extends GUIHelp{
 		setGebRoom(geb);
 		geb.setBounds(x_column3, y_line5, x_width, y_height);
 		contentpane1.add(geb);
+		buttonSearch.setBounds(x_column1, y_line6, x_width, y_height);
+		contentpane1.add(buttonSearch);
+		labelResult.setBounds(x_column1, y_line7, x_width, y_height);
+		contentpane1.add(labelResult);
+		buttonBook.setBounds(x_column1, y_line14, 200, y_height);
+		contentpane1.add(buttonBook);
 		
+		//Tabelle für bebuchbare Zimmer wird erstellt (query, s.o.), Koordinaten gesetzt und zugeordnet
+		sucheGast = new JTableview(query);
+		JTable suche = sucheGast.getSQLTable();
+		scrollPaneSuche = new JScrollPane(suche);
+		scrollPaneSuche.setBounds(x_column1, y_line8, 1000, 200);
+		contentpane1.add(scrollPaneSuche);
+		
+		//Hintergrundfarbe wird gesetzt
 		contentpane1.setOpaque(true);
 		contentpane1.setBackground(new Color(209,218,248));
 		
+		//Ausgabe des JPanels
 		return contentpane1;
 	}
 		
 	public void launchJFrame() {
+		//JFrame für Dl-Buchungsfenster wird erzeugt, contentpane2 wird erzeugt, Layout auf null
 		jf = new JFrame("Dienstleistung buchen");
 		contentpane2 = new JPanel();
 		contentpane2.setLayout(null);
+		
+		//GUI-Objekte werden erzeugt
 		labelGast2 = new JLabel("Gastdaten: ");
 		labelId2 = new JTextField("Gastnummer: ");
-		setTfForm(labelId2);
-		labelId2_2 = new JTextField();
-		setTfForm(labelId2_2);
-		labelVor2 = new JTextField("Vorname: ");
-		setTfForm(labelVor2);
-		labelVor2_2 = new JTextField();
-		setTfForm(labelVor2_2);
-		labelName2 = new JTextField("Name: ");
-		setTfForm(labelName2);
-		labelName2_2 = new JTextField();
-		setTfForm(labelName2_2);
-		labelZimmer2 = new JTextField("Zimmer: ");
-		setTfForm(labelZimmer2);
-		labelZimmer2_2 = new JTextField();
-		setTfForm(labelZimmer2_2);
-		labelVon2 = new JTextField("Von: ");
-		setTfForm(labelVon2);
-		labelVon2_2 = new JTextField();
-		setTfForm(labelVon2_2);
-		labelBis2 = new JTextField("Bis: ");
-		setTfForm(labelBis2);
-		labelBis2_2 = new JTextField();
-		setTfForm(labelBis2_2);
 		labelDatum2 = new JLabel("Buchungsdatum:");
 		bookDate2 = new JDateChooser();
 		labelDl2 = new JLabel("Dienstleistungen: ");
 		buttonBook2 = new JButton("Buchen");
+		labelId2_2 = new JTextField();
+		labelVor2 = new JTextField("Vorname: ");
+		labelVor2_2 = new JTextField();
+		labelName2 = new JTextField("Name: ");
+		labelName2_2 = new JTextField();
+		labelZimmer2 = new JTextField("Zimmer: ");
+		labelZimmer2_2 = new JTextField();
+		labelVon2 = new JTextField("Von: ");
+		labelVon2_2 = new JTextField();
+		labelBis2 = new JTextField("Bis: ");
+		labelBis2_2 = new JTextField();
 		
+		//Formatierung der Textfelder als "Labels"
+		setTfForm(labelId2);
+		setTfForm(labelId2_2);
+		setTfForm(labelVor2);
+		setTfForm(labelVor2_2);
+		setTfForm(labelName2);
+		setTfForm(labelName2_2);
+		setTfForm(labelZimmer2);
+		setTfForm(labelZimmer2_2);
+		setTfForm(labelVon2);
+		setTfForm(labelVon2_2);
+		setTfForm(labelBis2);
+		setTfForm(labelBis2_2);
+		//contentpane2 wird JFrame zugewiesen
 		jf.setContentPane(contentpane2);
 		
+		//ActionListener und ActionCommands für Buttons werden gesetzt
+		buttonBook2.addActionListener(new BHBook(this));
+		buttonBook2.setActionCommand("BOOK?Dl");
+		
+		//Größe und Koordinaten der GUI-Objekte wird gesetzt, Standardvorgaben durch Vererbung von Klasse GUIHelp
+		//Zuordnung zu contentpane
 		labelGast2.setBounds(x_column1, y_line1, x_width, y_height);
 		contentpane2.add(labelGast2);
 		labelId2.setBounds(x_column1, y_line2, 100, y_height);
@@ -195,16 +208,20 @@ public class BookDl extends GUIHelp{
 		labelDl2.setBounds(x_column4, y_line5, x_width, y_height);
 		contentpane2.add(labelDl2);
 		buttonBook2.setBounds(x_column1, y_line10, x_width, y_height);
-		buttonBook2.addActionListener(new BHBook(this));
-		buttonBook2.setActionCommand("BOOK?Dl");
 		contentpane2.add(buttonBook2);
 		
+		//Tabelle für Aufleistung der auswählbaren Dienstleistungen wird erzeugt
 		tableDl = new JTableview("select * from dienstleistung");
 		JTable table = tableDl.getSQLTable();
 		scrollPaneDl= new JScrollPane(table);
 		scrollPaneDl.setBounds(x_column4, y_line6, 200, 100);
 		contentpane2.add(scrollPaneDl);
 		
+		//Hintergrundfarbe wird gesetzt
+		contentpane2.setOpaque(true);
+		contentpane2.setBackground(new Color(209,218,248));
+				
+		//JFrame wird visible gesetzt, größe wird gesetzt, Close-Optionen werden gesetzt
 		jf.setVisible(true);
 		jf.setResizable(true);
 		jf.setSize(600,500);
@@ -212,6 +229,8 @@ public class BookDl extends GUIHelp{
 		jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
+	
+	//getter-Methoden
 	public String getVorSuche() {
 		return jtfVorname.getText();
 	}

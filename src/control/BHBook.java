@@ -6,7 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -128,8 +130,12 @@ public class BHBook extends BHHelp implements ActionListener{
 			//Check Buchungsdatum	
 			checkBookingDate(von, bis);
 			
+			Calendar vonC = new GregorianCalendar();
+			vonC.setTime(von);
+			vonC.add(vonC.DATE, 1);	
+			
 			//Buchungsdatum wird in SQL-Datus-Format umgewandelt
-			String vonSql = getSQLDate(von);
+			String vonSql = getSQLDate(vonC.getTime());
 			String bisSql = getSQLDate(bis);
 
 			//SQL Tabelle mit verfügbaren Zimmern wird erzeugt und zum Panel hinzugefügt
@@ -145,6 +151,10 @@ public class BHBook extends BHHelp implements ActionListener{
 						JOptionPane.ERROR_MESSAGE);
 			}
 			
+			catch (NullPointerException ex){
+				JOptionPane.showMessageDialog(null, "Datum überprüfen", "Error",
+						JOptionPane.ERROR_MESSAGE);
+			}
 			}
 
 		else if (e.getActionCommand().equals("ExistBooking")) {

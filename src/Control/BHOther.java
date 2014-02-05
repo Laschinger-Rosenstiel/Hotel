@@ -5,7 +5,9 @@ import gui.CheckZimmer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -32,9 +34,14 @@ public class BHOther extends BHHelp implements ActionListener{
 			checkBookingDate(guiZimmer.von.getDate(), guiZimmer.bis.getDate());
 			Date von = guiZimmer.getPickerVon();
 			Date bis = guiZimmer.getPickerBis();
+			Calendar vonC = new GregorianCalendar();
+			vonC.setTime(von);
+			vonC.add(vonC.DATE, 1);
+			System.out.println(getSQLDate(vonC.getTime()));
+	
 			
 			//umwandeln in SQL-Format
-			String vonSql = getSQLDate(von);
+			String vonSql = getSQLDate(vonC.getTime());
 			String bisSql = getSQLDate(bis);
 			
 			//SQL-Tabelle wird erzeugt und zu Startpanel hinzugefügt
@@ -51,7 +58,7 @@ public class BHOther extends BHHelp implements ActionListener{
                         JOptionPane.ERROR_MESSAGE);
 			}
 			catch (NullPointerException nex) {
-				JOptionPane.showMessageDialog(null, "Datum eintragen", "Error",
+				JOptionPane.showMessageDialog(null, "Datum überprüfen", "Error",
                         JOptionPane.ERROR_MESSAGE);
 			}			
 		}
